@@ -40,20 +40,13 @@
                             } ?>
                         </a>
                     </div>
-                    <div class="navbar-c-end">
-                        <button class="navbar-c-button-wrapper" aria-label="Menu Button">
-                            <span class="navbar-c-button">Menu</span>
-                            <span class="navbar-c-mobile-button">
-                                <svg width="24" height="22" viewBox="0 0 24 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M24 0.333374H-7.15256e-07V3.00004H24V0.333374ZM24 9.66671H8V12.3334H24V9.66671ZM24 19H-7.15256e-07V21.6667H24V19Z" fill="black" />
-                                </svg>
-                            </span>
-                        </button>
-                    </div>
                 </div>
             </div>
         </nav>
     </header>
 
-    <?php get_template_part('template-parts/menu', 'modal'); ?>
     <main>
+
+    <?php $facebook = get_option('facebook');
+    $linkedin = get_option('linkedin'); ?>
+
