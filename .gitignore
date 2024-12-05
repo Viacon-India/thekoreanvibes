@@ -31,7 +31,6 @@ wp-settings.php
 wp-signup.php
 wp-trackback.php
 xmlrpc.php
-wp-config.php
 
 # ignore ALL .sql files
 *.sql
@@ -48,5 +47,3 @@ wp-content/themes/twenty*
 # ignore ALL node modules
 wp-content/themes/korean-theme/node_modules/
 
-
-old-theme/

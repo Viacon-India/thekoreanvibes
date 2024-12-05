@@ -12,23 +12,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <?php wp_head(); ?>
 
-    <!-- Google tag (gtag.js) -->
-    <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-263J36X50L"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-
-        gtag('config', 'G-263J36X50L');
-    </script>
-
-
-    <meta property="og:image" content="https://www.followthefashion.org/wp-content/themes/Fashion-theme/images/FTF-og-image.png">
-    <meta name="twitter:image" content="https://www.followthefashion.org/wp-content/themes/Fashion-theme/images/FTF-og-image.png">
-
     <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9502972669695969" crossorigin="anonymous" data-checked-head="true"></script>
 
     <meta name="spr-verification" content="85fc792d2fa829q">

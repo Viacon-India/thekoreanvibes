@@ -84,8 +84,7 @@
             </div>
             <div class="footer-copy-right-sec">
                 <div class="container mx-auto">
-                    <p class="footer-copy-right-sec-p">Copyright <?php echo date('Y'); ?>. All Rights Reversed. Designed and Developed by
-                        <a href="http://redhatmedia.net/" rel="noopener noreferrer nofollow" target="_blank" aria-label="Redhatmedia">Redhat Media.</a>
+                    <p class="footer-copy-right-sec-p">Copyright <?php echo date('Y'); ?>. All Rights Reversed.
                     </p>
                 </div>
             </div>
