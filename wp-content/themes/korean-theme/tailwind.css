@@ -605,8 +605,11 @@ body::-webkit-scrollbar-thumb {
 
 
 /* satr nav bara */
+.nav-bar-logo{
+  @apply w-[230px] sm:w-[250px] h-auto md:w-fit
+}
 
-.navbar{
+/* .navbar{
   @apply border-b border-Intermediate sm:border-white
 }
 
@@ -615,23 +618,21 @@ body::-webkit-scrollbar-thumb {
   @apply relative w-fit;
 }
 
-.nav-bar-logo{
-  @apply w-[230px] sm:w-[250px] h-auto md:w-fit
-}
+
 
 .navbar-c-end {
   @apply flex items-center w-fit;
-}
+} */
 
-.navbar-c-button-wrapper {
+/* .navbar-c-button-wrapper {
   @apply relative;
-}
+} */
 
-.navbar-c-button {
+/* .navbar-c-button {
   @apply font-semibold font-EB_Garamond lg:text-[21px] xl:text-[22px] 2xl:text-[23px] 3xl:text-[24px] hidden lg:flex uppercase;
-}
+} */
 
-.navbar-c-mobile-button {
+/* .navbar-c-mobile-button {
   @apply flex lg:hidden;
 }
 
@@ -647,32 +648,32 @@ body::-webkit-scrollbar-thumb {
 
 .menu-content-container {  
   @apply relative w-full px-[20px] sm:px-[2rem] md:px-[60px] lg:px-[65px] xl:px-[70px];
-}
+} */
 
-.close-mobile-menu {
+/* .close-mobile-menu {
   @apply font-EB_Garamond text-white text-[20px] sm:text-[22px] uppercase
   md:text-[24px] lg:text-[26px] xl:text-[28px] 2xl:text-[32px] 3xl:text-[34px];
-}
+} */
 
-.search-open {
+/* .search-open {
   @apply relative font-EB_Garamond text-white uppercase
    text-[20px] sm:text-[22px]  md:text-[24px] lg:text-[26px] xl:text-[28px] 2xl:text-[32px] 3xl:text-[38px] cursor-pointer;
-}
+} */
 
-.ham-logo-sec {
+/* .ham-logo-sec {
   @apply relative flex justify-between w-full items-center border-b border-solid border-b-black h-[64px] sm:h-[100px] ;
-}
+} */
 
-.close {
+/* .close {
   @apply relative w-fit h-[28px] sm:w-fit sm:h-[36px] md:w-fit md:h-[44px] 
   flex justify-center items-center border-none ;
-}
+} */
 
-.close-icon {
+/* .close-icon {
   @apply relative w-[14px] h-[14px] sm:w-[17px] sm:h-[17px] md:w-[20px] md:h-[20px];
-}
+} */
 
-.hum-sec-wrapper {
+/* .hum-sec-wrapper {
   @apply w-full h-full flex flex-col items-center pt-[.5rem];
 }
 
@@ -716,11 +717,11 @@ body::-webkit-scrollbar-thumb {
 
 .active:after {
   content: url('data:image/svg+xml,<svg width="20" height="4" viewBox="0 0 20 4" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 4H20V0H0V4Z" fill="white"/><path d="M0 4H20V0H0V4Z" fill="white"/></svg>');
-}
+} */
 
 /* search moddal  */
 
-.mobile-icon-sec{
+/* .mobile-icon-sec{
   @apply w-full flex my-[3.75rem]
 }
 
@@ -753,11 +754,11 @@ body::-webkit-scrollbar-thumb {
   @apply text-white font-Lato font-[500]
   text-[12px] sm:text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px] 2xl:text-[16px] 3xl:text-[16px] 
 }
-
+ */
 
 /* nav bar mobile search moddal */
 
- .search-modal {
+ /* .search-modal {
      @apply bg-white absolute hidden z-[1] left-0 top-0 w-full 
      h-[64px] sm:h-[64px] md:h-[77px] lg:h-[80px] xl:h-[85px] 2xl:h-[90px] 3xl:h-[95px]
      px-[16px] sm:px-[2rem] md:px-[60px] lg:px-[65px] xl:px-[70px]
@@ -784,7 +785,7 @@ body::-webkit-scrollbar-thumb {
 
   .search-close-icon{
     @apply relative w-[20px] h-[20px]
-  }
+  } */
 
 /* start banner  and alter  bannner */
 
