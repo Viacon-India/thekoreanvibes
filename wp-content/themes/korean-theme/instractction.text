@@ -1,0 +1,131 @@
+Masonry need to all work
+Try to day finish work to
+
+https://codepen.io/dipankar-Baraman/pen/poBEwew
+
+full work incomplete the need to work full project 
+
+http://localhost/projects/followthefashion/selecting-cosmetology-services/ 
+
+category page done  
+http://localhost/projects/followthefashion/category/accessories/
+
+search page working done
+http://localhost/projects/followthefashion/search/
+
+author page working 
+http://localhost/projects/followthefashion/author/abdulazizmondal/
+
+.masonry-b-c-img-wrapper {
+@apply relative w-full 
+    h-[296px] md:h-[296px] lg:h-[344.25px] xl:h-[391.75px] 2xl:h-[440px] 3xl:h-[489px];
+}
+
+.masonry-s-c-img-wrapper {
+@apply relative w-full 
+h-[296px] md:h-[247px] lg:h-[287.5px] xl:h-[327.5px] 2xl:h-[367.75px] 3xl:h-[408px];
+}
+
+.masonry-s-c-img-wrapper {
+@apply relative w-full 
+h-[296px] md:h-[247px] lg:h-[287.5px] xl:h-[327.5px] 2xl:h-[367.75px] 3xl:h-[408px];
+}
+
+.category-c-medium-figure {
+  @apply relative w-full h-[321px] sm:h-[321px] md:h-[321px] lg:h-[373.25px] xl:h-[425.5px] 2xl:h-[477.75px] 3xl:h-[530px] mb-[8px] lg:mb-[12px];
+}
+
+4 about page card mobile slider not done
+ 
+1 single page done 
+3 front page row slider card 3 done
+2 author page banner sec done 
+3 category page card, done 
+6 menu modal under done
+1 404 1280px  missing  done 
+4 home page masonry card  done
+7 search resent page form cross done
+
+<section class="author-banner">
+    <div class=" container mx-auto">
+        <div class="author-card bg-[#F3EDE9] ">
+            <div class="w-fit relative">
+                <figure class="xl:absolute w-[6.5rem] h-[6.5rem] md:w-[14.5rem] md:h-[19rem] mb-0 translate-y-[-90px]">
+                    <img class="w-full h-full object-cover p-[10px]" src="<?php echo get_template_directory_uri(); ?>/images/auth-img.png" alt="author-img" />
+                </figure>
+            </div>
+            <div class="author-detail xl:pl-[4.5rem] xl:pb-16">
+                <h1 class="author-title">Deepanwita Dey</h1>
+                <span class="text-[14px] text-[#101010] font-Raleway mb-4 uppercase">Senior Content Writer</span>
+                <p class="author-desc">Deepanwita Dey is a persona, having a colossal interest in writing blogs and other jones of calligraphies. In terms of her professional commitments, she carries out sharing sentient blogs by maintaining top-to-toe SEO aspects. Follow her contributions in RSLOnline and SocialMediaMagazine
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+.author-card {
+  @apply flex flex-col mb-9 lg:flex-row gap-6 items-center lg:items-start p-4 md:p-6 lg:p-9
+  shadow-[0px_0px_10px_rgba(0,0,0,0.06)];
+}
+
+.masonry-c-q-img-q-wrapper {
+ @apply relative w-full 
+ h-[296px] md:h-[344.49px] lg:h-[400.67px] xl:h-[456.86px] 2xl:h-[513.04px] 3xl:h-[569px]
+    z-[1];
+}
+
+total 
+
+
+
+contentrally
+evauthority
+pluslifestyles
+financeteam
+healthjournal365
+Essay Writing Guides
+Money Outlined
+Istana Green World
+followthefashion
+
+.about-author-card-figure {
+  @apply w-full relative
+  h-[158px] md:h-[158px] lg:h-[192px] xl:h-[226px] 2xl:h-[260px] 3xl:h-[294px];
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <?php if (!empty($recent_posts)) :
+            foreach ($recent_posts as $key => $post) :
+                if ($key == 0) echo '<a href="' . get_permalink($post->ID) . '" class="common-card-one common-card-four-o-four">';
+                elseif ($key == 1) echo '<a href="' . get_permalink($post->ID) . '" class="common-card-four-o-four common-card-tow">';
+                elseif ($key == 2) echo '<a href="' . get_permalink($post->ID) . '" class="common-card-four-o-four common-card-four ">';
+                else echo '<a href="' . get_permalink($post->ID) . '" class=" common-card-four-o-four common-card-three">';
+                echo '<p class="common-card-four-o-four-p">' . $post->post_title . '</p>';
+                echo '</a>';
+            endforeach;
+        endif; ?>
+
+
+
+
+
+
+
+
+
+
+
