@@ -39,16 +39,7 @@
             <div class="flex justify-center md:justify-between  w-full relative md:py-[50px] py-[0px]">
                 <div class="w-initial md:flex hidden font-Chai text-[16px] lg:text-[20px] font-light flex-wrap">
                     <span class="text-[#303030]">
-                        ©<?php echo date('Y'); ?> <a href="<?php echo home_url(); ?>" class="hover:text-[#ED1B1B] transition" aria-label="website_Link">7Best Things</a>. All Rights Reserved.
-                    </span>
-                    <span class="text-[#ED1B1B] px-1">|</span>
-                    <span>
-                        Designed and Developed by
-                        <a href="https://www.redhatmedia.net/" class="footer-brand-name" rel="noopener noreferrer nofollow" target="_blank" aria-label="website_Link">
-                            <span>
-                                Redhat Media.
-                            </span>
-                        </a>
+                        ©<?php echo date('Y'); ?>. All Rights Reserved.
                     </span>
                 </div>
 
