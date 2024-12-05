@@ -2,13 +2,13 @@
 
 <?php get_header();
 
-$cat1_slug = 'business';
-$cat2_slug = 'lifestyle';
-$cat3_slug = 'social-media';
-$cat4_slug = 'entertainment ';
-$cat5_slug = 'health-fitness';
-$cat6_slug = 'technology';
-$cat7_slug = 'education'; ?>
+$cat1_slug = 'k_entertainment';
+$cat2_slug = 'k-culture';
+$cat3_slug = 'k-beauty';
+$cat4_slug = 'k-food ';
+$cat5_slug = 'k-fashion';
+$cat6_slug = 'k_entertainment';
+$cat7_slug = 'k_entertainment'; ?>
 
 <section class="banner">
     <span class="banner-light top-[-180px] left-[-186px]"></span>
