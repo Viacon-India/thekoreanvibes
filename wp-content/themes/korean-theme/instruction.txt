@@ -1,0 +1,187 @@
+Facebook:
+https://www.facebook.com/7Bestthings-111462321185328/
+
+
+Contact Form:
+
+[text* your-name placeholder "your name"]
+[email* your-email placeholder "e-mail address"]
+[text your-subject placeholder "your subject"]
+[textarea your-message 30x1 placeholder "write your message"]
+
+[submit "sent request"]
+
+About Page Short Code 
+[categories business social-media entertainment technology education health-fitness]
+
+
+some  JQuary old code 
+
+    $(document).ready(function() {
+        var targetNumber = 500; // The number you want to count up to
+        var duration = 5000; // The duration in milliseconds for the animation
+
+        $("#counter").animate({
+            counter: targetNumber,
+        }, {
+            duration: duration,
+            step: function(counter) {
+                $(this).text(Math.ceil(counter));
+            },
+            complete: function() {
+                $(this).text(targetNumber);
+            },
+        });
+    });
+    $(document).ready(function() {
+        var targetNumber = 5000; // The number you want to count up to
+        var duration = 5000; // The duration in milliseconds for the animation
+
+        $("#one").animate({
+            counter: targetNumber,
+        }, {
+            duration: duration,
+            step: function(counter) {
+                $(this).text(Math.ceil(counter));
+            },
+            complete: function() {
+                $(this).text(targetNumber);
+            },
+        });
+    });
+    $(document).ready(function() {
+        var targetNumber = 16; // The number you want to count up to
+        var duration = 5000; // The duration in milliseconds for the animation
+
+        $("#tow").animate({
+            counter: targetNumber,
+        }, {
+            duration: duration,
+            step: function(counter) {
+                $(this).text(Math.ceil(counter));
+            },
+            complete: function() {
+                $(this).text(targetNumber);
+            },
+        });
+    });
+
+
+
+
+
+
+
+<svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_1178_1213)">
+<path d="M2 13.5C15.5599 13.5 10.3892 13.5 23 13.5C23.9 13.5 24.5 12.9 24.5 12C24.5 11.1 23.9 10.5 23 10.5C9.45452 10.5 14.619 10.5 2 10.5C1.1 10.5 0.5 11.1 0.5 12C0.5 12.9 1.1 13.5 2 13.5Z" fill="white"/>
+</g>
+<defs>
+<clipPath id="clip0_1178_1213">
+<rect width="24" height="24" fill="white" transform="translate(0.5)"/>
+</clipPath>
+</defs>
+</svg>
+
+
+
+
+
+
+WHAT IS PROJECT MANAGEMENT?
+We know the topic we will be discussing on. Let us delve deep into it?
+Before getting into the details of Project Management, it is important to understand what a project is.
+Here I have given a
+brief overview on Project and Project Management.
+Project is a unique endeavor and usually includes a set of unique deliverable and series of tasks that need to be completed to reach the desired outcome.
+Project Management is the application of knowledge, skills, tools and techniques to meet the end goals. It helps to ensure that a project delivers the expected outcome both on time and within budget.
+
+
+start currant front page 
+
+<div class="masonry-scale relative">
+    <div class="masonry-colum">
+        <div class="masonry-b-card">
+            <img class="masonry-image" src="<?php // echo get_template_directory_uri(); 
+                                            ?>/assets/images/m1.png" alt="">
+        </div>
+
+        <div class="masonry-s-card">
+            <img class="masonry-image" src="<?php // echo get_template_directory_uri(); 
+                                            ?>/assets/images/m2.png" alt="">
+        </div>
+
+        <div class="masonry-b-card">
+            <img class="masonry-image" src="<?php // echo get_template_directory_uri(); 
+                                            ?>/assets/images/m3.png" alt="">
+        </div>
+
+        <div class="masonry-s-card">
+            <img class="masonry-image" src="<?php //  echo get_template_directory_uri(); 
+                                            ?>/assets/images/m4.png" alt="">
+        </div>
+
+        <div class="masonry-b-card">
+            <img class="masonry-image" src="<?php // echo get_template_directory_uri(); 
+                                            ?>/assets/images/m5.png" alt="">
+        </div>
+    </div>
+
+    <div class="masonry-colum ">
+        <div class="masonry-b-card">
+            <img class="masonry-image" src="<?php // echo get_template_directory_uri(); 
+                                            ?>/assets/images/m7.png" alt="">
+        </div>
+
+        <div class="masonry-s-card">
+            <img class="masonry-image" src="<?php // echo get_template_directory_uri(); 
+                                            ?>/assets/images/m8.png" alt="">
+        </div>
+
+        <div class="masonry-b-card">
+            <img class="masonry-image" src="<?php // echo get_template_directory_uri(); 
+                                            ?>/assets/images/m9.png" alt="">
+        </div>
+
+        <div class="masonry-s-card">
+            <img class="masonry-image" src="<?php // echo get_template_directory_uri(); 
+                                            ?>/assets/images/m10.png" alt="">
+        </div>
+
+        <div class="masonry-b-card">
+            <img class="" src="<?php // echo get_template_directory_uri(); 
+                                ?>/assets/images/m11.png" alt="">
+        </div>
+    </div>
+
+    <div class="masonry-colum ">
+        <div class="masonry-b-card">
+            <img class="masonry-image" src="<?php // echo get_template_directory_uri(); 
+                                            ?>/assets/images/m12.png" alt="">
+        </div>
+        <div class="masonry-s-card">
+            <img class="masonry-image" src="<?php // echo get_template_directory_uri(); 
+                                            ?>/assets/images/m13.png" alt="">
+        </div>
+        <div class="masonry-b-card">
+            <img class="masonry-image" src="<?php // echo get_template_directory_uri(); 
+                                            ?>/assets/images/m14.png" alt="">
+        </div>
+        <div class="masonry-s-card">
+            <img class="masonry-image" src="<?php // echo get_template_directory_uri(); 
+                                            ?>/assets/images/m16.png" alt="">
+        </div>
+        <div class="masonry-b-card">
+            <img class="masonry-image" src="<?php // echo get_template_directory_uri(); 
+                                            ?>/assets/images/m15.png" alt="">
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+

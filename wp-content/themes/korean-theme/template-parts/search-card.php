@@ -1,29 +1,28 @@
 <?php $post_ID = get_the_ID();
-$author_id = get_post_field('post_author', $post_ID);
-// $first_name = get_the_author_meta('first_name', $author_id);
-// if(!empty($first_name)){
-//     $display_name = $first_name;
-// }else{
-    $display_name = get_the_author_meta('display_name', $author_id);
-//} ?>
+$cat = get_the_category();
+$hex_color_1 = get_term_meta($cat[0]->term_id, 'hex_code_1', true);
+if (empty($hex_color_1) && !empty($cat[0]->parent)) {
+    $hex_color_1 = get_term_meta($cat[0]->parent, 'hex_code_1', true);
+} ?>
 
-<div class="search-result-card">
-    <div class="search-result-card-content">
-        <h2 class="search-result-card-title"><a href="<?php echo get_the_permalink($post_ID); ?>"><?php echo the_title_attribute('echo=0'); ?></a></h2>
-        <div class="search-result-card-author-name-wrapper">
-            <p class="search-result-card-author-name">
-                <span>By</span>
-                <a href="<?php echo get_author_posts_url($author_id); ?>" class="uppercase"><?php echo $display_name; ?></a>
-            </p>
-        </div>
-    </div>
+<div class="search-small-card w-full">
     <a href="<?php echo get_the_permalink($post_ID); ?>">
-        <figure class="search-result-figure">
-            <?php if ( has_post_thumbnail()) : ?>
-                <?php echo get_the_post_thumbnail( $post_ID, 'search-thumbnail', array( 'class' => 'img-responsive' ) ); ?>
+        <figure class="search-small-wrapper">
+            <?php if (has_post_thumbnail()) : ?>
+                <?php echo get_the_post_thumbnail($post_ID, 'cat-style-two-thumbnail', array('class' => 'rounded-[4px] search-small-image')); ?>
             <?php else : ?>
-                <img class="img-responsive" src="<?php echo get_template_directory_uri(); ?>/images/expert.png" alt="card image">
+                <img class="rounded-[4px] search-small-image" src="https://picsum.photos/410/271" alt="Album" />
             <?php endif; ?>
         </figure>
     </a>
+    <div class="search-small-body">
+        <h2 class="search-small-body-cat" style="color:<?php echo $hex_color_1; ?>;">
+            <a href="<?php echo esc_url(get_category_link($cat[0]->term_id)); ?>" title="<?php echo $cat[0]->cat_name; ?>">
+                <?php echo $cat[0]->cat_name; ?>
+            </a>
+        </h2>
+        <h3 class="search-small-body-title">
+            <a href="<?php echo get_the_permalink($post_ID); ?>"><?php echo the_title_attribute('echo=0'); ?></a>
+        </h3>
+    </div>
 </div>

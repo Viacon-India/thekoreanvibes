@@ -1,42 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./**/*.{html,js,php}"],
-
   theme: {
     extend: {
-      fontFamily: {
-        EB_Garamond: "'EB Garamond', serif",
-        Lato: "'lato', san-serif",
-      },
-
-      screens: {
-        sm: "540px",
-        md: "769px",
-        lg: "1025px",
-        xl: "1281px",
-        "2xl": "1537px",
-        "3xl": "1681px",
-      },
-
-      colors: {
-        primary: "#0C0C0C",
-        Intermediate: "#101010",
-        tertiary: "#3F3F3F",
-        Quaternary: "#5F498A",
-        secondary: "#FFEDE7",
-        "light-green": "#1C3C19",
-        "bg-all": "#F5F5F5",
-        Pink: "#F9B2C4",
-        pinkL: "#EA6989",
-        fashion: "#F8F0FB",
-        Black: "#000000",
-        "light-pink": "#FFEDE7",
-        "footer-pink": "#F9DED3",
-        "footer-blue": "#D1DEE7",
-        "footer-green": "#D2D3A9",
-      },
-
-      lineClamp: {
+      zIndex: {
+        0: "0",
         1: "1",
         2: "2",
         3: "3",
@@ -58,20 +26,48 @@ module.exports = {
         19: "19",
         20: "20",
       },
+
+      colors: {
+        primary: "#ED1B1B",
+        secondary: "#101010",
+        business: "#864DFF",
+        lifestyle: "#C3DD1E",
+        social: "#FF4444",
+        entertainment: "#A773C3",
+        health: "#FFD400",
+        technology: "#34D2AC",
+        education: "#FF9090",
+        paragraph: "#686868",
+      },
+    },
+
+    screens: {
+      sm: "540px",
+      md: "769px",
+      lg: "1025px",
+      xl: "1281px",
+      "2xl": "1537px",
+      "3xl": "1681px",
+    },
+
+    fontFamily: {
+      Anton: ["Anton", "sans-serif"],
+      Chai: ["Chai", "sans-serif"],
+      Dekko: ["Dekko", "cursive"],
     },
   },
 
   plugins: [require("daisyui")],
 
   daisyui: {
-    themes: ["light", "cupcake"],
     themes: false,
-    darkTheme: "class",
+    darkTheme: "light",
     base: true,
     styled: true,
     utils: true,
     rtl: false,
     prefix: "",
     logs: true,
+    themes: ["light", "cupcake"],
   },
 };

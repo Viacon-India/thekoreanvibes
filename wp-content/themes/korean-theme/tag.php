@@ -1,68 +1,52 @@
-<?php get_header();
+<?php get_header(); 
 
-$archive_object = get_queried_object();
-$tag_id = $archive_object->term_id;
-$desc = wp_strip_all_tags(tag_description());
-$total_post_count = $GLOBALS['wp_query']->found_posts;
-$post_count = $GLOBALS['wp_query']->post_count;
-$paged = get_query_var('paged');
+$tag_id = get_queried_object_id();
+$desc = tag_description();
 $page_count = $GLOBALS['wp_query']->max_num_pages;
+$post_count = $GLOBALS['wp_query']->found_posts;
 $post_per_page = get_option('posts_per_page'); ?>
 
-<section class="category-page-banner-sec">
-    <div class=" container mx-auto ">
-        <div class="cat-banner">
-            <div class="cat-banner-title-wrapper">
-                <h2 class="cat-banner-title"><?php echo wp_strip_all_tags(single_cat_title('', false)); ?></h2>
+<section class="author-banner">
+    <div class="container mx-auto">
+        <div class="wrapper">
+            <div class="author-wrapper">
+                <div class=" flex flex-col justify-center">
+                    <h1 class="category-title text-[#ED1B1B]">
+                        <?php echo strip_tags(single_cat_title());?>
+                    </h1>
+                    <?php if (!empty($desc)) { ?>
+                        <p class="category-text">
+                            <?php echo strip_tags($desc); ?>
+                        </p>
+                    <?php } ?>                    
+                </div>
             </div>
-            <?php echo (!empty($desc))?'<div class="cat-banner-content"><p class="cat-banner-content-p">'.$desc.'</p></div>':''; ?>    
         </div>
     </div>
 </section>
-
-
-<section class="category-page-grid-Masonry ">
+<section class="inner-sec pt-[44px] pb-[32px] md:pb-[72px] lg:pb-[calc(132px)]">
     <div class="container mx-auto">
-        <div class="category-page-mentioner">
-            <?php if (have_posts()) : ?>
-                <div id="load_more_div" class="category-page-mentioner-columns">
-                    <?php $a = 0;
-                    while (have_posts()) : the_post();
-                        if($a==0) get_template_part('template-parts/listing', 'card-m', array('card_index' => $a));
-                        if($a==1) get_template_part('template-parts/listing', 'card-s', array('card_index' => $a));
-                        if($a==2) get_template_part('template-parts/listing', 'card-l', array('card_index' => $a));
-                        $a++;
-                        if($a==3) $a=0;
-                    endwhile; ?>
-                </div>
-            <?php else : ?>
-                <p class="condition-msg">Sorry, but no articles available with "<capital class="uppercase"><?php echo wp_strip_all_tags(single_cat_title('', false)); ?></capital>".</p>
-            <?php endif; ?>
-        </div>
-        <?php if(have_posts()) : ?>
-            <?php if (!($total_post_count<= $post_per_page) && !($paged >= $page_count)) : ?>
-                <div class="category-page-more-article">
-                    <button class="more-article-cta" data-paged="<?php echo $paged; ?>" data-page_count="<?php echo $page_count; ?>" data-tag_id="<?php echo $tag_id; ?>" id="load_more" aria-label="More Post">More Article</button>
-                    <div class="hidden">
-                        <?php the_posts_pagination(array(
-                            'mid_size' => 10,
-                            'end_size'  => 10,
-                            'total' => ceil($post_count / $post_per_page),
-                            'prev_text' => '<<',
-                            'next_text' => '>>'
-                        )); ?>
+        <div class="inner-wrapper">
+            <div class="w-full ">
+                <?php if (have_posts()) : ?>
+                    <div id="load_more_div" class="author-grid-wrapper">
+                        <?php while (have_posts()) : the_post();
+                            get_template_part('template-parts/default', 'card', array( 'hex_color' => null ));
+                        endwhile; ?>
                     </div>
-                </div>
-            <?php else :?>
-                <div class="category-page-more-article">
-                    <span class="flex justify-center more-article-cta cursor-default condition-msg">No More Articles</span>
-                </div>
-            <?php endif; ?>
-        <?php else :?>
-            <div class="category-page-more-article">
-                <span class="flex justify-center more-article-cta cursor-default condition-msg">No Articles</span>
+                    <?php if(!($post_count <= $post_per_page)): ?>
+                        <div class="button-wrapper ">
+                            <button class="view-more bg-social" data-page="<?php echo $page_count; ?>" data-tag_id="<?php echo $tag_id; ?>" id="load_more" aria-label="More Post">
+                                VIEW MORE
+                            </button>
+                        </div>
+                    <?php endif; ?>
+                <?php else : ?>
+                    <p class="internal-p pt-[30px]">Sorry, but no post available with "<capital class="uppercase"><?php echo strip_tags(single_cat_title()); ?></capital>".</p>
+                <?php endif; ?>
             </div>
-        <?php endif; ?>
+            <?php get_sidebar('',array( 'hex_color' => null )); ?>
+        </div>
     </div>
 </section>
 
