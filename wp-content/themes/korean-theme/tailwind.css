@@ -186,16 +186,16 @@ Text Domain: ev
     @apply relative flex items-center w-full h-[70px] sm:h-[78px] md:h-[85px] lg:h-[70px] xl:h-[80px] 2xl:h-[90px] 3xl:h-[100px]  p-[.5rem]
   }
 
-  .header-button{
+  /* .header-button{
     @apply w-fit text-[18px] sm:text-[19px] md:text-[20px] lg:text-[21px] xl:text-[22px] 2xl:text-[23px] 3xl:text-[24px]
     font-Chai uppercase leading-[1.1] font-normal text-secondary;
-  }
+  } */
 
   .logo-img-controller{
     @apply w-[100px] sm:w-[120px] md:w-[140px] lg:w-[145px] xl:w-[150px] 2xl:w-[155px] 3xl:w-[160px]
   }
 
-  #myModal {
+  /* #myModal {
     @apply h-screen fixed top-0 z-10 bg-white pb-[60px] ;
     transition: display 0.9s ease;
   }
@@ -210,10 +210,10 @@ Text Domain: ev
 
   .toggle-cut {
     @apply w-full flex justify-end my-4 md:my-6 lg:my-6 xl:my-8 2xl:my-10 3xl:my-12
-  }
+  } */
 
 .megamenu.menudisplay{display: block;}
-.backmenu{ display: flex; position: absolute; left: 0; right: 0; top: 0; bottom: 0; z-index: 11;}
+/* .backmenu{ display: flex; position: absolute; left: 0; right: 0; top: 0; bottom: 0; z-index: 11;}
 .backmenu span{ position: relative; z-index: -1; width: 20%; height: 100%;}
 .backmenu span::after{position: absolute; content: ""; bottom: 0; top: 0;  left: 0; right: 0; background: #000; animation: backgroundAnim2 1s; animation-fill-mode: forwards;}
 .menudisplay .backmenu span::after{animation: backgroundAnim 1s; animation-fill-mode: forwards; top: 100%; }
@@ -229,7 +229,7 @@ Text Domain: ev
 .menudisplay.backmenu span:nth-child(3)::after{animation-delay: 0.3s;} 
 .menudisplay .backmenu span:nth-child(4)::after{animation-delay: 0.4s;} 
 .menudisplay .backmenu span:nth-child(5)::after{animation-delay: 0.5s;}  
-.menudisplay .backmenu span:nth-child(6)::after{animation-delay: 0.6s;}  
+.menudisplay .backmenu span:nth-child(6)::after{animation-delay: 0.6s;}   */
 
 @keyframes backgroundAnim{
 0%{top: 100%;}
