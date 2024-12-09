@@ -45,8 +45,21 @@
         }
     </style>
 
-    <section class="single-banner">
-        <div class="container mx-auto">
+    <section class="single-banner pt-[61px]">
+        <div class="banner-wrapper flex flex-col md:flex-row ">
+            <div class="w-full md:w-1/2 bg-[#FAFAFA] container md:flex md:items-center">
+                <h1 class="internal-h1">
+                    <?php echo the_title_attribute('echo=0'); ?>
+                </h1>
+            </div>
+            <div class="w-full md:w-1/2">
+                <figure class="m-0">
+                    <img class="w-full object-cover" src="<?php echo get_template_directory_uri(); ?> /assets/images/rightheroimg.png" alt="logo">
+                </figure>
+            </div>
+
+        </div>
+        <!-- <div class="container mx-auto">
             <figure class=" aspect-[16/7] w-full">
                 <?php if (has_post_thumbnail()) : ?>
                     <?php echo get_the_post_thumbnail($post_id, 'full', array('class' => 'single-banner-img')); ?>
@@ -54,7 +67,7 @@
                     <img class="single-banner-img" src="<?php echo get_template_directory_uri(); ?>/assets/images/banner.png" alt="">
                 <?php endif; ?>
             </figure>
-        </div>
+        </div> -->
     </section>
     <section class="single-page">
         <div class="container mx-auto">
@@ -69,7 +82,7 @@
                         </div>
                     </div>
                     <div class="right-separator">
-                        <div class="bg-[#FAFAFA] rounded-[10px] w-full">
+                        <!-- <div class="bg-[#FAFAFA] rounded-[10px] w-full">
                             <div class="text-sm breadcrumbs bread-gap">
                                 <ul>
                                     <li class="bread-list"><a href="<?php echo home_url(); ?>">Home</a></li>
@@ -80,7 +93,7 @@
                                     <li class="bread-list"><?php echo the_title_attribute('echo=0'); ?></li>
                                 </ul>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="single-cat-info-wrapper">
                             <span class="single-cat-info" style="color:<?php echo $hex_color_1; ?>;">
@@ -96,9 +109,9 @@
                             </p>
                         </div>
 
-                        <h1 class="internal-h1">
+                        <!-- <h1 class="internal-h1">
                             <?php echo the_title_attribute('echo=0'); ?>
-                        </h1>
+                        </h1> -->
 
                         <div class="internal-content"><?php the_content(); ?></div>
                         <!-- <div>

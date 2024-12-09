@@ -11,7 +11,10 @@ $cat6_slug = 'k_entertainment';
 $cat7_slug = 'k_entertainment'; ?>
 
 <section class="banner">
-    <span class="banner-light top-[-180px] left-[-186px]"></span>
+    <figure class="">
+        <img class="w-fit h-full object-cover" src="<?php echo get_template_directory_uri(); ?> /assets/images/bannerimg.png" alt="" />
+    </figure>
+    <!-- <span class="banner-light top-[-180px] left-[-186px]"></span>
     <span class="banner-light left-[50%] -translate-x-[50%] bottom-[-100px] "></span>
     <span class="banner-light top-[-27px] right-[10%]"></span>
 
@@ -100,7 +103,7 @@ $cat7_slug = 'k_entertainment'; ?>
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </section>
 
 
