@@ -7,21 +7,20 @@ $page_count = $GLOBALS['wp_query']->max_num_pages;
 $post_count = $GLOBALS['wp_query']->found_posts;
 $post_per_page = get_option('posts_per_page'); ?>
 
-<section class="author-banner">
+<section class="author-banner bg-[#FFFFFF]">
     <div class="container mx-auto">
         <div class="wrapper">
             <div class="author-wrapper">
                 <figure class="aspect-square relative flex">
-                    <span class="author-shadow"></span>
-                    <img class=" author-image" src="<?php echo get_avatar_url($author_id); ?>" alt="">
+                     <img class="author-image" src="<?php echo get_template_directory_uri(); ?> /assets/images/author.png" alt="logo">
                 </figure>
                 <div class=" flex flex-col justify-center">
-                    <h1 class="author-title">
+                    <h1 class="author-title capitalize">
                         <?php echo $display_name; ?>
                     </h1>
-                    <h3 class="author-cat">
+                    <h2 class="author-cat capitalize">
                         <?php echo get_the_author_meta('designation', $author_id); ?>
-                    </h3>
+                    </h2>
                 </div>
             </div>
             <?php if(!empty($author_desc)) { ?>
