@@ -25,11 +25,24 @@ $child_cat = (empty($parent_id)) ? get_terms('category',  array('child_of' => $c
 </style>
 
 <section class="category-banner" style="background-color:<?php echo $hex_color_1; ?>14;">
+    <figure class="">
+        <img class="" src="<?php echo get_template_directory_uri(); ?> /assets/images/catbanner.png" alt="catbanner">
+    </figure>
     <div class="container mx-auto">
         <div class="category-page-title-wrapper">
-            <h1 class="category-title" <?php echo $hex_color_1; ?>>
+        <div class="text-sm breadcrumbs bread-gap">
+                            <ul>
+                                <li class="bread-list"><a href="<?php echo home_url(); ?>">Home</a></li>
+                                <?php if (!empty($parent_id)) { ?>
+                                    <li class="bread-list text-[#9E9E9E]"><a href="<?php echo esc_url(get_category_link($parent_id)); ?>" title="<?php echo get_cat_name($parent_id); ?>"><?php echo get_cat_name($parent_id); ?></a></li>
+                                <?php } ?>
+                                <li class="bread-list text-[#9E9E9E]"><?php echo strip_tags(single_cat_title()); ?></li>
+                            </ul>
+                        </div>
+            <h1 class="category-title" style="color:<?php echo $hex_color_1; ?>;">
                 <?php echo strip_tags(single_cat_title()); ?>
             </h1>
+            
             <?php if (!empty($desc)) { ?>
                 <p class="category-text">
                     <?php echo strip_tags($desc); ?>
