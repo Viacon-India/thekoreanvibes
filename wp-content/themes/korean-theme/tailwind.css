@@ -886,8 +886,8 @@ content: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/200
 
   /* test percuss */
 
-  .wrapper {
-    @apply h-4/5 max-h-[470px] min-h-[141px] w-[200px] overflow-hidden;
+  /* .wrapper {
+    @apply w-[120px] h-[120px] ;
   }
   .boxes {
     @apply top-[-50px] relative;
@@ -898,7 +898,7 @@ content: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/200
 
   .wrapper::after {
     @apply h-[78%] max-h-[468px] min-h-[280px] content-[""] absolute;
-  }
+  } */
 
 
   /* business-sec */
@@ -1566,7 +1566,7 @@ content: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/200
   }
 
   .single-cat-info-wrapper{
-    @apply flex justify-between
+    @apply flex gap-1
   }
 
   .single-cat-info{
@@ -1584,8 +1584,8 @@ content: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/200
   }
 
   .category-text{
-    @apply font-Chai font-thin text-[18px] md:text-[20px] lg:text-[22px] xl:text-[23px] 2xl:text-[24px] leading-[1.41]
-  }
+    @apply font-Chai font-thin text-[18px] md:text-[20px] lg:text-[22px] xl:text-[23px] 2xl:text-[24px] leading-[1.41] text-[#686868]
+  }       
 
   .inner-wrapper{
     @apply flex flex-col lg:flex-row gap-8 sm:gap-8 md:gap-8 lg:gap-8 xl:gap-8 2xl:gap-8
@@ -1615,7 +1615,7 @@ content: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/200
   /* Author Page */
 
   .author-banner{
-    @apply bg-[#FEF3F3] py-[30px] md:py-[36px] lg:py-[40px] xl:py-[44px] 2xl:py-[48px]
+    @apply bg-[#FEF3F3] py-[80px] md:py-[90px] lg:py-[100px] xl:py-[120px] 2xl:py-[129px]
   }
 
   .author-wrapper{
@@ -1628,13 +1628,13 @@ content: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/200
   }
 
   .author-shadow{
-    @apply w-[90px] h-[90px] absolute bottom-[-10px] z-0 left-[50%] -translate-x-[50%];
+    @apply w-[90px] h-[90px] z-0 -translate-x-[50%];
     filter: blur(20px);
     background: url("https://picsum.photos/seed/picsum/90/90"), lightgray 50% / cover no-repeat;
   }
 
   .author-image{
-    @apply rounded-[4px] !z-9
+    @apply rounded-[4px]
   }
 
   .author-title{

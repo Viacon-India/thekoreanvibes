@@ -46,18 +46,44 @@
     </style>
 
     <section class="single-banner pt-[61px]">
-        <div class="banner-wrapper flex flex-col md:flex-row ">
-            <div class="w-full md:w-1/2 bg-[#FAFAFA] container md:flex md:items-center">
-                <h1 class="internal-h1">
-                    <?php echo the_title_attribute('echo=0'); ?>
-                </h1>
+        <div class="banner-wrapper flex flex-col md:flex-row">
+            <div class="w-full md:w-1/2 bg-[#FAFAFA] container flex flex-col">
+                <div class="h-full flex flex-col justify-center">
+                    <div class="bg-[#FAFAFA] rounded-[10px] w-full">
+                        <div class="text-sm breadcrumbs bread-gap">
+                            <ul>
+                                <li class="bread-list"><a href="<?php echo home_url(); ?>">Home</a></li>
+                                <?php if (!empty($parent_id)) { ?>
+                                    <li class="bread-list text-[#9E9E9E]"><a href="<?php echo esc_url(get_category_link($parent_id)); ?>" title="<?php echo get_cat_name($parent_id); ?>"><?php echo get_cat_name($parent_id); ?></a></li>
+                                <?php } ?>
+                                <li class="bread-list text-[#9E9E9E]"><a href="<?php echo esc_url(get_category_link($cat_ID)); ?>" title="<?php echo $cat_Name; ?>"><?php echo $cat_Name; ?></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <h1 class="internal-h1 md:flex md:items-center">
+                        <?php echo the_title_attribute('echo=0'); ?>
+                    </h1>
+                </div>
+                <div class="single-cat-info-wrapper">
+                    <span class="single-cat-info" style="color:<?php echo $hex_color_1; ?>;">
+                        <a href="<?php echo esc_url(get_category_link($cat_ID)); ?>" title="<?php echo $cat_Name; ?>"><?php echo $cat_Name; ?></a>
+                    </span><span style="color:<?php echo $hex_color_1; ?>;">|</span>
+                    <p class="font-Chai text-[#9E9E9E] font-light mt-[3px]">
+                        <span class="font-Chai">
+                            <a href="<?php echo $author_URL; ?>">By <?php echo $author_name; ?></a>
+                        </span><span style="color:<?php echo $hex_color_1; ?>;">|</span>
+                        <span class="font-Chai">
+                            <?php echo get_the_date('j F, Y'); ?>
+                        </span>
+                    </p>
+                </div>
             </div>
+
             <div class="w-full md:w-1/2">
                 <figure class="m-0">
                     <img class="w-full object-cover" src="<?php echo get_template_directory_uri(); ?> /assets/images/rightheroimg.png" alt="logo">
                 </figure>
             </div>
-
         </div>
         <!-- <div class="container mx-auto">
             <figure class=" aspect-[16/7] w-full">
@@ -75,39 +101,16 @@
                 <div class="single-inner-wrapper ">
                     <div class="left-separator block">
                         <div class="left-separator-card sticky top-12">
-                            <h2 class="toc-title">Table Of Content</h2>
+                            <h2 class="toc-title" style="color:<?php echo $hex_color_1; ?>;">Table Of Content</h2>
                             <ul id="toc" class="toc-ul">
                                 <?php echo table_of_content('toc-ul-li', ''); ?>
                             </ul>
                         </div>
                     </div>
                     <div class="right-separator">
-                        <!-- <div class="bg-[#FAFAFA] rounded-[10px] w-full">
-                            <div class="text-sm breadcrumbs bread-gap">
-                                <ul>
-                                    <li class="bread-list"><a href="<?php echo home_url(); ?>">Home</a></li>
-                                    <?php if (!empty($parent_id)) { ?>
-                                        <li class="bread-list text-[#9E9E9E]"><a href="<?php echo esc_url(get_category_link($parent_id)); ?>" title="<?php echo get_cat_name($parent_id); ?>"><?php echo get_cat_name($parent_id); ?></a></li>
-                                    <?php } ?>
-                                    <li class="bread-list text-[#9E9E9E]"><a href="<?php echo esc_url(get_category_link($cat_ID)); ?>" title="<?php echo $cat_Name; ?>"><?php echo $cat_Name; ?></a></li>
-                                    <li class="bread-list"><?php echo the_title_attribute('echo=0'); ?></li>
-                                </ul>
-                            </div>
-                        </div> -->
 
-                        <div class="single-cat-info-wrapper">
-                            <span class="single-cat-info" style="color:<?php echo $hex_color_1; ?>;">
-                                <a href="<?php echo esc_url(get_category_link($cat_ID)); ?>" title="<?php echo $cat_Name; ?>"><?php echo $cat_Name; ?></a>
-                            </span>
-                            <p class="font-Chai text-[#9E9E9E] font-light">
-                                <span class="font-Chai">
-                                    <a href="<?php echo $author_URL; ?>">By <?php echo $author_name; ?></a>
-                                </span><span style="color:<?php echo $hex_color_1; ?>;">|</span>
-                                <span class="font-Chai">
-                                    <?php echo get_the_date('j F, Y'); ?>
-                                </span>
-                            </p>
-                        </div>
+
+
 
                         <!-- <h1 class="internal-h1">
                             <?php echo the_title_attribute('echo=0'); ?>
