@@ -1651,12 +1651,14 @@ content: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/200
 
 
   /* ABOUT US page  */
-
+  .about-us-wrapper a{
+    @apply hover:underline
+  }
   .about-page-main{
     @apply bg-[#ED1B1B0D] pt-[32px] md:pt-[40px] lg:pt-[48px] pb-[33px] md:pb-[100px] lg:pb-[102px]
   }
   .about-title{
-    @apply text-[36px] md:text-[64px] lg:text-[64px] font-Anton text-secondary
+    @apply text-[20px] md:text-[22px] lg:text-[24px] font-Dekko text-secondary
   }
 
   .about-h2{
@@ -1721,7 +1723,7 @@ content: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/200
   /* contact us  */
 
   .contact-us-section{
-    @apply relative w-full bg-[#ED1B1B0D] pt-[207px] pb-[213px]
+    @apply bg-[#ED1B1B0D] pt-[32px] md:pt-[40px] lg:pt-[48px] pb-[33px] md:pb-[100px] lg:pb-[102px]
   }
 
   .send-request-wrapper {
@@ -1756,13 +1758,13 @@ content: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/200
   }
 
   .from-input-filed{
-    @apply mt-1 py-2 bg-transparent font-Chai text-[24px] w-full shadow-sm border-b border-[#9E9E9E] rounded-none outline-none
+    @apply mt-1 py-2 bg-transparent font-Chai text-[24px] w-full shadow-sm border-b border-[#101010] rounded-none outline-none
   }
   .contact .wpcf7-form input:not(.wpcf7-submit), .contact .wpcf7-form textarea{
-    @apply mt-1 py-2 bg-transparent font-Chai text-[24px] w-full shadow-sm border-b border-[#9E9E9E] rounded-none outline-none uppercase
+    @apply mt-1 py-2 bg-transparent font-Chai text-[24px] w-full shadow-sm border-b border-[#101010] rounded-none outline-none uppercase
   }
   .contact .wpcf7-form input.wpcf7-submit{
-    @apply items-center justify-center text-white text-center bg-primary py-[12px] px-[24px] rounded-[4px] font-Chai text-base font-normal uppercase
+    @apply items-center justify-center text-white text-center bg-[#000000] py-[12px] px-[24px] rounded-[4px] font-Chai text-base font-normal uppercase
   }
   .contact .wpcf7-form p:first-of-type{
     @apply flex flex-col gap-4
@@ -1961,4 +1963,8 @@ content: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/200
   .footer-7bt {
     @apply text-[19.5vw] 
   }
+}
+
+.wpcf7-form-control-wrap input::placeholder{
+  @apply !text-[#101010]
 }
