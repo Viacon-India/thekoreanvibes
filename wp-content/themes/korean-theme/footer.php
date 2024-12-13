@@ -6,7 +6,7 @@
             <div class="footer-detail w-full md:w-[30%]">
                 <a href="#">
                     <figure class="rounded-none m-0 w-[200px] h-fit md:w-[281px]">
-                    <img class="w-full object-cover" src="wp-content/themes/korean-theme/assets/images/logo.png" alt="logo">
+                    <img class="w-full object-cover" src="<?php echo get_template_directory_uri(); ?> /assets/images/logo.png" alt="logo">
 
                     </figure>
                 </a>
