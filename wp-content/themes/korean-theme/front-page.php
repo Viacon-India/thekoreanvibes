@@ -1,10 +1,5 @@
 <?php get_header();
 
-// $cat1_slug = 'k-entertainment';
-// $cat2_slug = 'k-food';
-// $cat3_slug = 'k-fashion';
-// $cat4_slug = 'k-beauty ';
-// $cat5_slug = 'k-culture';
 $cat1_slug = get_option('category_1');
 $cat2_slug = get_option('category_2');
 $cat3_slug = get_option('category_3');

@@ -1176,7 +1176,7 @@ content: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/200
   }
   .footer-subs-input{
     @apply w-full py-2 px-[14px] lg:px-5 lg:py-[13px] border border-[#101010]  text-[16px] lg:text-[18px] leading-[22px] text-[#101010] placeholder:text-[#101010]
-     outline-none mb-4 bg-transparent
+     outline-none mb-4 bg-transparent rounded-[4px]
   }
   .footer-subs-btn{
     @apply w-full text-[16px] lg:text-[18px] leading-[22px] font-medium  tracking-[-0.01em] py-2 px-[14px] lg:px-5 lg:py-[13px] bg-[#101010] text-[#FFFFFF] uppercase relative 
@@ -1194,11 +1194,10 @@ content: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/200
   }
   .footer-subscribe-sec .es-form-field-container input[type="submit"]{
     @apply w-full text-[18px] leading-[22px]  tracking-[-0.01em] p-3 lg:px-5 lg:py-[13px]
-    bg-[#FF2451] text-[#FFFFFF] uppercase relative z-1 cursor-pointer rounded
+    bg-[#101010] text-[#FFFFFF] uppercase relative z-1 cursor-pointer rounded-[4px]
   }
   .footer-subscribe-sec .es-form-field-container:not(input[type="submit"]) > :last-child{
-    @apply relative after:content-[""] after:w-full after:h-full after:border after:border-[#101010]
-    after:absolute after:-right-1 after:-bottom-1 hover:after:right-0 hover:after:bottom-0 transition-all duration-300
+    @apply relative transition-all duration-300
   }  
 
 /* 
