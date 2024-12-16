@@ -24,11 +24,11 @@ $child_cat = (empty($parent_id)) ? get_terms('category',  array('child_of' => $c
     }
 </style>
 
-<section class="category-banner" style="background-color:<?php echo $hex_color_1; ?>14;">
+<section class="category-banner bg-[#FFFFFF]">
     <figure class="">
         <img class="" src="<?php echo get_template_directory_uri(); ?> /assets/images/catbanner.png" alt="catbanner">
     </figure>
-    <div class="container mx-auto">
+    <div class="container mx-auto mt-12">
         <div class="category-page-title-wrapper">
         <div class="text-sm breadcrumbs bread-gap">
                             <ul>

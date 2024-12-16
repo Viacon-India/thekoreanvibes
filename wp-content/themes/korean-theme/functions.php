@@ -1,4 +1,17 @@
 <?php
+//---------------------------------------------Custom Theme Settings Path
+if (file_exists(get_template_directory() . '/required/custom-plugins.php')) {
+	require_once(get_template_directory() . '/required/custom-plugins.php');
+}
+if (file_exists(get_template_directory() . '/required/custom-ajax.php')) {
+	require_once(get_template_directory() . '/required/custom-ajax.php');
+}
+if (file_exists(get_template_directory() . '/required/custom-ajax-functions.php')) {
+	require_once(get_template_directory() . '/required/custom-ajax-functions.php');
+}
+
+
+
 if (!session_id()) {
 	session_start();
 }
@@ -17,6 +30,7 @@ if (!function_exists('theme_setup')) {
 		add_theme_support('post-thumbnails');
 
 		add_image_size('cat-style-one-thumbnail', 120, 120, true);
+		add_image_size('page-thumbnail', 622, 524, true);
 		add_image_size('cat-style-two-thumbnail', 100, 120, true);
 		add_image_size('cat-style-two-hero-thumbnail', 410, 271, true);
 		add_image_size('default-thumbnail', 358, 258, true);
@@ -88,68 +102,6 @@ function register_my_menus()
 
 
 
-// Add Custom Field in General Settings for Social Links
-function social()
-{
-	add_settings_section(
-		'theme_settings', // Section ID 
-		'Theme Settings', // Section Title
-		'theme_callback', // Callback
-		'general' // What Page?  This makes the section show up on the General Settings Page
-	);
-	add_settings_field( // Option 1
-		'facebook', // Option ID
-		'Facebook', // Label
-		'social_callback', // !important - This is where the args go!
-		'general', // Page it will be displayed (General Settings)
-		'theme_settings', // Name of our section
-		array( // The $args
-			'facebook' // Should match Option ID
-		)
-	);
-	add_settings_field( // Option 3
-		'instagram', // Option ID
-		'Instagram', // Label
-		'social_callback', // !important - This is where the args go!
-		'general', // Page it will be displayed
-		'theme_settings', // Name of our section (General Settings)
-		array( // The $args
-			'instagram' // Should match Option ID
-		)
-	);
-	add_settings_field( // Option 1
-		'token', // Option ID
-		'API Token For Instagram', // Label
-		'token_callback', // !important - This is where the args go!
-		'general', // Page it will be displayed (General Settings)
-		'theme_settings', // Name of our section
-		array( // The $args
-			'token' // Should match Option ID
-		)
-	);
-	register_setting('general', 'facebook', 'esc_attr');
-	register_setting('general', 'instagram', 'esc_attr');
-	register_setting('general', 'token', 'esc_attr');
-}
-add_action('admin_init', 'social'); //Enable Social Links Under Settings
-
-function theme_callback()
-{ // Section Callback
-	echo '<p>Add Your Settings Below</p>';
-}
-function social_callback($args)
-{  // Textbox Callback
-	$option = get_option($args[0]);
-	echo '<input type="url" id="' . $args[0] . '" name="' . $args[0] . '" value="' . $option . '" />';
-}
-function token_callback($argu)
-{  // Textbox Callback
-	$text = get_option($argu[0]);
-	echo '<textarea rows="4" cols="50" type="text" name="' . $argu[0] . '" id="' . $argu[0] . '">' . $text . '</textarea>';
-}
-
-
-
 // To Enqueue Script and Style
 add_action('wp_enqueue_scripts', 'my_plugin_assets');
 function my_plugin_assets()
@@ -183,12 +135,6 @@ function img()
 			}
 
 			/*----------------------------------------------------------------------Custom Field for COLOR----------------------------------------------------------------------*/
-			add_action('admin_enqueue_scripts', 'color_picker');
-			function color_picker($hook_suffix)
-			{
-				wp_enqueue_style('wp-color-picker');
-				wp_enqueue_script('my-script-handle', plugins_url('my-script.js', __FILE__), array('wp-color-picker'), false, true);
-			}
 			add_action('category_add_form_fields', 'hex_code_add_form_fields', 10, 2);
 			add_action('category_edit_form_fields', 'hex_code_edit_term_fields', 10, 2);
 			function hex_code_add_form_fields($taxonomy)
@@ -349,46 +295,6 @@ function img()
 
 
 
-			function toc($html)
-			{
-				if (is_single()) {
-					if (!$html) return $html;
-					$dom = new DOMDocument();
-					libxml_use_internal_errors(true);
-					$dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
-					libxml_clear_errors();
-					foreach ($dom->getElementsByTagName('*') as $element) {
-						if ($element->tagName == 'h2' || $element->tagName == 'h3' || $element->tagName == 'h4') {
-							$title_id = str_replace(array(' '), array('-'), rtrim(preg_replace('#[\s]{2,}#', ' ', preg_replace('#[^\w\säüöß]#', null, str_replace(array('ä', 'ü', 'ö', 'ß'), array('ae', 'ue', 'oe', 'ss'), html_entity_decode(strtolower($element->textContent)))))));
-							$element->setAttribute('id', $title_id);
-						}
-					}
-					$html = $dom->saveHTML();
-				}
-				return $html;
-			}
-			add_filter('the_content', 'toc');
-
-
-			function table_of_content($li_class, $a_class)
-			{
-				$toc = '';
-				$html = get_the_content();
-				$dom = new DOMDocument();
-				libxml_use_internal_errors(true);
-				$dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
-				libxml_clear_errors();
-				foreach ($dom->getElementsByTagName('*') as $element) {
-					if ($element->tagName == 'h2' || $element->tagName == 'h3' || $element->tagName == 'h4') {
-						$title_id = str_replace(array(' '), array('-'), rtrim(preg_replace('#[\s]{2,}#', ' ', preg_replace('#[^\w\säüöß]#', null, str_replace(array('ä', 'ü', 'ö', 'ß'), array('ae', 'ue', 'oe', 'ss'), html_entity_decode(strtolower($element->textContent)))))));
-						$toc .= '<li class="' . $li_class . '"><a href="' . get_the_permalink() . '#' . $title_id . '" id="toc-' . $title_id . '" class="' . $a_class . '">' . $element->textContent . '</a></li>';
-					}
-				}
-				return $toc;
-			}
-
-
-
 			// Load More Button Function
 			add_action('wp_footer', 'load_more_blog_javascript');
 			function load_more_blog_javascript()
@@ -500,140 +406,6 @@ function img()
 		});
 	</script>
 	<?php }
-
-// Ajax Search Function
-add_action('wp_ajax_search_fetch' , 'search_fetch');
-add_action('wp_ajax_nopriv_search_fetch','search_fetch');
-function search_fetch(){
-	global $post;
-	/** Query to filter only post type */
-	$the_query = new WP_Query( array('post_type' => 'post',
-									'post_status' => 'publish',
-									'post__not_in' => array($post->ID),
-									'posts_per_page' => 24,
-									's' => esc_attr( $_POST['keyword'] ),
-									'order'   => 'DESC' ));
-
-	if ($the_query -> have_posts()) : ?>
-		<script type="text/javascript">
-			jQuery(document).ready(function($) {
-				jQuery('#data_message').hide();
-			});
-		</script>
-		<?php while ($the_query -> have_posts()) : $the_query -> the_post();
-			get_template_part('template-parts/search', 'card');
-		endwhile; 
-		wp_reset_postdata();
-	else : ?>
-		<script type="text/javascript">
-			jQuery(document).ready(function($) {
-				jQuery('#data_message').show();
-			});
-		</script>
-	<?php endif;
-	if(!function_exists('img')) { ?>
-		<script type="text/javascript">
-			jQuery(document).ready(function($) {
-				alert('Remove alert from search_fetch function');
-			});
-		</script>
-	<?php }else{
-		img();
-	}
-	die();
-}
-
-			// Action
-			add_action('wp_ajax_load_more_blog', 'load_more_blog');
-			add_action('wp_ajax_nopriv_load_more_blog', 'load_more_blog');
-			function load_more_blog()
-			{
-				$cat_id = $_GET['cat_id'];
-				if (empty($cat_id)) {
-					$cat_id = $_POST['cat_id'];
-				}
-				$orderby = $_GET['orderby'];
-				if (empty($orderby)) {
-					$orderby = $_POST['orderby'];
-				}
-				$hex_color = $_GET['hex_color'];
-				if (empty($hex_color)) {
-					$hex_color = $_POST['hex_color'];
-				}
-				if (empty($hex_color)) {
-					$hex_color = null;
-				}
-
-				$the_query = new WP_Query(array(
-					'post_type' => 'post',
-					'post_status' => 'publish',
-					'orderby' => $orderby,
-					'order'   => 'DESC',
-					'paged' => $_POST['page'],
-					'cat' => $cat_id,
-					'tag_id' => $_POST['tag_id'],
-					'author' => $_POST['user_id'],
-					's' => $_POST['search']
-				));
-				if ($the_query->have_posts()) :
-					while ($the_query->have_posts()) : $the_query->the_post();
-						get_template_part('template-parts/default', 'card', array('hex_color' => $hex_color));
-					endwhile;
-				endif;
-				if (!function_exists('img')) { ?>
-		<script type="text/javascript">
-			jQuery(document).ready(function($) {
-				alert('Remove alert from load_more_blog function');
-			});
-		</script>
-		<?php } else {
-					img();
-				}
-				wp_reset_postdata();
-				wp_die();
-			}
-			// Action
-			add_action('wp_ajax_load_more_comments', 'load_more_comments');
-			add_action('wp_ajax_nopriv_load_more_comments', 'load_more_comments');
-			function load_more_comments()
-			{
-				$comment_id = $_GET['comment_id'];
-				$comments = get_comments(array(
-					'parent' => $comment_id,
-					'hierarchical' => 'threaded',
-					'status' => 'approve',
-					'orderby' => 'date',
-					'order' => 'ASC'
-				));
-				if (!empty($comments) && !empty($comment_id)) :
-					foreach ($comments as $comment) : ?>
-			<div class="comment-card-replay flex gap-3 mt-3 ml-3" id="comment-<?php echo $comment->comment_ID; ?>">
-				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-					<path d="M21.3164 13.4444C21.4971 13.6145 21.5996 13.8516 21.5996 14.0998C21.5996 14.348 21.4971 14.5851 21.3164 14.7552L16.2164 19.5552C15.8545 19.8959 15.2849 19.8786 14.9442 19.5166C14.6036 19.1547 14.6208 18.5851 14.9828 18.2444L18.4302 14.9998L6.29961 14.9998C4.14573 14.9998 2.39961 13.2537 2.39961 11.0998V5.6998C2.39961 5.20276 2.80257 4.7998 3.29961 4.7998C3.79665 4.7998 4.19961 5.20276 4.19961 5.6998V11.0998C4.19961 12.2596 5.13981 13.1998 6.29961 13.1998L18.4302 13.1998L14.9828 9.95512C14.6208 9.61456 14.6036 9.04492 14.9442 8.683C15.2849 8.32096 15.8545 8.3038 16.2164 8.64436L21.3164 13.4444Z" fill="#101010" />
-				</svg>
-				<div class="flex flex-col gap-3">
-					<div class="flex gap-3 items-center">
-						<figure class="w-fit h-fit">
-							<img class="comment-card-img" src="<?php echo get_avatar_url($comment->user_id); ?>" alt="author-img" />
-						</figure>
-						<h3 class="comment-user-title"><?php echo $comment->comment_author; ?></h3>
-					</div>
-					<h4 class="text-[24px] font-Chai font-light"><?php echo $comment->comment_content; ?></h4>
-					<div class="flex gap-3">
-						<a class="comment-card-user-reply mt-0" rel="nofollow" href="<?php echo get_permalink($post_id); ?>/?replytocom=<?php echo $comment->comment_ID; ?>#respond" data-commentid="<?php echo $comment->comment_ID; ?>" data-postid="<?php echo $post_id; ?>" data-belowelement="div-comment-<?php echo $comment->comment_ID; ?>" data-respondelement="respond" data-replyto="Reply to <?php echo $comment->comment_author; ?>" aria-label="Reply to <?php echo $comment->comment_author; ?>">Reply </a>
-						<?php if (is_user_logged_in()) { ?>
-							<a class="comment-card-user-reply mt-0" href="<?php echo get_edit_comment_link($comment->comment_ID); ?>">Edit</a>
-						<?php } ?>
-					</div>
-				</div>
-			</div>
-<?php endforeach;
-				endif;
-				wp_reset_postdata();
-				wp_die();
-			}
-
-
 
 			/**************** VIEW ******************/
 

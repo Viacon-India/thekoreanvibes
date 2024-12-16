@@ -20,7 +20,7 @@ if (is_author()){
     $author_id = $archive_id;
 } ?>
 
-<section class="author-banner">
+<section class="author-banner bg-[#FFFFFF]">
     <div class="container mx-auto">
         <div class="wrapper">
             <div class="author-wrapper">

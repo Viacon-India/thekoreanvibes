@@ -253,7 +253,7 @@ Text Domain: ev
   @apply text-white transition duration-200
 }
 .nav-arrow{
-  @apply ml-[0px] mt-[0px] relative bottom-[19px] left-[15px] group-hover:rotate-180 transition-all duration-300
+  @apply ml-[0px] mt-[0px] relative bottom-0 left-[2px] group-hover:rotate-180 transition-all duration-300
 }
 .dropdown-content{
   @apply right-0 mt-12 shadow w-52 text-lg bg-[#F5F5F5] text-center p-1
@@ -266,7 +266,7 @@ Text Domain: ev
 }
 
 .nav-drop{
-  @apply relative pt-4 items-end
+  @apply relative items-end
 }
 .center-dropdown {
   @apply absolute top-[61px] !left-[-16px] w-[180px] border border-[#101010] bg-[rgba(255,255,255,0.95)] h-0  overflow-hidden invisible flex flex-col mt-0 overflow-y-auto p-[0];
@@ -464,7 +464,7 @@ content: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/200
 
   /* Tri menu feade on screnn search box */
 
-  /* .popup-wrap {
+  .popup-wrap {
     @apply w-full h-screen hidden fixed content-[""] z-10 left-0 top-0  ;
   }
 
@@ -499,11 +499,11 @@ content: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/200
   .transform-out {
       -webkit-transform: translate(-50%, -50%) scale(0.5);
       transform: translate(-50%, -50%) scale(0.5);
-  } */
+  }
 
   /* search  moddal  */
 
-  /* .search-toggle-cut{
+  .search-toggle-cut{
     @apply relative w-full cursor-pointer flex justify-end
   }
 
@@ -532,7 +532,7 @@ content: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/200
     @apply bg-[#FFFFFF] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 3xl:grid-cols-3 
     gap-x-4 sm:gap-x-4 md:gap-x-4 
     gap-y-4 sm:gap-y-4 md:gap-y-6 
-  } */
+  }
 
   /* search result card */
 
@@ -1166,7 +1166,7 @@ content: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/200
     @apply flex flex-col gap-2 lg:gap-3 font-Chai
   }
   .footer-list-title{
-    @apply text-[#101010] text-[18px] xl:text-[22px]  font-medium mb-[16px] xl:mb-[20px] !leading-[1] font-Anton
+    @apply text-[#101010] text-[20px] xl:text-[24px] mb-[16px] xl:mb-[20px] !leading-[1] font-Anton
   }
   .footer-list-sec{
     @apply flex gap-[3rem] md:gap-4 md:justify-evenly
@@ -1651,6 +1651,9 @@ content: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/200
 
 
   /* ABOUT US page  */
+  .about-page-wrapper{
+    @apply mt-10
+  }
   .about-us-wrapper a{
     @apply hover:underline
   }
@@ -1670,7 +1673,7 @@ content: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/200
   .about-p{
     @apply font-Chai font-light text-[22px] md:text-[22px] lg:text-[24px] tracking-[2%]  leading-[1.41] text-paragraph mb-[40px]
   }
-  .about p{
+  .about p:not(.wpcf7 p){
     @apply font-Chai font-light text-[22px] md:text-[22px] lg:text-[24px] tracking-[2%]  leading-[1.41] text-paragraph mb-[40px]
   }
   .about-chip-wrapper{
@@ -1760,6 +1763,9 @@ content: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/200
   .from-input-filed{
     @apply mt-1 py-2 bg-transparent font-Chai text-[24px] w-full shadow-sm border-b border-[#101010] rounded-none outline-none
   }
+  .contact .wpcf7-form{
+    @apply flex flex-col gap-4
+  }
   .contact .wpcf7-form input:not(.wpcf7-submit), .contact .wpcf7-form textarea{
     @apply mt-1 py-2 bg-transparent font-Chai text-[24px] w-full shadow-sm border-b border-[#101010] rounded-none outline-none uppercase
   }
@@ -1767,7 +1773,10 @@ content: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/200
     @apply items-center justify-center text-white text-center bg-[#000000] py-[12px] px-[24px] rounded-[4px] font-Chai text-base font-normal uppercase
   }
   .contact .wpcf7-form p:first-of-type{
-    @apply flex flex-col gap-4
+    @apply flex gap-4
+  }
+  .contact .wpcf7-form p span{
+    @apply w-full
   }
   .contact .wpcf7-form p:last-of-type{
     @apply  flex flex-row mt-[64px] mb-4
