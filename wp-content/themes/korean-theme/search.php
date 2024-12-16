@@ -5,7 +5,7 @@ $post_per_page = get_option('posts_per_page');
 $page_count = $GLOBALS['wp_query']->max_num_pages;
 $search = get_search_query(); ?>
 
-<section class="author-banner">
+<section class="author-banner bg-[#FFFFFF]">
     <div class="container mx-auto">
         <div class="wrapper">
             <div class="author-wrapper">

@@ -1,4 +1,4 @@
-<?php /* Template Name: Contact Page Template */ ?>
+<?php /* Template Name: About Page Template */ ?>
 
 <?php get_header();
 
@@ -7,7 +7,7 @@ while (have_posts()) : the_post();
     $color_value = get_post_meta($page_id, 'custom_color', true);
 	$h2_header = get_post_meta($page_id, 'h2_header', true);
     $textarea_content = get_post_meta($page_id, 'textarea_content', true); ?>
-    <section class="contact-us-section">
+    <section class="about-page-main">
         <div class="about-us-wrapper" style="background-color:<?php echo $color_value; ?>;">
             <div class="container mx-auto">
                 <div class="capitalize flex items-center gap-9 flex-col lg:flex-row lg:px-[120px] py-[68px]">
@@ -36,7 +36,7 @@ while (have_posts()) : the_post();
             </div>
         </div>
         <div class="container mx-auto">
-            <div class="contact lg:px-[120px] mt-10"><?php the_content(); ?></div>
+            <div class="about contact lg:px-[120px] mt-10"><?php the_content(); ?></div>
         </div>
     </section>
 <?php endwhile;

@@ -48,7 +48,7 @@
     <section class="single-banner pt-[61px]">
         <div class="banner-wrapper flex flex-col md:flex-row">
             <div class="w-full md:w-1/2 bg-[#FAFAFA] container flex flex-col">
-                <div class="h-full flex flex-col justify-center">
+                <div class="h-[85%] flex flex-col justify-center">
                     <div class="bg-[#FAFAFA] rounded-[10px] w-full">
                         <div class="text-sm breadcrumbs bread-gap">
                             <ul>
