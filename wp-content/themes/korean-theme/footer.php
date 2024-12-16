@@ -93,9 +93,6 @@ $linkedin = get_option('linkedin'); ?>
 
 <?php wp_footer();?>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
-
 
 <script>
     //  trail js for mentioner JScode

@@ -108,14 +108,13 @@ function my_plugin_assets()
 {
 	$ver = '3.6.4';
 	wp_enqueue_script('jquery.min', get_template_directory_uri() . '/assets/js/jquery.min.js', array('jquery'), $ver, true);
+	wp_enqueue_script('gsap.min', get_template_directory_uri() . '/assets/js/gsap.min.js', array('jquery'), $ver, true);
+	wp_enqueue_script('zepto.min', get_template_directory_uri() . '/assets/js/zepto.min.js', array('jquery'), $ver, true);
 	wp_enqueue_script('themeScripts', get_template_directory_uri() . '/assets/js/themeScripts.js',  array('jquery'), $ver, true);
 	
-	wp_register_script('jQuery', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js', null, null, true); 
 	wp_enqueue_style('custom-style', get_stylesheet_uri(), false, $ver, 'all');
 
 }
-
-
 
 
 
