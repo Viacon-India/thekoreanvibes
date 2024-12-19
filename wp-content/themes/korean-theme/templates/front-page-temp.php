@@ -59,7 +59,7 @@ $cat5_posts = new WP_Query(array(
 <section class="about-us-sec overflow-hidden">
     <span class="about-us-sec-light-top"></span>
     <span class="about-us-sec-light-bottom"></span>
-    <div class=" container mx-auto h-full  ">
+    <div class=" container mx-auto h-full">
         <div class="flex h-full flex-col md:flex-row z-1 gap-[50px] sm:gap-[60px] md:gap-[70px] lg:gap-0 ">
             <div class="w-full md:w-1/2 ">
 
