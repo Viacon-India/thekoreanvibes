@@ -620,9 +620,9 @@ content: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/200
   .home-side-bar-transform-r {
     writing-mode: vertical-lr;
     text-orientation: mixed;
-    @apply font-Anton text-[180px] font-normal 
+    @apply font-Anton text-[150px] md:text-[154px] font-normal 
     rotate-180 absolute tracking-[-1.7px] select-none whitespace-nowrap 
-    right-[-2rem] leading-[0.88] bottom-0 z-0 top-0
+    right-0 leading-[0.88] bottom-0 z-0 top-0
   }
 
   .home-side-wrapper {
@@ -639,7 +639,7 @@ content: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/200
   } */
 
   .home-side-card-title {
-    @apply font-Chai text-[24px] font-normal leading-[1.16]
+    @apply font-Chai text-[22px] md:text-[24px] font-normal leading-[1.16]
   }
 
   /* hero sec */
