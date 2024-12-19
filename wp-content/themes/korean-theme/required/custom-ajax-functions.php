@@ -35,8 +35,8 @@ function search_fetch(){
 		alert('Remove alert from search_fetch function');
 	});
 </script>
-<?php }else{
-		img();
+<?php //}else{
+		//img();
 	}
 	die();
 }
@@ -145,8 +145,8 @@ function load_more_blog()
 				alert('Remove alert from load_more_blog function');
 			});
 		</script>
-	<?php } else {
-		img();
+	<?php //} else {
+		//img();
 	}
 	wp_reset_postdata();
 	wp_die();
