@@ -12,7 +12,7 @@ $post_per_page = get_option('posts_per_page'); ?>
         <div class="wrapper">
             <div class="author-wrapper">
                 <figure class="aspect-square relative flex">
-                     <img class="author-image" src="<?php echo get_template_directory_uri(); ?> /assets/images/author.png" alt="logo">
+                     <img class="author-image" src="<?php echo esc_url( get_avatar_url( $author_id ) ); ?>" alt="<?php echo $display_name; ?>-img">
                 </figure>
                 <div class=" flex flex-col justify-center">
                     <h1 class="author-title capitalize">

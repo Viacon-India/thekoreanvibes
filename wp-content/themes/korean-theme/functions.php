@@ -34,6 +34,7 @@ if (!function_exists('theme_setup')) {
 		add_image_size('cat-style-two-thumbnail', 100, 120, true);
 		add_image_size('cat-style-two-hero-thumbnail', 410, 271, true);
 		add_image_size('default-thumbnail', 358, 258, true);
+		add_image_size('single-banner-img', 1106, 676, true);
 
 		$GLOBALS['content_width'] = 900;
 
@@ -118,7 +119,7 @@ function my_plugin_assets()
 
 
 
-add_action('wp_footer', 'img');
+// add_action('wp_footer', 'img');
 function img()
 {
 ?><script type="text/javascript">

@@ -80,20 +80,16 @@
             </div>
 
             <div class="w-full md:w-1/2">
-                <figure class="m-0">
-                    <img class="w-full object-cover" src="<?php echo get_template_directory_uri(); ?> /assets/images/rightheroimg.png" alt="logo">
-                </figure>
-            </div>
-        </div>
-        <!-- <div class="container mx-auto">
-            <figure class=" aspect-[16/7] w-full">
                 <?php if (has_post_thumbnail()) : ?>
                     <?php echo get_the_post_thumbnail($post_id, 'full', array('class' => 'single-banner-img')); ?>
                 <?php else : ?>
-                    <img class="single-banner-img" src="<?php echo get_template_directory_uri(); ?>/assets/images/banner.png" alt="">
+                    <figure class="m-0">
+                        <img class="w-full object-cover" src="<?php echo get_template_directory_uri(); ?> /assets/images/rightheroimg.png" alt="logo">
+                    </figure>
                 <?php endif; ?>
-            </figure>
-        </div> -->
+            </div>
+        </div>
+        
     </section>
     <section class="single-page">
         <div class="container mx-auto">

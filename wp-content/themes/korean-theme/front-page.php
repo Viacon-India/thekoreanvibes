@@ -394,7 +394,7 @@ if ($cat3_posts->have_posts()) :
 
 <section class="banner">
     <figure class="">
-        <img class="w-fit h-full object-cover" src="<?php echo get_template_directory_uri(); ?> /assets/images/bannerimg.png" alt="" />
+        <img class="w-fit h-full object-cover" src="<?php echo get_template_directory_uri(); ?>/assets/images/bannerimg.png" alt="" />
     </figure>
 </section>
 
