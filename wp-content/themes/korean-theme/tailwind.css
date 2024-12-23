@@ -19,7 +19,7 @@ Text Domain: ev
  
   @font-face {
     font-family: Chai;
-    src: url("../7bt-blog/assets/fonts/chai-type/Chai.ttf");
+    src: url("../korean-theme/assets/fonts/chai-type/Chai.ttf");
   }
 
   body::-webkit-scrollbar {
@@ -628,7 +628,6 @@ content: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/200
   .home-side-wrapper {
     @apply z-4 relative  w-[calc(100%-25px)] sm:w-[calc(100%-50px)] md:w-[calc(100%-70px)]  lg:w-full  2xl:w-[calc(100%-80px)]
   }
-
   .home-side-card {
     @apply relative after:h-[1px] after:w-full after:absolute after:bottom-0 py-4 after:last:bg-transparent
   }
@@ -967,7 +966,7 @@ content: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/200
   @apply text-[16px] font-Chai uppercase 
   }
   .hr-small-body-title{
-    @apply font-Chai text-[16px] sm:text-[22px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[23px] 3xl:text-[24px]
+    @apply font-Chai font-medium text-[16px] sm:text-[22px] md:text-[18px] lg:text-[20px] xl:text-[22px] 2xl:text-[23px] 3xl:text-[24px]
     leading-[1.16] text-white
   }
 
@@ -1015,7 +1014,7 @@ content: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/200
 
   .home-about-title{
     @apply relative font-Anton font-normal uppercase tracking-[2%] text-white
-     text-[44px] sm:text-[52px] md:text-[60px] lg:text-[69px] xl:text-[78px] 2xl:text-[87px] 3xl:text-[96px]
+     text-[44px] sm:text-[52px] md:text-[60px] lg:text-[65px] xl:text-[78px] 2xl:text-[87px] 3xl:text-[96px]
   }
 
   .home-about-dsc-wrapper{
@@ -1024,12 +1023,12 @@ content: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/200
 
   .home-about-dsc{
     @apply relative text-[#9E9E9E] font-Chai font-light tracking-[2px] 
-    text-[18px] sm:text-[18.5px] md:text-[19px] lg:text-[20px] xl:text-[22px] 2xl:text-[23px]  3xl:text-[24px] 
+    text-[18px] sm:text-[18.5px] md:text-[19px] lg:text-[16px] xl:text-[22px] 2xl:text-[23px]  3xl:text-[24px] 
   }
 
 
   .slider-main-wrapper{
-    @apply relative h-[880px] 
+    @apply relative h-[400px] md:h-[880px] 
   }
 
   .slider-main-wrapper div.main{
@@ -1087,11 +1086,11 @@ content: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/200
   }
 
   .counter-title{
-    @apply capitalize text-[15px] md:text-[18px] lg:text-[21px] text-white font-Chai tracking-[0.3px]
+    @apply capitalize text-[12px] md:text-[18px] lg:text-[21px] text-white font-Chai tracking-[0.3px]
   }
 
   .counter-card-wrapper{
-    @apply relative flex mt-[40px] sm:mt-[48px] md:mt-[57px] lg:mt-[62px] xl:mt-[67px] 2xl:mt-[72px] 3xl:mt-[77px] gap-[16px]
+    @apply relative flex justify-between mt-[40px] sm:mt-[48px] md:mt-[57px] lg:mt-[24px] xl:mt-[67px] 2xl:mt-[72px] 3xl:mt-[77px] gap-1 md:gap-[16px]
   }
 
   .counter-card{
@@ -1151,7 +1150,7 @@ content: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/200
     @apply bg-[#101010] p-[10px] md:p-[30px] xl:p-[60px]  
   }
   .footer-main{
-    @apply pt-[10px] pb-[60px] md:pt-[30px] md:pb-[80px] xl:pt-[60px] xl:pb-[100px] flex flex-col md:flex-row justify-between
+    @apply pt-8 pb-[60px] md:pt-[30px] md:pb-[80px] xl:pt-[60px] xl:pb-[100px] flex flex-col md:flex-row justify-between
   }
   .footer-desc{
     @apply  font-Chai text-[#686868] text-[16px] md:text-[15px] xl:text-[20px] font-medium leading-[1.5] mt-3 xl:mt-7 mb-2 xl:mb-4
@@ -1446,7 +1445,7 @@ content: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/200
   }
 
   .common-card-title{
-    @apply font-Chai text-[28px] font-medium leading-[1.21] 
+    @apply font-Chai text-[20px] md:text-[22px] xl:text-[28px] font-medium leading-[1.21] 
   }
 
   .button-wrapper{
@@ -1472,7 +1471,7 @@ content: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/200
   }
 
   .single-banner-img{
-    @apply w-full h-full object-cover rounded-[10px]
+    @apply w-full h-full object-cover
   }
 
 
@@ -1557,7 +1556,7 @@ content: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/200
   }
 
   .bread-list{
-    @apply font-Chai text-[20px] font-thin
+    @apply font-Chai text-[16px] md:text-[20px] font-thin
   }
 
   .right-separator{
@@ -1565,7 +1564,10 @@ content: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/200
   }
 
   .single-cat-info-wrapper{
-    @apply flex gap-1
+    @apply flex items-center gap-1 mt-4 mb-2 
+  }
+  .single-cat-info-wrapper span{
+    @apply text-[14px] leading-[1]
   }
 
   .single-cat-info{
@@ -1614,7 +1616,7 @@ content: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/200
   /* Author Page */
 
   .author-banner{
-    @apply bg-[#FEF3F3] py-[80px] md:py-[90px] lg:py-[100px] xl:py-[120px] 2xl:py-[129px]
+    @apply bg-[#FEF3F3] pt-[80px] md:pt-[90px] lg:pt-[100px] xl:pt-[120px] 2xl:pt-[129px]
   }
 
   .author-wrapper{
@@ -1625,6 +1627,10 @@ content: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/200
   .author-grid-wrapper {
     @apply grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-12
   }
+  .grid-wrapper{
+    @apply grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-12
+  }
+
 
   .author-shadow{
     @apply w-[90px] h-[90px] z-0 -translate-x-[50%];
@@ -1752,9 +1758,7 @@ content: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/200
   .say-hello {
     @apply font-Dekko text-primary  text-[24px]
   }
-  .if-there-are-container{
-    @apply font-Chai text-[21px] text-[1.4] font-light text-paragraph
-  }
+
   .mediaredhatmedianet{
     @apply text-primary
   }
@@ -1766,7 +1770,7 @@ content: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/200
     @apply flex flex-col gap-4
   }
   .contact .wpcf7-form input:not(.wpcf7-submit), .contact .wpcf7-form textarea{
-    @apply mt-1 py-2 bg-transparent font-Chai text-[24px] w-full shadow-sm border-b border-[#101010] rounded-none outline-none uppercase
+    @apply mt-1 py-2 bg-transparent font-Chai text-[18px] md:text-[24px] w-full shadow-sm border-b border-[#101010] rounded-none outline-none uppercase
   }
   .contact .wpcf7-form input.wpcf7-submit{
     @apply items-center justify-center text-white text-center bg-[#000000] py-[12px] px-[24px] rounded-[4px] font-Chai text-base font-normal uppercase
@@ -1778,7 +1782,7 @@ content: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/200
     @apply w-full
   }
   .contact .wpcf7-form p:last-of-type{
-    @apply  flex flex-row mt-[64px] mb-4
+    @apply  flex flex-col md:flex-row md:mb-4
   }
   .contact .wpcf7-form br{
     @apply hidden
@@ -1887,16 +1891,16 @@ content: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/200
   
   .modal-content-container,
   .container {
-    @apply px-[1.75rem];
+    @apply px-[1rem];
   }
 
   .footer-7bt {
     @apply text-[18.9vw]
   }
 
-  .mainBoxes.fs{
+  /* .mainBoxes.fs{
    transform: translate(-13%, 0%) rotate(-0deg) rotateY(360deg) rotateX(2deg) !important;
-  }
+  } */
 }
 
 @media only screen and (min-width: 480px) and (max-width: 768px) {
@@ -1912,9 +1916,9 @@ content: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/200
     @apply text-[18.9vw]
   }
 
-  .mainBoxes.fs{
+  /* .mainBoxes.fs{
    transform: translate(-0.25%) rotate(0deg) rotateY(0turn) rotateX(2deg) !important;
-  }
+  } */
 }
 
 @media only screen and (min-width: 769px) and (max-width: 1024px) {
