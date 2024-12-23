@@ -45,7 +45,7 @@
         }
     </style>
 
-    <section class="single-banner pt-[61px]">
+    <section class="single-banner pt-[80px] md:pt-[64px]">
         <div class="banner-wrapper flex flex-col md:flex-row">
             <div class="w-full md:w-1/2 bg-[#FAFAFA] container flex flex-col">
                 <div class="h-[85%] flex flex-col justify-center">
