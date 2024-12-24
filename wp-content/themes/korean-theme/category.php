@@ -24,21 +24,21 @@ $child_cat = (empty($parent_id)) ? get_terms('category',  array('child_of' => $c
     }
 </style>
 
-<section class="category-banner bg-[#FFFFFF]">
-    <figure class="">
-        <img class="" src="<?php echo get_template_directory_uri(); ?> /assets/images/catbanner.png" alt="catbanner">
+<section class="category-banner bg-[#FFFFFF] pt-[64px]">
+    <figure class="w-full h-full">
+        <img class="w-full h-full object-cover" src="<?php echo get_template_directory_uri(); ?>/assets/images/catbanner.png" alt="catbanner">
     </figure>
-    <div class="container mx-auto mt-12">
+    <div class="container mx-auto mt-2 md:mt-12">
         <div class="category-page-title-wrapper">
-        <div class="text-sm breadcrumbs bread-gap">
-                            <ul>
-                                <li class="bread-list"><a href="<?php echo home_url(); ?>">Home</a></li>
-                                <?php if (!empty($parent_id)) { ?>
-                                    <li class="bread-list text-[#9E9E9E]"><a href="<?php echo esc_url(get_category_link($parent_id)); ?>" title="<?php echo get_cat_name($parent_id); ?>"><?php echo get_cat_name($parent_id); ?></a></li>
-                                <?php } ?>
-                                <li class="bread-list text-[#9E9E9E]"><?php echo strip_tags(single_cat_title()); ?></li>
-                            </ul>
-                        </div>
+            <div class="text-sm breadcrumbs bread-gap">
+                <ul>
+                    <li class="bread-list"><a href="<?php echo home_url(); ?>">Home</a></li>
+                    <?php if (!empty($parent_id)) { ?>
+                        <li class="bread-list text-[#9E9E9E]"><a href="<?php echo esc_url(get_category_link($parent_id)); ?>" title="<?php echo get_cat_name($parent_id); ?>"><?php echo get_cat_name($parent_id); ?></a></li>
+                    <?php } ?>
+                    <li class="bread-list text-[#9E9E9E]"><?php echo strip_tags(single_cat_title()); ?></li>
+                </ul>
+            </div>
             <h1 class="category-title" style="color:<?php echo $hex_color_1; ?>;">
                 <?php echo strip_tags(single_cat_title()); ?>
             </h1>
@@ -52,7 +52,7 @@ $child_cat = (empty($parent_id)) ? get_terms('category',  array('child_of' => $c
     </div>
 </section>
 
-<section class="inner-sec pt-[44px] pb-[120px]">
+<section class="inner-sec md:pt-[44px] pb-[120px]">
     <div class="container mx-auto">
         <div class="inner-wrapper">
             <div class="w-full lg:w-9/12 2xl:w-[1123px]">

@@ -2,11 +2,15 @@
 
 <?php get_header();
 
-while (have_posts()) : the_post(); ?>
+while (have_posts()) : the_post();
 
+    $page_id = get_the_ID();
+    $color_value = get_post_meta($page_id, 'custom_color', true);
+	$h2_header = get_post_meta($page_id, 'h2_header', true);
+    $textarea_content = get_post_meta($page_id, 'textarea_content', true);?>
 
     <section class="about-page-main">
-        <div class="about-us-wrapper bg-[#00FFFF] ">
+        <div class="about-us-wrapper" style="background-color:<?php echo $color_value; ?>;">
             <div class="container mx-auto">
                 <div class="capitalize flex items-center gap-9 flex-col lg:flex-row lg:px-[120px] py-[68px]">
                     <div class="w-full lg:w-1/2">
@@ -19,16 +23,16 @@ while (have_posts()) : the_post(); ?>
                             </svg>
 
                         </h1>
-                        <h2 class="font-Anton text-[34px] sm:text-[44px] md:text-[54px] lg:text-[64px] xl:text-[74px] 2xl:text-[84px] lg:mb-[22px] lg:leading-[100px]">
-                            LET’S TALK ABOUT YOUR QUERIES
-                        </h2>
-                        <p class="font-Chai text-[18px]">
-                            If there are any queries related to any article, advertisement, and guest post, you can contact us using the Contact Us Form. You can simply reach out to us by email at <a href="#">media@redhatmedia.net.</a> We will be on our toes to give you a suitable response.
-                        </p>
+                        <?php echo !empty($h2_header)?'<h2 class="font-Anton text-[34px] sm:text-[44px] md:text-[54px] lg:text-[64px] xl:text-[74px] 2xl:text-[84px] lg:mb-[22px] lg:leading-[100px]">'.$h2_header.'</h2>':''; ?>
+                        <?php echo !empty($textarea_content)?'<p class="font-Chai text-[18px]">'.$textarea_content.'</p>':''; ?>
                     </div>
                     <div class="w-full lg:w-1/2">
                         <figure class="">
-                            <img class="w-full object-cover" src="<?php echo get_template_directory_uri(); ?> /assets/images/about-img.png" alt="about-img">
+                            <?php if (has_post_thumbnail()) : ?>
+                                <?php echo get_the_post_thumbnail($page_id, 'page-thumbnail', array('class' => 'w-full object-cover rounded-[10px]')); ?>
+                            <?php else : ?>
+                                <img class="w-full object-cover" src="<?php echo get_template_directory_uri(); ?> /assets/images/about-img.png" alt="about-img">
+                            <?php endif; ?>
                         </figure>
                     </div>
                 </div>
