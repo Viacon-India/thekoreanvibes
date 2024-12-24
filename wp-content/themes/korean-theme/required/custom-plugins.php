@@ -122,8 +122,6 @@ function toc($content) {
 }
 add_filter('the_content', 'toc');
 
-
-
 function table_of_content($li_class, $a_class) {
 	$content = get_the_content();
     $heading_links = array();
@@ -262,150 +260,6 @@ add_filter('manage_category_custom_column', 'custom_content_category', 10, 3 );
 
 
 
-//-------------------------------------------------------------------Add Custom Post Meta-field
-function custom_add_post_field(){
-	add_meta_box('checkbox', 'Checkbox Meta Fields', 'checkbox_callback', 'post', 'normal', 'high');
-}
-add_action('add_meta_boxes', 'custom_add_post_field');
-function checkbox_callback($post){
-	$stored_meta = get_post_meta($post->ID);
-	?><div style="display: flex;gap: 10%;">
-		<div>
-			<h3>Check if this is a editor's pick: </h3>
-			<div class="row-content">
-				<label for="featured">Editor's Item</label>
-				<input class="mt-1" type="checkbox" name="featured" id="featured" value="yes" <?php if (isset($stored_meta['featured'])) checked($stored_meta['featured'][0], 'yes'); ?> />
-			</div>
-		</div>
-		<div>
-			<h3>Check if this is a exclusive post: </h3>
-			<div class="row-content">
-				<label for="exclusive">Exclusive Item</label>
-				<input class="mt-1" type="checkbox" name="exclusive" id="exclusive" value="yes" <?php if (isset($stored_meta['exclusive'])) checked($stored_meta['exclusive'][0], 'yes'); ?> />
-			</div>
-		</div>
-	</div><?php
-}
-
-function custom_save_post_fields($post_id){
-	if (isset($_POST['featured'])) {
-		update_post_meta($post_id, 'featured', 'yes');
-	} else {
-		update_post_meta($post_id, 'featured', '');
-	}
-	if (isset($_POST['exclusive'])) {
-		update_post_meta($post_id, 'exclusive', 'yes');
-	} else {
-		update_post_meta($post_id, 'exclusive', '');
-	}
-}
-add_action('save_post', 'custom_save_post_fields');
-
-function custom_post_header($header){
-	$header['featured'] = 'Featured';
-	$header['exclusive'] = 'Exclusive';
-	return $header;
-}
-add_filter('manage_post_posts_columns', 'custom_post_header');
-
-function custom_content_post($column_name, $post_id){
-	if ('featured' === $column_name) {
-		echo '<style type="text/css"> .column-featured { width: 4rem; } </style>';
-		$featured = get_post_meta($post_id, 'featured', true);
-		echo ('yes' === $featured) ? 'Yes' : 'No';
-	}
-	if ('exclusive' === $column_name) {
-		echo '<style type="text/css"> .column-exclusive { width: 4rem; } </style>';
-		$exclusive = get_post_meta($post_id, 'exclusive', true);
-		echo ('yes' === $exclusive) ? 'Yes' : 'No';
-	}
-	return $column_name;
-}
-add_action('manage_posts_custom_column', 'custom_content_post', 10, 2);
-
-
-
-//-------------------------------------------------------------------Addition Image for Contact Page
-add_action( 'add_meta_boxes', 'add_internal_image' );
-function add_internal_image(){
-	global $post;
-	if($post->post_type == 'page' && $post->post_name == 'contact-us') add_meta_box( 'internal_image', 'Internal Image', 'internal_image_callback', 'page', 'side', 'low');
-}
-function internal_image_callback($post){
-    global $content_width, $_wp_additional_image_sizes;
-    $image_id = get_post_meta( $post->ID, 'internal_image', true );
-    $old_content_width = $content_width;
-    $content_width = 254;
-
-    if($image_id && get_post($image_id)){
-		$thumbnail_html = (!isset( $_wp_additional_image_sizes['post-thumbnail']))?wp_get_attachment_image($image_id, array($content_width, $content_width)):wp_get_attachment_image($image_id, 'post-thumbnail');
-        if (!empty($thumbnail_html)){
-            $content = $thumbnail_html;
-            $content .= '<p class="hide-if-no-js"><a href="javascript:;" id="remove_internal_image_button" >Remove Internal image</a></p>';
-            $content .= '<input type="hidden" id="upload_internal_image" name="internal_cover_image" value="'.$image_id.'" />';
-        }
-        $content_width = $old_content_width;
-    }else{
-        $content = '<img src="" style="width:'.$content_width.'px;height:auto;border:0;display:none;" alt="internal-image"/>';
-        $content .= '<p class="hide-if-no-js"><a title="Set An image" href="javascript:;" id="upload_internal_image_button" id="set-internal-image" data-uploader_title="Choose an image" data-uploader_button_text="Set internal image">Set internal image</a></p>';
-        $content .= '<input type="hidden" id="upload_internal_image" name="internal_cover_image" value="" />';
-    }
-    echo $content;
-	?><script>jQuery(document).ready(function($){
-		// Uploading files
-		var file_frame;
-		jQuery.fn.upload_internal_image = function (button) {
-			var button_id = button.attr('id');
-			var field_id = button_id.replace('_button', '');
-			// If the media frame already exists, reopen it.
-			if (file_frame) {
-				file_frame.open();
-				return;
-			}
-			// Create the media frame.
-			file_frame = wp.media.frames.file_frame = wp.media({
-				title: jQuery(this).data('uploader_title'),
-				button: {
-					text: jQuery(this).data('uploader_button_text'),
-				},
-				multiple: false
-			});
-			// When an image is selected, run a callback.
-			file_frame.on('select', function () {
-				var attachment = file_frame.state().get('selection').first().toJSON();
-				jQuery("#" + field_id).val(attachment.id);
-				jQuery("#internal_image img").attr('src', attachment.url);
-				jQuery('#internal_image img').show();
-				jQuery('#' + button_id).attr('id', 'remove_internal_image_button');
-				jQuery('#remove_internal_image_button').text('Remove internal image');
-			});
-			// Finally, open the modal
-			file_frame.open();
-		};
-		jQuery('#internal_image').on('click', '#upload_internal_image_button', function (event) {
-			event.preventDefault();
-			jQuery.fn.upload_internal_image(jQuery(this));
-		});
-		jQuery('#internal_image').on('click', '#remove_internal_image_button', function (event) {
-			event.preventDefault();
-			jQuery('#upload_internal_image').val('');
-			jQuery('#internal_image img').attr('src', '');
-			jQuery('#internal_image img').hide();
-			jQuery(this).attr('id', 'upload_internal_image_button');
-			jQuery('#upload_internal_image_button').text('Set internal image');
-		});
-	});</script><?php
-}
-add_action( 'save_post', 'internal_image_save', 10, 1 );
-function internal_image_save ( $post_id ) {
-    if(isset($_POST['internal_cover_image'])){
-        $image_id = (int) $_POST['internal_cover_image'];
-        update_post_meta( $post_id, 'internal_image', $image_id );
-    }
-}
-
-
-
 //-------------------------------------------------------------------Post Reading Time
 function read_time($post_ID) {
 	$content = get_post_field( 'post_content', $post_ID );
@@ -524,3 +378,385 @@ function save_custom_page_meta_box($post_id) {
     }
 }
 add_action('save_post', 'save_custom_page_meta_box');
+
+
+
+
+
+
+function custom_post_template($template) {
+    if (is_single()) {
+        $post_id = get_the_ID();
+        if (has_term('k-beauty', 'category', $post_id) || has_parent_term('k-beauty', $post_id)) {
+            $new_template = locate_template(array('templates/beauty-template.php'));
+        }elseif (has_term('k-entertainment', 'category', $post_id) || has_parent_term('k-entertainment', $post_id)) {
+            $new_template = locate_template(array('templates/entertainment-template.php'));
+        }elseif (has_term('k-fashion', 'category', $post_id) || has_parent_term('k-fashion', $post_id)) {
+            $new_template = locate_template(array('templates/fashion-template.php'));
+        }elseif (has_term('k-food', 'category', $post_id) || has_parent_term('k-food', $post_id)) {
+            $new_template = locate_template(array('templates/food-template.php'));
+        }else {
+            return $template;
+        }
+        if (isset($new_template)) {
+            return $new_template;
+        }
+    }
+
+    return $template;
+}
+add_filter('single_template', 'custom_post_template');
+
+
+function has_parent_term($term_slug, $post_id) {
+    $terms = get_the_terms($post_id, 'category');
+    if ($terms) {
+        foreach ($terms as $term) {
+            if (in_array(get_term_by('slug', $term_slug, 'category')->term_id, get_ancestors($term->term_id, 'category'))) return true;
+        }
+    }
+    return false;
+}
+
+
+
+
+
+// Add a custom meta box for posts belonging to specific categories
+function add_custom_editor_for_post_temp() {
+    $post_id = get_the_ID();
+    if (has_term('k-beauty', 'category', $post_id) || has_parent_term('k-beauty', $post_id)) {
+		$pros = get_post_meta( $post_id, 'pros', true );
+		$cons = get_post_meta( $post_id, 'cons', true );
+		$ingredients = get_post_meta( $post_id, 'ingredients', true );
+		$purpose = get_post_meta( $post_id, 'purpose', true );
+		echo '<div style="padding-bottom: 20px; display: flex; gap: 1rem;">';
+			echo '<div style="width: 50%;"><h3 style="margin-bottom: 5px;">Pros</h3>';
+			wp_editor( $pros, 'pros', array( 'wpautop' => true, 'media_buttons' =>  true, 'textarea_rows' => 10 ) );
+			echo '</div><div style="width: 50%;"><h3 style="margin-bottom: 5px;">Cons</h3>';
+			wp_editor( $cons, 'cons', array( 'wpautop' => true, 'media_buttons' =>  true, 'textarea_rows' => 10 ) );
+		echo '</div></div>';
+		echo '<div style="display: flex;flex-direction: column;gap: 12px;">
+			<div style="display: flex;flex-direction: column;gap: 6px;">
+				<label for="ingredients">Ingredients: </label>
+				<textarea name="ingredients">' . esc_attr( $ingredients ) . '</textarea>
+			</div>
+			<div style="display: flex;flex-direction: column;gap: 6px;">
+				<label for="purpose">Purpose: </label>
+				<textarea name="purpose">' . esc_attr( $purpose ) . '</textarea>
+			</div>
+		</div>';
+	}
+}
+add_action( 'edit_form_after_editor', 'add_custom_editor_for_post_temp' );
+function add_custom_meta_box_for_category() {
+    $post_id = get_the_ID();
+    if(has_term('k-beauty', 'category', $post_id) || has_parent_term('k-beauty', $post_id)){
+		add_meta_box('template-meta-data','Meta Data','beauty_template_custom_field','post','side','high');
+		add_meta_box( 'custom-review', 'Reviews', 'review_callback', 'post', 'side', 'high' );
+	}
+	if(has_term('k-entertainment', 'category', $post_id) || has_parent_term('k-entertainment', $post_id)){
+		add_meta_box('template-meta-data','Meta Data','entertainment_template_custom_field','post','side','high');
+	}
+	if(has_term('k-fashion', 'category', $post_id) || has_parent_term('k-fashion', $post_id)){
+		add_meta_box('template-meta-data','Meta Data','fashion_template_custom_field','post','side','high');
+	}
+	if(has_term('k-food', 'category', $post_id) || has_parent_term('k-food', $post_id)){
+		add_meta_box('template-meta-data','Meta Data','food_template_custom_field','post','side','high');
+		add_meta_box( 'custom-review', 'Reviews', 'review_callback', 'post', 'side', 'high' );
+	}
+}
+add_action( 'add_meta_boxes', 'add_custom_meta_box_for_category' );
+
+function beauty_template_custom_field( $post ) {
+	$rating = get_post_meta( $post->ID, 'rating', true );
+    $efficacy = get_post_meta( $post->ID, 'efficacy', true );
+	$packaging = get_post_meta( $post->ID, 'packaging', true );
+	$value = get_post_meta( $post->ID, 'value', true );
+	$skin = get_post_meta( $post->ID, 'skin', true );
+    $benefits = get_post_meta( $post->ID, 'benefits', true );
+	$brand = get_post_meta( $post->ID, 'brand', true );
+	$form = get_post_meta( $post->ID, 'form', true );
+	$tone = get_post_meta( $post->ID, 'tone', true );
+	$quantity = get_post_meta( $post->ID, 'quantity', true );
+    echo '<div style="display: flex;flex-direction: column;gap: 12px;">
+		<div style="display: flex;flex-direction: column;gap: 6px;">
+			<label for="rating">Rating:</label>
+			<input type="text" name="rating" value="' . esc_attr( $rating ) . '" />
+		</div>
+		<div style="display: flex;flex-direction: column;gap: 6px;">
+			<label for="efficacy">Efficacy:</label>
+			<input type="text" name="efficacy" value="' . esc_attr( $efficacy ) . '" />
+		</div>
+		<div style="display: flex;flex-direction: column;gap: 6px;">
+			<label for="packaging">Packaging:</label>
+			<input type="text" name="packaging" value="' . esc_attr( $packaging ) . '" />
+		</div>
+		<div style="display: flex;flex-direction: column;gap: 6px;">
+			<label for="value">Value:</label>
+			<input type="text" name="value" value="' . esc_attr( $value ) . '" />
+		</div>
+		<div style="display: flex;flex-direction: column;gap: 6px;">
+			<label for="skin">Skin Type:</label>
+			<input type="text" name="skin" value="' . esc_attr( $skin ) . '" />
+		</div>
+		<div style="display: flex;flex-direction: column;gap: 6px;">
+			<label for="benefits">Product Benefits:</label>
+			<input type="text" name="benefits" value="' . esc_attr( $benefits ) . '" />
+		</div>
+		<div style="display: flex;flex-direction: column;gap: 6px;">
+			<label for="brand">Brand:</label>
+			<input type="text" name="brand" value="' . esc_attr( $brand ) . '" />
+		</div>
+		<div style="display: flex;flex-direction: column;gap: 6px;">
+			<label for="form">Item Form:</label>
+			<input type="text" name="form" value="' . esc_attr( $form ) . '" />
+		</div>
+		<div style="display: flex;flex-direction: column;gap: 6px;">
+			<label for="tone">Skin Tone:</label>
+			<input type="text" name="tone" value="' . esc_attr( $tone ) . '" />
+		</div>
+		<div style="display: flex;flex-direction: column;gap: 6px;">
+			<label for="quantity">Net Quantity:</label>
+			<input type="text" name="quantity" value="' . esc_attr( $quantity ) . '" />
+		</div>
+		<div style="display: flex;gap: 12px;">
+			<p>Shortcode:</p>
+			<p>[product_data]</p>
+		</div>
+	</div>';
+}
+function entertainment_template_custom_field( $post ) {
+    $rating = get_post_meta( $post->ID, 'rating', true );
+    $cast = get_post_meta( $post->ID, 'cast', true );
+	$featured = get_post_meta( $post->ID, 'featured', true );
+    echo '<div style="display: flex;flex-direction: column;gap: 12px;">
+		<div style="display: flex;flex-direction: column;gap: 6px;">
+			<label for="rating">Rating:</label>
+			<input type="text" name="rating" value="' . esc_attr( $rating ) . '" />
+		</div>
+		<div style="display: flex;flex-direction: column;gap: 6px;">
+			<label for="cast">Cast:</label>
+			<textarea name="cast">' . esc_attr( $cast ) . '</textarea>
+		</div>
+		<div style="display: flex;flex-direction: column;gap: 6px;">
+			<label for="featured">Brands Featured:</label>
+			<textarea name="featured">' . esc_attr( $featured ) . '</textarea>
+		</div>
+	</div>';
+}
+function fashion_template_custom_field( $post ) {
+    $duration = get_post_meta( $post->ID, 'duration', true );
+    $spend = get_post_meta( $post->ID, 'spend', true );
+	$featured = get_post_meta( $post->ID, 'featured', true );
+    echo '<div style="display: flex;flex-direction: column;gap: 12px;">
+		<div style="display: flex;flex-direction: column;gap: 6px;">
+			<label for="duration">Time Taken:</label>
+			<input type="text" name="duration" value="' . esc_attr( $duration ) . '" />
+		</div>
+		<div style="display: flex;flex-direction: column;gap: 6px;">
+			<label for="spend">Money Spent:</label>
+			<input type="text" name="spend" value="' . esc_attr( $spend ) . '" />
+		</div>
+		<div style="display: flex;flex-direction: column;gap: 6px;">
+			<label for="featured">Brands Featured:</label>
+			<textarea name="featured">' . esc_attr( $featured ) . '</textarea>
+		</div>
+	</div>';
+}
+function food_template_custom_field( $post ) {
+	$price = get_post_meta( $post->ID, 'price', true );
+    $rating = get_post_meta( $post->ID, 'rating', true );
+    $food = get_post_meta( $post->ID, 'food', true );
+	$service = get_post_meta( $post->ID, 'service', true );
+	$price_rating = get_post_meta( $post->ID, 'price_rating', true );
+	$address = get_post_meta( $post->ID, 'address', true );
+    $hours = get_post_meta( $post->ID, 'hours', true );
+	$branches = get_post_meta( $post->ID, 'branches', true );
+	$contact = get_post_meta( $post->ID, 'contact', true );
+    echo '<div style="display: flex;flex-direction: column;gap: 12px;">
+		<div style="display: flex;flex-direction: column;gap: 6px;">
+			<label for="price">Price (For Two):</label>
+			<input type="text" name="price" value="' . esc_attr( $price ) . '" />
+		</div>
+		<div style="display: flex;flex-direction: column;gap: 6px;">
+			<label for="rating">Rating:</label>
+			<input type="text" name="rating" value="' . esc_attr( $rating ) . '" />
+		</div>
+		<div style="display: flex;flex-direction: column;gap: 6px;">
+			<label for="food">Food:</label>
+			<input type="text" name="food" value="' . esc_attr( $food ) . '" />
+		</div>
+		<div style="display: flex;flex-direction: column;gap: 6px;">
+			<label for="service">Service:</label>
+			<input type="text" name="service" value="' . esc_attr( $service ) . '" />
+		</div>
+		<div style="display: flex;flex-direction: column;gap: 6px;">
+			<label for="price_rating">Price:</label>
+			<input type="text" name="price_rating" value="' . esc_attr( $price_rating ) . '" />
+		</div>
+		<div style="display: flex;flex-direction: column;gap: 6px;">
+			<label for="address">Address:</label>
+			<textarea name="address">' . esc_attr( $address ) . '</textarea>
+		</div>
+		<div style="display: flex;flex-direction: column;gap: 6px;">
+			<label for="hours">Hours:</label>
+			<input type="text" name="hours" value="' . esc_attr( $hours ) . '" />
+		</div>
+		<div style="display: flex;flex-direction: column;gap: 6px;">
+			<label for="branches">Branches:</label>
+			<textarea name="branches">' . esc_attr( $branches ) . '</textarea>
+		</div>
+		<div style="display: flex;flex-direction: column;gap: 6px;">
+			<label for="contact">Contact Details:</label>
+			<textarea name="contact">' . esc_attr( $contact ) . '</textarea>
+		</div>
+		<div style="display: flex;gap: 12px;">
+			<p>Shortcode:</p>
+			<p>[product_data]</p>
+		</div>
+	</div>';
+}
+function save_custom_field_for_news( $post_id ) {
+	$keys = ['rating','efficacy','packaging','value','ingredients','purpose','skin','benefits','brand','form','tone','quantity','price','food','service','price_rating','cast','featured','duration','spend','address','hours','branches','contact'];
+	foreach($keys as $key){
+		if ( isset( $_POST[$key] ) ) {
+			$custom_field_value = sanitize_text_field( $_POST[$key] );
+			update_post_meta( $post_id, $key, $custom_field_value );
+		}
+	}
+	if(isset( $_POST['pros'] ) ) {
+		update_post_meta( $post_id, 'pros', $_POST['pros'] );
+	}
+	if(isset( $_POST['cons'] ) ) {
+		update_post_meta( $post_id, 'cons', $_POST['cons'] );
+	}
+}
+add_action( 'save_post', 'save_custom_field_for_news' );
+
+
+
+
+
+/*-----------------Review Answer Custom Field-----------------*/
+function review_callback($post){
+	$reviews = get_post_meta($post->ID, "custom-review", true);
+	echo '<div id="review_forum" style="margin-bottom: 4px;">';
+		if(is_array($reviews)){
+			// foreach($reviews as $array){
+			// 	if(empty(array_filter($reviews[array_search($array, $reviews)]))){
+			// 		unset($reviews[array_search($array, $reviews)]);
+			// 	}
+			// }
+			$reviews = array_values($reviews);
+			if(!empty($reviews)){
+				foreach($reviews as $review){
+					$position = array_search($review, $reviews);
+					echo '<div>';
+						echo '<h3>Review '.($position+1).'</h3>';
+						echo '<textarea type="text" class="widefat" name="custom-review['.$position.'][review]" rows="5" placeholder="Review">'.$reviews[$position]['review'].'</textarea>';
+						echo '<input type="text" class="widefat" name="custom-review['.$position.'][author]" placeholder="Author" value="'.$reviews[$position]['author'].'" style="margin-bottom: 4px;">';
+						echo '<input type="button" class="button remove-row" value="Remove">';	
+					echo '</div>';	
+				}
+				$blank_key = array_key_last($reviews)+1;
+			}else{
+				$blank_key = 0;
+			}
+		}else{
+			$reviews = array(array('review' => '', 'author' => ''));
+			$blank_key = 0;
+		}
+		echo '<div>';
+			echo '<h3>Review '.($blank_key+1).'</h3>';
+			echo '<textarea type="text" class="widefat" name="custom-review['.$blank_key.'][review]" rows="5" placeholder="Review"></textarea>';
+			echo '<input type="text" class="widefat" name="custom-review['.$blank_key.'][author]" placeholder="Author" value="" style="margin-bottom: 4px;">';
+			echo '<input type="button" class="button remove-row" value="Remove">';
+		echo '</div>';
+	echo '</div>';
+	echo '<input type="button" class="button add-row" value="Add">';
+	?><script>
+		jQuery(document).ready(function( $ ){
+			var index = '<?php echo ($blank_key+1); ?>';
+			var index = parseInt(index);
+			var review = index + 1;
+			$( '.add-row' ).on('click', function() {
+				$('#review_forum').append('<div><h3>Review '+review+'</h3><textarea type="text" class="widefat" name="custom-review['+index+'][review]" rows="5" placeholder="Review"></textarea><input type="text" class="widefat" name="custom-review['+index+'][author]" placeholder="Author" value="" style="margin-bottom: 4px;"><input type="button" class="button remove-row" value="Remove"></div>');
+				index = index + 1;
+				review = review + 1;
+				$( '.remove-row' ).on('click', function() {
+					$(this).parent().remove();
+				});
+			});
+			$( '.remove-row' ).on('click', function() {
+				$(this).parent().remove();
+			});
+		});
+	</script><?php
+}
+function save_review_answer($post_id){
+	$reviews = isset($_POST["custom-review"])? $_POST["custom-review"]  : false;
+	foreach($reviews as $array){
+		if(empty(array_filter($reviews[array_search($array, $reviews)]))){
+			unset($reviews[array_search($array, $reviews)]);
+		}
+	}
+	update_post_meta($post_id,"custom-review", $reviews);
+}
+add_action("save_post", "save_review_answer");
+
+
+
+
+
+
+function product_data() {
+	$post_id = get_the_ID();
+    ob_start();
+	if(has_term('k-food', 'category', $post_id) || has_parent_term('k-food', $post_id)){
+		$address = get_post_meta( $post_id, 'address', true );
+		$hours = get_post_meta( $post_id, 'hours', true );
+		$branches = get_post_meta( $post_id, 'branches', true );
+		$contact = get_post_meta( $post_id, 'contact', true );
+		if(!empty($address)){
+			echo '<p><strong class="text-[#101010] font-semibold">Address:</strong> '.$address.'</p>';
+		}
+		if(!empty($hours)){
+			echo '<p><strong class="text-[#101010] font-semibold">Hours:</strong> '.$hours.'</p>';
+		}
+		if(!empty($branches)){
+			echo '<p><strong class="text-[#101010] font-semibold">Branches:</strong> '.$branches.'</p>';
+		}
+		if(!empty($contact)){
+			echo '<p><strong class="text-[#101010] font-semibold">Contact Details:</strong> '.$contact.'</p>';
+		}
+	}
+	if(has_term('k-beauty', 'category', $post_id) || has_parent_term('k-beauty', $post_id)){
+		$skin = get_post_meta( $post_id, 'skin', true );
+		$benefits = get_post_meta( $post_id, 'benefits', true );
+		$brand = get_post_meta( $post_id, 'brand', true );
+		$form = get_post_meta( $post_id, 'form', true );
+		$tone = get_post_meta( $post_id, 'tone', true );
+		$quantity = get_post_meta( $post_id, 'quantity', true );
+		if(!empty($skin)){
+			echo '<p><strong class="text-[#101010] font-semibold">Skin Type:</strong> '.$skin.'</p>';
+		}
+		if(!empty($benefits)){
+			echo '<p><strong class="text-[#101010] font-semibold">Product Benefits:</strong> '.$benefits.'</p>';
+		}
+		if(!empty($brand)){
+			echo '<p><strong class="text-[#101010] font-semibold">Brand:</strong> '.$brand.'</p>';
+		}
+		if(!empty($form)){
+			echo '<p><strong class="text-[#101010] font-semibold">Item Form:</strong> '.$form.'</p>';
+		}
+		if(!empty($tone)){
+			echo '<p><strong class="text-[#101010] font-semibold">Skin Tone:</strong> '.$tone.'</p>';
+		}
+		if(!empty($quantity)){
+			echo '<p><strong class="text-[#101010] font-semibold">Net Quantity:</strong> '.$quantity.'</p>';
+		}
+	}
+    return ob_get_clean();
+}
+add_shortcode('product_data', 'product_data');

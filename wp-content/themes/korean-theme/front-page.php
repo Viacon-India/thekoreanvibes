@@ -203,7 +203,6 @@ if ($cat1_posts->have_posts()) :
                             'post_status' => 'publish',
                             'meta_key' => 'post_views_count',
                             'orderby' => 'meta_value_num',
-                            'orderby' => 'date',
                             'order'   => 'DESC',
                             'posts_per_page' => 7
                         ));
@@ -290,7 +289,6 @@ if ($cat2_posts->have_posts()) :
                             'post_status' => 'publish',
                             'meta_key' => 'post_views_count',
                             'orderby' => 'meta_value_num',
-                            'orderby' => 'date',
                             'order'   => 'DESC',
                             'posts_per_page' => 7
                         ));
@@ -371,7 +369,6 @@ if ($cat3_posts->have_posts()) :
                             'post_status' => 'publish',
                             'meta_key' => 'post_views_count',
                             'orderby' => 'meta_value_num',
-                            'orderby' => 'date',
                             'order'   => 'DESC',
                             'posts_per_page' => 7
                         ));
@@ -461,7 +458,6 @@ if ($cat4_posts->have_posts()) :
                             'post_status' => 'publish',
                             'meta_key' => 'post_views_count',
                             'orderby' => 'meta_value_num',
-                            'orderby' => 'date',
                             'order'   => 'DESC',
                             'posts_per_page' => 7
                         ));
@@ -548,7 +544,6 @@ if ($cat5_posts->have_posts()) :
                             'post_status' => 'publish',
                             'meta_key' => 'post_views_count',
                             'orderby' => 'meta_value_num',
-                            'orderby' => 'date',
                             'order'   => 'DESC',
                             'posts_per_page' => 7
                         ));
