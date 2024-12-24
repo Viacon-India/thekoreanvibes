@@ -7,8 +7,6 @@
         <figure class="header1">
             <img src="<?php echo get_template_directory_uri(); ?> ./assets/images/logo.png " alt="">
         </figure>
-
-
         
         <div class="flex flex-col justify-center h-full items-center">
 
