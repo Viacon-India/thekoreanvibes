@@ -1,7 +1,5 @@
 <?php get_header(); ?>
 
-
-
 <section class="for-zero-for">
     <div class="container mx-auto">
         <figure class="header1">
