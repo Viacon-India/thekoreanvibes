@@ -21,55 +21,55 @@ $linkedin = get_option('linkedin'); ?>
                         } ?>
                     </figure>
                 </a>
-                <?php if(!empty($footer_text)) echo '<p class="footer-desc">'.$footer_text.'</p>';?>
+                <?php if (!empty($footer_text)) echo '<p class="footer-desc">' . $footer_text . '</p>'; ?>
                 <?php if (!empty($facebook) && (filter_var($facebook, FILTER_VALIDATE_URL) !== false) || (!empty($linkedin) && (filter_var($linkedin, FILTER_VALIDATE_URL) !== false))) :
                     echo '<div class="icon-sec">';
-                        if (!empty($facebook) && (filter_var($facebook, FILTER_VALIDATE_URL) !== false)){ ?>
-                            <a class="icon-box group" href="<?php echo $facebook; ?>" rel="noopener noreferrer nofollow" target="_blank" aria-label="website_Link">
-                                <svg class="group-hover:fill-[#FCFCFC]" width="14" height="16" viewBox="0 0 8 14" fill="#686868" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M5.33366 8.00065H7.00033L7.66699 5.33398H5.33366V4.00065C5.33366 3.31398 5.33366 2.66732 6.66699 2.66732H7.66699V0.427318C7.44966 0.398651 6.62899 0.333984 5.76233 0.333984C3.95233 0.333984 2.66699 1.43865 2.66699 3.46732V5.33398H0.666992V8.00065H2.66699V13.6673H5.33366V8.00065Z" fill="" />
-                                </svg>
-                            </a>
-                        <?php }
-                        if (!empty($linkedin) && (filter_var($linkedin, FILTER_VALIDATE_URL) !== false)){ ?>
-                            <a class="icon-box group" href="<?php echo $linkedin; ?>" rel="noopener noreferrer nofollow" target="_blank" aria-label="website_Link">
-                                <svg class="group-hover:fill-[#FCFCFC]" width="16" height="16" viewBox="0 0 14 12" fill="#686868" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M3.62764 1.33394C3.62739 1.87681 3.29804 2.36533 2.79488 2.56914C2.29172 2.77295 1.71523 2.65135 1.33725 2.26168C0.959271 1.87201 0.855284 1.29208 1.07432 0.795364C1.29336 0.298644 1.79168 -0.0156827 2.3343 0.000603968C3.05502 0.0222373 3.62796 0.612897 3.62764 1.33394ZM3.66764 3.65394H1.00097V12.0006H3.66764V3.65394ZM7.88098 3.65394H5.22764V12.0006H7.85432V7.62058C7.85432 5.18058 11.0343 4.95392 11.0343 7.62058V12.0006H13.6677V6.71392C13.6677 2.6006 8.96099 2.75394 7.85432 4.77392L7.88098 3.65394Z" fill="" />
-                                </svg>
-                            </a>
-                        <?php }
+                    if (!empty($facebook) && (filter_var($facebook, FILTER_VALIDATE_URL) !== false)) { ?>
+                        <a class="icon-box group" href="<?php echo $facebook; ?>" rel="noopener noreferrer nofollow" target="_blank" aria-label="website_Link">
+                            <svg class="group-hover:fill-[#FCFCFC]" width="14" height="16" viewBox="0 0 8 14" fill="#686868" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5.33366 8.00065H7.00033L7.66699 5.33398H5.33366V4.00065C5.33366 3.31398 5.33366 2.66732 6.66699 2.66732H7.66699V0.427318C7.44966 0.398651 6.62899 0.333984 5.76233 0.333984C3.95233 0.333984 2.66699 1.43865 2.66699 3.46732V5.33398H0.666992V8.00065H2.66699V13.6673H5.33366V8.00065Z" fill="" />
+                            </svg>
+                        </a>
+                    <?php }
+                    if (!empty($linkedin) && (filter_var($linkedin, FILTER_VALIDATE_URL) !== false)) { ?>
+                        <a class="icon-box group" href="<?php echo $linkedin; ?>" rel="noopener noreferrer nofollow" target="_blank" aria-label="website_Link">
+                            <svg class="group-hover:fill-[#FCFCFC]" width="16" height="16" viewBox="0 0 14 12" fill="#686868" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3.62764 1.33394C3.62739 1.87681 3.29804 2.36533 2.79488 2.56914C2.29172 2.77295 1.71523 2.65135 1.33725 2.26168C0.959271 1.87201 0.855284 1.29208 1.07432 0.795364C1.29336 0.298644 1.79168 -0.0156827 2.3343 0.000603968C3.05502 0.0222373 3.62796 0.612897 3.62764 1.33394ZM3.66764 3.65394H1.00097V12.0006H3.66764V3.65394ZM7.88098 3.65394H5.22764V12.0006H7.85432V7.62058C7.85432 5.18058 11.0343 4.95392 11.0343 7.62058V12.0006H13.6677V6.71392C13.6677 2.6006 8.96099 2.75394 7.85432 4.77392L7.88098 3.65394Z" fill="" />
+                            </svg>
+                        </a>
+                <?php }
                     echo '</div>';
                 endif; ?>
             </div>
             <div class="footer-list-sec md:w-[35%] mt-8 md:mt-0">
                 <?php if (isset(get_nav_menu_locations()['footer-menu'])) :
                     echo '<div class="footer-box-sec">';
-                        $useful_menu = get_term(get_nav_menu_locations()['footer-menu'], 'nav_menu');
-                        $useful_menu_items = wp_get_nav_menu_items($useful_menu->term_id);
-                        echo '<h2 class="footer-list-title">' . $useful_menu->name . '</h1>';
-                        echo '<ul class="footer-list-box">';
-                            foreach ($useful_menu_items as $menu_item) :
-                                $parent_ID = $menu_item->ID;
-                                if ($menu_item->menu_item_parent == 0) :
-                                    echo '<li><a href="' . $menu_item->url . '" class="footer-list nav-hov">' . $menu_item->title . '</a></li>';
-                                endif;
-                            endforeach;
-                        echo '</ul>';
+                    $useful_menu = get_term(get_nav_menu_locations()['footer-menu'], 'nav_menu');
+                    $useful_menu_items = wp_get_nav_menu_items($useful_menu->term_id);
+                    echo '<h2 class="footer-list-title">' . $useful_menu->name . '</h1>';
+                    echo '<ul class="footer-list-box">';
+                    foreach ($useful_menu_items as $menu_item) :
+                        $parent_ID = $menu_item->ID;
+                        if ($menu_item->menu_item_parent == 0) :
+                            echo '<li><a href="' . $menu_item->url . '" class="footer-list nav-hov">' . $menu_item->title . '</a></li>';
+                        endif;
+                    endforeach;
+                    echo '</ul>';
                     echo '</div>';
                 endif; ?>
                 <?php if (isset(get_nav_menu_locations()['useful-menu'])) :
                     echo '<div class="footer-box-sec">';
-                        $useful_menu = get_term(get_nav_menu_locations()['useful-menu'], 'nav_menu');
-                        $useful_menu_items = wp_get_nav_menu_items($useful_menu->term_id);
-                        echo '<h2 class="footer-list-title">' . $useful_menu->name . '</h1>';
-                        echo '<ul class="footer-list-box">';
-                            foreach ($useful_menu_items as $menu_item) :
-                                $parent_ID = $menu_item->ID;
-                                if ($menu_item->menu_item_parent == 0) :
-                                    echo '<li><a href="' . $menu_item->url . '" class="footer-list nav-hov">' . $menu_item->title . '</a></li>';
-                                endif;
-                            endforeach;
-                        echo '</ul>';
+                    $useful_menu = get_term(get_nav_menu_locations()['useful-menu'], 'nav_menu');
+                    $useful_menu_items = wp_get_nav_menu_items($useful_menu->term_id);
+                    echo '<h2 class="footer-list-title">' . $useful_menu->name . '</h1>';
+                    echo '<ul class="footer-list-box">';
+                    foreach ($useful_menu_items as $menu_item) :
+                        $parent_ID = $menu_item->ID;
+                        if ($menu_item->menu_item_parent == 0) :
+                            echo '<li><a href="' . $menu_item->url . '" class="footer-list nav-hov">' . $menu_item->title . '</a></li>';
+                        endif;
+                    endforeach;
+                    echo '</ul>';
                     echo '</div>';
                 endif; ?>
             </div>
@@ -83,7 +83,7 @@ $linkedin = get_option('linkedin'); ?>
                 <svg class="pt-[1px]" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M8 0.5C3.86463 0.5 0.5 3.86463 0.5 8C0.5 12.1354 3.86463 15.5 8 15.5C12.1354 15.5 15.5 12.1354 15.5 8C15.5 3.86463 12.1354 0.5 8 0.5ZM8 1.65385C11.5111 1.65385 14.3462 4.48888 14.3462 8C14.3462 11.5111 11.5111 14.3462 8 14.3462C4.48888 14.3462 1.65385 11.5111 1.65385 8C1.65385 4.48888 4.48888 1.65385 8 1.65385ZM7.94591 4.53846C6.02809 4.53846 4.48438 6.08218 4.48438 8C4.48438 9.91782 6.02809 11.4615 7.94591 11.4615C9.32963 11.4615 10.5128 10.6322 11.0649 9.46034L10.0192 8.97356C9.64739 9.76457 8.86989 10.3077 7.94591 10.3077C6.63206 10.3077 5.63822 9.31385 5.63822 8C5.63822 6.68615 6.63206 5.69231 7.94591 5.69231C8.86989 5.69231 9.64739 6.23543 10.0192 7.02644L11.0649 6.53966C10.5128 5.36779 9.32963 4.53846 7.94591 4.53846Z" fill="#141414"></path>
                 </svg>
-                <?php echo date('Y'); ?>&nbsp;<a href="<?php echo home_url(); ?>" class="hover:text-primary transition"><?php echo get_bloginfo( 'name' ); ?></a>.
+                <?php echo date('Y'); ?>&nbsp;<a href="<?php echo home_url(); ?>" class="hover:text-primary transition"><?php echo get_bloginfo('name'); ?></a>.
             </p>
             <p class="copyright">All Rights Reserved</span></a>.</p>
         </div>
@@ -91,9 +91,9 @@ $linkedin = get_option('linkedin'); ?>
 </section>
 
 
-<?php wp_footer();?>
+<?php wp_footer(); ?>
 
-
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
     //  trail js for mentioner JScode
     var currentImg = undefined,
@@ -499,7 +499,17 @@ $linkedin = get_option('linkedin'); ?>
         });
     });
 
-    // about section counter js code end  
+    // beauty post slider js  
+    var swiper = new Swiper(".mySwiper", {
+        pagination: {
+            el: ".swiper-pagination",
+            type: "progressbar",
+        },
+        navigation: {
+            nextEl: ".right",
+            prevEl: ".left",
+        },
+    });
 </script>
 
 <!-- <script>
