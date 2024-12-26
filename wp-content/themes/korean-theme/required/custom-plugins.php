@@ -457,7 +457,7 @@ function add_custom_editor_for_post_temp() {
 	}
 	$single_affiliations = get_post_meta($post_id, 'single_affiliation', true);
     if (!is_array($single_affiliations)) {
-        $single_affiliations = array_fill(0, 3, array('title' => '', 'link' => '', 'image_id' => ''));
+        $single_affiliations = array_fill(0, 3, array('title' => '', 'link' => '', 'text' => '', 'image_id' => ''));
     }
     echo '<div style="display: flex;flex-direction: column;gap: 12px;margin-top: 12px;">';
 		echo '<div style="display: flex;gap: 12px;">
@@ -466,21 +466,26 @@ function add_custom_editor_for_post_temp() {
 		</div>';
 		// for ($i = 0; $i < 3; $i++) {
 		$i=0;
-			$title = esc_attr($single_affiliations[$i]['title']);
-			$link = esc_attr($single_affiliations[$i]['link']);
-			$image_id = $single_affiliations[$i]['image_id'];
-			$image_url = $image_id ? wp_get_attachment_url($image_id) : '';
+		$title = esc_attr($single_affiliations[$i]['title']);
+		$link = esc_attr($single_affiliations[$i]['link']);
+		$text = esc_attr($single_affiliations[$i]['text']);
+		$image_id = $single_affiliations[$i]['image_id'];
+		$image_url = $image_id ? wp_get_attachment_url($image_id) : '';
 
-			echo '<div style="display: flex;gap: 12px;">';
+		echo '<div style="display: flex;gap: 12px;">';
 			
-								echo '<div style="display: flex;flex-direction: column;gap: 6px;justify-content: space-between;"><div style="display: flex;flex-direction: column;gap: 6px;">
-										<label>Title:</label>
-										<input type="text" name="single_affiliation['.$i.'][title]" value="' . $title . '" />
-									</div>';
-								echo '<div style="display: flex;flex-direction: column;gap: 6px;">
-										<label>Link:</label>
-										<input type="text" name="single_affiliation['.$i.'][link]" value="' . $link . '" />
-									</div></div>';
+			echo '<div style="display: flex;flex-direction: column;gap: 6px;justify-content: space-between;"><div style="display: flex;flex-direction: column;gap: 6px;">
+					<label>Title:</label>
+					<input type="text" name="single_affiliation['.$i.'][title]" value="' . $title . '" />
+				</div>';
+			echo '<div style="display: flex;flex-direction: column;gap: 6px;">
+					<label>Link:</label>
+					<input type="text" name="single_affiliation['.$i.'][link]" value="' . $link . '" />
+				</div>';
+			echo '<div style="display: flex;flex-direction: column;gap: 6px;">
+					<label>Button Text:</label>
+					<input type="text" name="single_affiliation['.$i.'][text]" value="' . $text . '" />
+				</div></div>';
 			echo '<div style="display: flex;flex-direction: column;gap: 6px;justify-content: space-between;">
 					<label>Image:</label>
 					<input type="hidden" class="upload_single_image_input" name="single_affiliation['.$i.'][image_id]" value="' . esc_attr($image_id) . '" />
@@ -722,6 +727,7 @@ function save_custom_field_for_templates( $post_id ) {
         $affiliation_data[$index] = array(
             'title'     => sanitize_text_field($affiliation['title']),
             'link'      => esc_url_raw($affiliation['link']),
+			'text'     => sanitize_text_field($affiliation['text']),
             'image_id'  => absint($affiliation['image_id']),
         );
     }
@@ -739,7 +745,7 @@ add_action( 'save_post', 'save_custom_field_for_templates' );
 function affiliation_callback($post) {
     $affiliations = get_post_meta($post->ID, 'affiliation', true);
     if (!is_array($affiliations)) {
-        $affiliations = array_fill(0, 3, array('title' => '', 'link' => '', 'image_id' => ''));
+        $affiliations = array_fill(0, 3, array('title' => '', 'link' => '', 'text' => '', 'image_id' => ''));
     }
     echo '<div style="display: flex;flex-direction: column;gap: 12px;">';
 		echo '<div style="display: flex;gap: 12px;">
@@ -749,6 +755,7 @@ function affiliation_callback($post) {
 		for ($i = 0; $i < 3; $i++) {
 			$title = esc_attr($affiliations[$i]['title']);
 			$link = esc_attr($affiliations[$i]['link']);
+			$text = esc_attr($affiliations[$i]['text']);
 			$image_id = $affiliations[$i]['image_id'];
 			$image_url = $image_id ? wp_get_attachment_url($image_id) : '';
 
@@ -760,6 +767,10 @@ function affiliation_callback($post) {
 			echo '<div style="display: flex;flex-direction: column;gap: 6px;">
 					<label>Link:</label>
 					<input type="text" name="affiliation['.$i.'][link]" value="' . $link . '" />
+				</div>';
+			echo '<div style="display: flex;flex-direction: column;gap: 6px;">
+					<label>Button Text:</label>
+					<input type="text" name="affiliation['.$i.'][text]" value="' . $text . '" />
 				</div>';
 			echo '<div style="display: flex;flex-direction: column;gap: 6px;">
 					<label>Image:</label>
@@ -817,6 +828,7 @@ function save_affiliation_meta($post_id) {
         $affiliation_data[$index] = array(
             'title'     => sanitize_text_field($affiliation['title']),
             'link'      => esc_url_raw($affiliation['link']),
+			'text'      => sanitize_text_field($affiliation['text']),
             'image_id'  => absint($affiliation['image_id']),
         );
     }
@@ -1022,7 +1034,7 @@ function multiple_affiliation() {
 						</figure>
 					<?php endif; ?>
 					<h3 class="product-title"><?php echo $affiliation['title']; ?></h3>
-					<button class="price-btn"><?php echo $affiliation['title']; ?></button>
+					<button class="price-btn"><?php echo $affiliation['text']; ?></button>
 				</a>
 			<?php endforeach; ?>
 		</div>
@@ -1051,7 +1063,7 @@ function single_affiliation() {
 			<?php endif; ?>
 			<div class="bg-[#FAE7F8] w-full p-8 flex flex-col justify-center">
 				<h3 class="product-title"><?php echo $single_affiliations[$i]['title']; ?></h3>
-				<button class="price-btn !w-fit">At Amazon</button>
+				<button class="price-btn !w-fit"><?php echo $single_affiliations[$i]['text']; ?></button>
 			</div>
 		</a>
 	</div><?php endif;
