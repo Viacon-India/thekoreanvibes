@@ -18,10 +18,10 @@ get_header(); ?>
     $author_name = get_the_author_meta('display_name', $author_id);
     $author_URL = get_author_posts_url($author_id);
     $author_desc = get_the_author_meta('description', $author_id);
-    $pros = get_post_meta( $post_id, 'pros', true );
-    $cons = get_post_meta( $post_id, 'cons', true );
-    $ingredients = get_post_meta( $post_id, 'ingredients', true );
-    $purpose = get_post_meta( $post_id, 'purpose', true );
+    $pros = get_post_meta($post_id, 'pros', true);
+    $cons = get_post_meta($post_id, 'cons', true);
+    $ingredients = get_post_meta($post_id, 'ingredients', true);
+    $purpose = get_post_meta($post_id, 'purpose', true);
     $hex_color_1 = get_term_meta($cat_ID, 'hex_code_1', true);
     if (empty($hex_color_1) && !empty($parent_id)) {
         $hex_color_1 = get_term_meta($parent_id, 'hex_code_1', true);
@@ -50,7 +50,7 @@ get_header(); ?>
         }
 
         .comment-view-sec a:hover,
-        .internal-content a:hover {
+        .internal-content a:hover:not(.product-sec a) {
             color: <?php echo $hex_color_1; ?>;
         }
     </style>
@@ -73,6 +73,40 @@ get_header(); ?>
                     <h1 class="internal-h1 md:flex md:items-center">
                         <?php echo the_title_attribute('echo=0'); ?>
                     </h1>
+
+                    <div class="rating-sec mt-6">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="rating-title">Overall Rating:</span>
+                            <span class="rating-desc">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M23.4617 9.35978L23.4619 9.36033C23.5581 9.65681 23.4688 9.98026 23.2341 10.1856L23.2337 10.186L17.9977 14.7771L17.7738 14.9734L17.8397 15.2637L19.3836 22.0647C19.4525 22.3691 19.3345 22.6832 19.0818 22.8664L19.0818 22.8664C18.8297 23.0492 18.4957 23.0632 18.2309 22.9039L18.2298 22.9032L12.2567 19.332L12.0002 19.1787L11.7436 19.332L5.76836 22.9032L5.76814 22.9033C5.64357 22.9779 5.50723 23.0144 5.37098 23.0144C5.21246 23.0144 5.05409 22.9652 4.91671 22.8659C4.6651 22.684 4.54653 22.3705 4.6155 22.0647C4.61552 22.0646 4.61554 22.0646 4.61556 22.0645L6.15943 15.2637L6.22533 14.9734L6.00151 14.7771L0.76548 10.1851L0.764531 10.1842C0.531162 9.98062 0.441917 9.65699 0.538297 9.36059C0.634583 9.06448 0.895605 8.85563 1.20535 8.8268C1.20551 8.82678 1.20568 8.82677 1.20584 8.82675L8.13318 8.19784L8.43046 8.17085L8.54775 7.89636L11.2866 1.48682C11.2867 1.48665 11.2868 1.48648 11.2869 1.48631C11.4105 1.19857 11.6901 1.01465 12.0001 1.01465C12.3102 1.01465 12.5899 1.19873 12.7135 1.48548C12.7136 1.48569 12.7137 1.4859 12.7138 1.48611L15.4525 7.89633L15.5698 8.17085L15.8671 8.19784L22.7941 8.82683L22.7944 8.82686C23.1045 8.8548 23.3662 9.06428 23.4617 9.35978Z" fill="#FFC107" stroke="black" />
+                                </svg>
+                                4.5/5
+                            </span>
+                        </div>
+                        <div class="flex items-center gap-[10px]">
+                            <div class="flex items-center gap-2">
+                                <span class="rating-title">Efficacy:</span>
+                                <span class="rating-desc">4.8</span>
+                            </div>
+                            <svg width="2" height="17" viewBox="0 0 2 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <line x1="0.75" y1="-3.27835e-08" x2="0.750001" y2="17" stroke="#101010" stroke-width="1.5" />
+                            </svg>
+
+                            <div class="flex items-center gap-2">
+                                <span class="rating-title">Packaging:</span>
+                                <span class="rating-desc">4.8</span>
+                            </div>
+                            <svg width="2" height="17" viewBox="0 0 2 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <line x1="0.75" y1="-3.27835e-08" x2="0.750001" y2="17" stroke="#101010" stroke-width="1.5" />
+                            </svg>
+
+                            <div class="flex items-center gap-2">
+                                <span class="rating-title">Value:</span>
+                                <span class="rating-desc">4.8</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="single-cat-info-wrapper">
                     <span class="single-cat-info" style="color:<?php echo $hex_color_1; ?>;">
@@ -127,21 +161,119 @@ get_header(); ?>
                         </h1> -->
 
                         <div class="internal-content">
-                            <?php if(!empty($ingredients)){
-                                echo '<p><strong class="text-[#101010] font-semibold">Key Ingredients:</strong> '.$ingredients.'</p>';
+                            <?php if (!empty($ingredients)) {
+                                echo '<p><strong class="text-[#101010] font-semibold">Key Ingredients:</strong> ' . $ingredients . '</p>';
                             }
-                            if(!empty($purpose)){
-                                echo '<p><strong class="text-[#101010] font-semibold">What It Does:</strong> '.$purpose.'</p>';
+                            if (!empty($purpose)) {
+                                echo '<p><strong class="text-[#101010] font-semibold">What It Does:</strong> ' . $purpose . '</p>';
                             }
-                            if(!empty($pros)){
+                            if (!empty($pros)) {
                                 echo '<p><strong class="text-[#101010] font-semibold">Pros:</strong></p>';
                                 echo $pros;
                             }
-                            if(!empty($cons)){
+                            if (!empty($cons)) {
                                 echo '<p><strong class="text-[#101010] font-semibold">Cons:</strong></p>';
                                 echo $cons;
                             } ?>
                             <?php the_content(); ?>
+                            <div class="swiper mySwiper !pb-[64px] !relative">
+                                <div class="swiper-wrapper">
+                                    <svg class="absolute top-[-16px] left-[30px] z-1" width="121" height="76" viewBox="0 0 121 76" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M0 76V34.8689L14.6406 0H44.9265L35.4531 33.588H53.6821V76H0ZM67.3179 76V34.8689L81.9585 0H112.244L102.771 33.588H121V76H67.3179Z" fill="#F4D2F3" />
+                                    </svg>
+                                    <svg class="absolute bottom-0 right-[30px] z-1" width="121" height="76" viewBox="0 0 121 76" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M121 0V41.1311L106.359 76H76.0735L85.5469 42.412H67.3179V0H121ZM53.6821 0V41.1311L39.0415 76H8.75564L18.229 42.412H0V0H53.6821Z" fill="#F4D2F3" />
+                                    </svg>
+
+                                    <div class="swiper-slide">
+                                        <div class="slider-box-content relative py-[60px] px-[48px] 2xl:px-[96px] rounded-[10px] !h-[350px]" style="background-color:#FAE7F8">
+                                            <p style="color:#101010" class="!text-[22px] 2xl:!text-[24px] !font-Anton !text-center !leading-[1.5] !capitalize">“I recently bought the Snail 96 face serum brand SHRUR on amazon, and it's been amazing! From the first use, my skin felt softer and more hydrated. Within days, my complexion looked brighter and smoother. The serum is lightweight, non-greasy, and perfect for all skin types.” </p>
+                                            <span class="flex justify-center items-center gap-2 mt-6 !text-[18px] !font-Chai">
+                                                <svg width="24" height="1" viewBox="0 0 24 1" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <line x1="4.37114e-08" y1="0.5" x2="24" y2="0.500002" stroke="#101010" />
+                                                </svg>
+                                                Barsha Bhattacharya</span>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="slider-box-content relative py-[60px] px-[48px] 2xl:px-[96px] rounded-[10px] !h-[350px]" style="background-color:#FAE7F8">
+                                            <p style="color:#101010" class="!text-[22px] 2xl:!text-[24px] !font-Anton !text-center !leading-[1.5] !capitalize">“I recently bought the Snail 96 face serum brand SHRUR on amazon, and it's been amazing!” </p>
+                                            <span class="flex justify-center items-center gap-2 mt-6 !text-[18px] !font-Chai">
+                                                <svg width="24" height="1" viewBox="0 0 24 1" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <line x1="4.37114e-08" y1="0.5" x2="24" y2="0.500002" stroke="#101010" />
+                                                </svg>
+                                                Barsha Bhattacharya</span>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="slider-box-content relative py-[60px] px-[48px] 2xl:px-[96px] rounded-[10px] !h-[350px]" style="background-color:#FAE7F8">
+                                            <p style="color:#101010" class="!text-[22px] 2xl:!text-[24px] !font-Anton !text-center !leading-[1.5] !capitalize">“I recently bought the Snail 96 face serum brand SHRUR on amazon, and it's been amazing! From the first use, my skin felt softer and more hydrated. Within days, my complexion looked brighter and smoother. The serum is lightweight, non-greasy, and perfect for all skin types.” </p>
+                                            <span class="flex justify-center items-center gap-2 mt-6 !text-[18px] !font-Chai">
+                                                <svg width="24" height="1" viewBox="0 0 24 1" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <line x1="4.37114e-08" y1="0.5" x2="24" y2="0.500002" stroke="#101010" />
+                                                </svg>
+                                                Barsha Bhattacharya</span>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="slider-box-content relative py-[60px] px-[48px] 2xl:px-[96px] rounded-[10px] !h-[350px]" style="background-color:#FAE7F8">
+                                            <p style="color:#101010" class="!text-[22px] 2xl:!text-[24px] !font-Anton !text-center !leading-[1.5] !capitalize">“I recently bought the Snail 96 face serum brand SHRUR on amazon, and it's been amazing! From the first use, my skin felt softer and more hydrated. Within days, my complexion looked brighter and smoother. The serum is lightweight, non-greasy, and perfect for all skin types.” </p>
+                                            <span class="flex justify-center items-center gap-2 mt-6 !text-[18px] !font-Chai">
+                                                <svg width="24" height="1" viewBox="0 0 24 1" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <line x1="4.37114e-08" y1="0.5" x2="24" y2="0.500002" stroke="#101010" />
+                                                </svg>
+                                                Barsha Bhattacharya</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slider-btn">
+                                    <div class="left group">
+                                        <svg class="group-hover:fill-[#FFFFFF]" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="#303030">
+                                            <path d="M9.75062 14.3197C9.75062 14.5731 9.85435 14.8265 10.0614 15.0197L16.5786 21.0996C16.9932 21.4863 17.6654 21.4863 18.0798 21.0996C18.4942 20.713 18.4942 20.086 18.0798 19.6992L12.3129 14.3197L18.0796 8.94007C18.494 8.55331 18.494 7.92643 18.0796 7.53986C17.6652 7.15291 16.993 7.15291 16.5784 7.53986L10.0611 13.6197C9.85411 13.813 9.75062 14.0663 9.75062 14.3197Z" fill="" />
+                                        </svg>
+                                    </div>
+                                    <div class="right group">
+                                        <svg class="group-hover:fill-[#FFFFFF]" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="#303030">
+                                            <path d="M18.39 14.3197C18.39 14.5731 18.2863 14.8265 18.0793 15.0197L11.562 21.0996C11.1474 21.4863 10.4752 21.4863 10.0608 21.0996C9.6464 20.713 9.6464 20.086 10.0608 19.6992L15.8277 14.3197L10.061 8.94007C9.6466 8.55331 9.6466 7.92643 10.061 7.53986C10.4754 7.15291 11.1476 7.15291 11.5622 7.53986L18.0795 13.6197C18.2865 13.813 18.39 14.0663 18.39 14.3197Z" fill="" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="swiper-pagination"></div>
+                            </div>
+                            <div class="product-sec mb-8">
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
+                                    <a href="#">
+                                        <figure class="w-full h-[250px] !mb-3">
+                                            <img class="w-full h-full object-cover rounded-[10px]" src="<?php echo get_template_directory_uri(); ?>/assets/images/product1.jpg" alt="card11" />
+                                        </figure>
+                                        <h3 class="product-title">Peach Slices Snail Rescue Blemish Busting Toner</h3>
+                                        <button class="price-btn">$14 At Amazon</button>
+                                    </a>
+                                    <a href="#">
+                                        <figure class="w-full h-[250px] !mb-3">
+                                            <img class="w-full h-full object-cover rounded-[10px]" src="<?php echo get_template_directory_uri(); ?>/assets/images/product2.jpg" alt="card11" />
+                                        </figure>
+                                        <h3 class="product-title">Peach Slices Snail Rescue Blemish Busting Toner</h3>
+                                        <button class="price-btn">$14 At Amazon</button>
+                                    </a>
+                                    <a href="#">
+                                        <figure class="w-full h-[250px] !mb-3">
+                                            <img class="w-full h-full object-cover rounded-[10px]" src="<?php echo get_template_directory_uri(); ?>/assets/images/product3.jpg" alt="card11" />
+                                        </figure>
+                                        <h3 class="product-title">Peach Slices Snail Rescue Blemish Busting Toner</h3>
+                                        <button class="price-btn">$14 At Amazon</button>
+                                    </a>
+                                </div>
+                                <a class="flex flex-col md:flex-row mt-5" href="#">
+                                    <figure class="w-full md:w-[40%] h-[280px] md:h-[340px] !mb-3 md:!mb-0">
+                                        <img class="w-full h-full object-cover !rounded-tr-[0px] !rounded-br-[0px] !my-0" src="<?php echo get_template_directory_uri(); ?>/assets/images/product1.jpg" alt="card11" />
+                                    </figure>
+                                    <div class="bg-[#FAE7F8] w-full p-8 flex flex-col justify-center">
+                                        <h3 class="product-title">Peach Slices Snail Rescue Blemish Busting Toner</h3>
+                                        <button class="price-btn !w-fit">$14 At Amazon</button>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
 
                         <?php if ($tags) { ?>

@@ -99,7 +99,7 @@ Text Domain: ev
   .internal-content th, .internal-content td {
     @apply border-r
   }
- .internal-content a{
+ .internal-content a:not(.product-sec a){
     @apply transition underline underline-offset-2
   }
 
@@ -1979,4 +1979,33 @@ content: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/200
 
 .wpcf7-form-control-wrap input::placeholder{
   @apply !text-[#101010]
+}
+
+
+
+/* Adnan css */
+.slider-btn{
+  @apply absolute top-[92%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 w-[30%] flex justify-between transition-all duration-300 ease-in-out px-2 md:px-4 xl:px-10
+}
+.right, .left{
+  @apply w-6 h-6 md:w-8 md:h-8 bg-white flex justify-center items-center border border-[#101010] rounded-[6px] hover:bg-[#101010]
+  transition-all duration-300
+}
+.swiper-pagination{
+  @apply !absolute !top-[92%] !w-[60px] !rounded-[10px] !left-1/2 !transform -translate-x-1/2
+}
+.swiper-pagination-progressbar span{
+  @apply !bg-[#101010] !rounded-[20%]
+}
+.product-title{
+  @apply !text-[22px] !font-medium !font-Chai !underline-offset-0 !mt-0 
+}
+.price-btn{
+  @apply text-[#FFFFFF] text-[18px] bg-[#101010] rounded-[4px] px-6 py-3 leading-[1] mt-4 font-Chai
+}
+.rating-title{
+  @apply text-[24px] font-Chai font-medium text-[#101010]
+}
+.rating-desc{
+  @apply text-[#101010] text-[24px] font-[300] font-Chai flex items-center gap-1
 }
