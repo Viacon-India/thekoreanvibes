@@ -395,6 +395,7 @@ add_action('save_post', 'save_custom_page_meta_box');
 
 
 
+/*-----------------Post Template-----------------*/
 function custom_post_template($template) {
     if (is_single()) {
         $post_id = get_the_ID();
@@ -417,8 +418,6 @@ function custom_post_template($template) {
     return $template;
 }
 add_filter('single_template', 'custom_post_template');
-
-
 function has_parent_term($term_slug, $post_id) {
     $terms = get_the_terms($post_id, 'category');
     if ($terms) {
@@ -431,9 +430,7 @@ function has_parent_term($term_slug, $post_id) {
 
 
 
-
-
-// Add a custom meta box for posts belonging to specific categories
+/*-----------------Template Custom Field-----------------*/
 function add_custom_editor_for_post_temp() {
     $post_id = get_the_ID();
     if (has_term('k-beauty', 'category', $post_id) || has_parent_term('k-beauty', $post_id)) {
@@ -458,13 +455,89 @@ function add_custom_editor_for_post_temp() {
 			</div>
 		</div>';
 	}
+	$single_affiliations = get_post_meta($post_id, 'single_affiliation', true);
+    if (!is_array($single_affiliations)) {
+        $single_affiliations = array_fill(0, 3, array('title' => '', 'link' => '', 'image_id' => ''));
+    }
+    echo '<div style="display: flex;flex-direction: column;gap: 12px;margin-top: 12px;">';
+		echo '<div style="display: flex;gap: 12px;">
+			<p>Shortcode:</p>
+			<p>[single_product_affiliation]</p>
+		</div>';
+		// for ($i = 0; $i < 3; $i++) {
+		$i=0;
+			$title = esc_attr($single_affiliations[$i]['title']);
+			$link = esc_attr($single_affiliations[$i]['link']);
+			$image_id = $single_affiliations[$i]['image_id'];
+			$image_url = $image_id ? wp_get_attachment_url($image_id) : '';
+
+			echo '<div style="display: flex;gap: 12px;">';
+			
+								echo '<div style="display: flex;flex-direction: column;gap: 6px;justify-content: space-between;"><div style="display: flex;flex-direction: column;gap: 6px;">
+										<label>Title:</label>
+										<input type="text" name="single_affiliation['.$i.'][title]" value="' . $title . '" />
+									</div>';
+								echo '<div style="display: flex;flex-direction: column;gap: 6px;">
+										<label>Link:</label>
+										<input type="text" name="single_affiliation['.$i.'][link]" value="' . $link . '" />
+									</div></div>';
+			echo '<div style="display: flex;flex-direction: column;gap: 6px;justify-content: space-between;">
+					<label>Image:</label>
+					<input type="hidden" class="upload_single_image_input" name="single_affiliation['.$i.'][image_id]" value="' . esc_attr($image_id) . '" />
+					<input type="button" class="upload_single_image_button button" value="Upload Image" />
+					'.($image_url ? '<input type="button" class="remove_single_image_button button" value="Remove Image">' : '').'
+				</div>
+				<img src="' . esc_url($image_url) . '" style="width:254px;height:auto;border:0;display:' . ($image_url ? 'block' : 'none') . ';" alt="internal-image"/>';
+			echo '</div>';
+			// if ($i < 2) {
+			// 	echo '<span style="width: 100%;height: 2px;background-color: #101010;"></span>';
+			// }
+		// }
+    echo '</div>';
+    ?>
+	<script>
+		jQuery(document).ready(function($) {
+			$('body').on('click', '.upload_single_image_button', function(e) {
+				e.preventDefault();
+				var button = $(this);
+				var inputField = button.siblings('.upload_single_image_input');
+				var imageField = button.parent().siblings('img');
+				var mediaUploader;
+				mediaUploader = wp.media.frames.file_frame = wp.media({
+					title: 'Select Image',
+					button: {
+						text: 'Use this image'
+					},
+					multiple: false
+				});
+				mediaUploader.open();
+				mediaUploader.on('select', function() {
+					var attachment = mediaUploader.state().get('selection').first().toJSON();
+					var check = imageField.attr('src');
+					imageField.attr('src', attachment.url).css('display', 'block');
+					inputField.val(attachment.id);
+					if(!check) button.after('<input type="button" class="remove_single_image_button button" value="Remove Image">');
+				});
+			});
+			$('body').on('click', '.remove_single_image_button', function(e) {
+				var button = $(this);
+				var imageField = button.parent().siblings('img');
+				var inputField = button.siblings('.upload_single_image_input');
+				imageField.attr('src', '').css('display', 'none');
+				inputField.val('');
+				button.remove();
+			});
+		});
+	</script>
+	<?php
 }
 add_action( 'edit_form_after_editor', 'add_custom_editor_for_post_temp' );
 function add_custom_meta_box_for_category() {
     $post_id = get_the_ID();
     if(has_term('k-beauty', 'category', $post_id) || has_parent_term('k-beauty', $post_id)){
-		add_meta_box('template-meta-data','Meta Data','beauty_template_custom_field','post','side','high');
-		add_meta_box( 'custom-review', 'Reviews', 'review_callback', 'post', 'side', 'high' );
+		add_meta_box('template-meta-data','Meta Data','beauty_template_custom_field','post','side','default');
+		add_meta_box( 'custom-review', 'Reviews', 'review_callback', 'post', 'side', 'default' );
+		add_meta_box( 'custom_affiliation', 'Affiliation', 'affiliation_callback', 'post', 'side', 'default' );
 	}
 	if(has_term('k-entertainment', 'category', $post_id) || has_parent_term('k-entertainment', $post_id)){
 		add_meta_box('template-meta-data','Meta Data','entertainment_template_custom_field','post','side','high');
@@ -475,6 +548,7 @@ function add_custom_meta_box_for_category() {
 	if(has_term('k-food', 'category', $post_id) || has_parent_term('k-food', $post_id)){
 		add_meta_box('template-meta-data','Meta Data','food_template_custom_field','post','side','high');
 		add_meta_box( 'custom-review', 'Reviews', 'review_callback', 'post', 'side', 'high' );
+		add_meta_box( 'custom_affiliation', 'Affiliation', 'affiliation_callback', 'post', 'side', 'default' );
 	}
 }
 add_action( 'add_meta_boxes', 'add_custom_meta_box_for_category' );
@@ -507,6 +581,10 @@ function beauty_template_custom_field( $post ) {
 			<label for="value">Value:</label>
 			<input type="text" name="value" value="' . esc_attr( $value ) . '" />
 		</div>
+		<div style="display: flex;gap: 12px;">
+			<p>Shortcode:</p>
+			<p>[product_data]</p>
+		</div>
 		<div style="display: flex;flex-direction: column;gap: 6px;">
 			<label for="skin">Skin Type:</label>
 			<input type="text" name="skin" value="' . esc_attr( $skin ) . '" />
@@ -530,10 +608,6 @@ function beauty_template_custom_field( $post ) {
 		<div style="display: flex;flex-direction: column;gap: 6px;">
 			<label for="quantity">Net Quantity:</label>
 			<input type="text" name="quantity" value="' . esc_attr( $quantity ) . '" />
-		</div>
-		<div style="display: flex;gap: 12px;">
-			<p>Shortcode:</p>
-			<p>[product_data]</p>
 		</div>
 	</div>';
 }
@@ -606,6 +680,10 @@ function food_template_custom_field( $post ) {
 			<label for="price_rating">Price:</label>
 			<input type="text" name="price_rating" value="' . esc_attr( $price_rating ) . '" />
 		</div>
+		<div style="display: flex;gap: 12px;">
+			<p>Shortcode:</p>
+			<p>[product_data]</p>
+		</div>
 		<div style="display: flex;flex-direction: column;gap: 6px;">
 			<label for="address">Address:</label>
 			<textarea name="address">' . esc_attr( $address ) . '</textarea>
@@ -622,13 +700,9 @@ function food_template_custom_field( $post ) {
 			<label for="contact">Contact Details:</label>
 			<textarea name="contact">' . esc_attr( $contact ) . '</textarea>
 		</div>
-		<div style="display: flex;gap: 12px;">
-			<p>Shortcode:</p>
-			<p>[product_data]</p>
-		</div>
 	</div>';
 }
-function save_custom_field_for_news( $post_id ) {
+function save_custom_field_for_templates( $post_id ) {
 	$keys = ['rating','efficacy','packaging','value','ingredients','purpose','skin','benefits','brand','form','tone','quantity','price','food','service','price_rating','cast','featured','duration','spend','address','hours','branches','contact'];
 	foreach($keys as $key){
 		if ( isset( $_POST[$key] ) ) {
@@ -642,10 +716,117 @@ function save_custom_field_for_news( $post_id ) {
 	if(isset( $_POST['cons'] ) ) {
 		update_post_meta( $post_id, 'cons', $_POST['cons'] );
 	}
+    if (!isset($_POST['single_affiliation'])) return $post_id;
+    $affiliation_data = array();
+    foreach ($_POST['single_affiliation'] as $index => $affiliation) {
+        $affiliation_data[$index] = array(
+            'title'     => sanitize_text_field($affiliation['title']),
+            'link'      => esc_url_raw($affiliation['link']),
+            'image_id'  => absint($affiliation['image_id']),
+        );
+    }
+
+    // Save the meta data
+    update_post_meta($post_id, 'single_affiliation', $affiliation_data);
+
+    return $post_id;
 }
-add_action( 'save_post', 'save_custom_field_for_news' );
+add_action( 'save_post', 'save_custom_field_for_templates' );
 
 
+
+/*-----------------Affiliation Custom Field-----------------*/
+function affiliation_callback($post) {
+    $affiliations = get_post_meta($post->ID, 'affiliation', true);
+    if (!is_array($affiliations)) {
+        $affiliations = array_fill(0, 3, array('title' => '', 'link' => '', 'image_id' => ''));
+    }
+    echo '<div style="display: flex;flex-direction: column;gap: 12px;">';
+		echo '<div style="display: flex;gap: 12px;">
+			<p>Shortcode:</p>
+			<p>[product_affiliation]</p>
+		</div>';
+		for ($i = 0; $i < 3; $i++) {
+			$title = esc_attr($affiliations[$i]['title']);
+			$link = esc_attr($affiliations[$i]['link']);
+			$image_id = $affiliations[$i]['image_id'];
+			$image_url = $image_id ? wp_get_attachment_url($image_id) : '';
+
+			echo '<div>';
+			echo '<div style="display: flex;flex-direction: column;gap: 6px;">
+					<label>Title:</label>
+					<input type="text" name="affiliation['.$i.'][title]" value="' . $title . '" />
+				</div>';
+			echo '<div style="display: flex;flex-direction: column;gap: 6px;">
+					<label>Link:</label>
+					<input type="text" name="affiliation['.$i.'][link]" value="' . $link . '" />
+				</div>';
+			echo '<div style="display: flex;flex-direction: column;gap: 6px;">
+					<label>Image:</label>
+					<img src="' . esc_url($image_url) . '" style="width:254px;height:auto;border:0;display:' . ($image_url ? 'block' : 'none') . ';" alt="internal-image"/>
+					<input type="hidden" class="upload_image_input" name="affiliation['.$i.'][image_id]" value="' . esc_attr($image_id) . '" />
+					<input type="button" class="upload_image_button button" value="Upload Image" />
+					'.($image_url ? '<input type="button" class="remove_image_button button" value="Remove Image">' : '').'
+				</div>';
+			echo '</div>';
+			if ($i < 2) {
+				echo '<span style="width: 100%;height: 2px;background-color: #101010;"></span>';
+			}
+		}
+    echo '</div>';
+    ?><script>
+		jQuery(document).ready(function($) {
+			$('body').on('click', '.upload_image_button', function(e) {
+				e.preventDefault();
+				var button = $(this);
+				var inputField = button.siblings('.upload_image_input');
+				var imageField = button.siblings('img');
+				var mediaUploader;
+				mediaUploader = wp.media.frames.file_frame = wp.media({
+					title: 'Select Image',
+					button: {
+						text: 'Use this image'
+					},
+					multiple: false
+				});
+				mediaUploader.open();
+				mediaUploader.on('select', function() {
+					var attachment = mediaUploader.state().get('selection').first().toJSON();
+					var check = imageField.attr('src');
+					imageField.attr('src', attachment.url).css('display', 'block');
+					inputField.val(attachment.id);
+					if(!check) button.after('<input type="button" class="remove_image_button button" value="Remove Image">');
+				});
+			});
+			$('body').on('click', '.remove_image_button', function(e) {
+				var button = $(this);
+				var imageField = button.siblings('img');
+				var inputField = button.siblings('.upload_image_input');
+				imageField.attr('src', '').css('display', 'none');
+				inputField.val('');
+				button.remove();
+			});
+		});
+	</script><?php
+}
+function save_affiliation_meta($post_id) {
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return $post_id;
+    if (!isset($_POST['affiliation'])) return $post_id;
+    $affiliation_data = array();
+    foreach ($_POST['affiliation'] as $index => $affiliation) {
+        $affiliation_data[$index] = array(
+            'title'     => sanitize_text_field($affiliation['title']),
+            'link'      => esc_url_raw($affiliation['link']),
+            'image_id'  => absint($affiliation['image_id']),
+        );
+    }
+
+    // Save the meta data
+    update_post_meta($post_id, 'affiliation', $affiliation_data);
+
+    return $post_id;
+}
+add_action('save_post', 'save_affiliation_meta');
 
 
 
@@ -653,6 +834,10 @@ add_action( 'save_post', 'save_custom_field_for_news' );
 function review_callback($post){
 	$reviews = get_post_meta($post->ID, "custom-review", true);
 	echo '<div id="review_forum" style="margin-bottom: 4px;">';
+		echo '<div style="display: flex;gap: 12px;">
+			<p>Shortcode:</p>
+			<p>[reviews]</p>
+		</div>';
 		if(is_array($reviews)){
 			// foreach($reviews as $array){
 			// 	if(empty(array_filter($reviews[array_search($array, $reviews)]))){
@@ -718,9 +903,7 @@ add_action("save_post", "save_review_answer");
 
 
 
-
-
-
+/*-----------------Product Data Short Code-----------------*/
 function product_data() {
 	$post_id = get_the_ID();
     ob_start();
@@ -771,3 +954,107 @@ function product_data() {
     return ob_get_clean();
 }
 add_shortcode('product_data', 'product_data');
+
+
+
+/*-----------------Reviews Short Code-----------------*/
+function reviews() {
+	$post_id = get_the_ID();
+	$reviews = get_post_meta($post_id, "custom-review", true);
+    ob_start();
+	if(!empty($reviews)):
+	?><div class="swiper mySwiper !pb-[64px] !relative">
+		<div class="swiper-wrapper">
+			<?php foreach($reviews as $review): ?>
+				<div class="swiper-slide">
+					<svg class="absolute top-[-16px] left-[30px] z-1" width="121" height="76" viewBox="0 0 121 76" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M0 76V34.8689L14.6406 0H44.9265L35.4531 33.588H53.6821V76H0ZM67.3179 76V34.8689L81.9585 0H112.244L102.771 33.588H121V76H67.3179Z" fill="#F4D2F3" />
+					</svg>
+					<svg class="absolute bottom-0 right-[30px] z-1" width="121" height="76" viewBox="0 0 121 76" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M121 0V41.1311L106.359 76H76.0735L85.5469 42.412H67.3179V0H121ZM53.6821 0V41.1311L39.0415 76H8.75564L18.229 42.412H0V0H53.6821Z" fill="#F4D2F3" />
+					</svg>
+					<div class="slider-box-content relative py-[60px] px-[48px] 2xl:px-[96px] rounded-[10px] !h-[350px]" style="background-color:#FAE7F8">
+						<p style="color:#101010" class="!text-[22px] 2xl:!text-[24px] !font-Anton !text-center !leading-[1.5] !capitalize"><?php echo $review['review']; ?></p>
+						<span class="flex justify-center items-center gap-2 mt-6 !text-[18px] !font-Chai">
+							<svg width="24" height="1" viewBox="0 0 24 1" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<line x1="4.37114e-08" y1="0.5" x2="24" y2="0.500002" stroke="#101010" />
+							</svg>
+							<?php echo $review['author']; ?></span>
+					</div>
+				</div>
+			<?php endforeach; ?>
+		</div>
+		<div class="slider-btn">
+			<div class="left group">
+				<svg class="group-hover:fill-[#FFFFFF]" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="#303030">
+					<path d="M9.75062 14.3197C9.75062 14.5731 9.85435 14.8265 10.0614 15.0197L16.5786 21.0996C16.9932 21.4863 17.6654 21.4863 18.0798 21.0996C18.4942 20.713 18.4942 20.086 18.0798 19.6992L12.3129 14.3197L18.0796 8.94007C18.494 8.55331 18.494 7.92643 18.0796 7.53986C17.6652 7.15291 16.993 7.15291 16.5784 7.53986L10.0611 13.6197C9.85411 13.813 9.75062 14.0663 9.75062 14.3197Z" fill="" />
+				</svg>
+			</div>
+			<div class="right group">
+				<svg class="group-hover:fill-[#FFFFFF]" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="#303030">
+					<path d="M18.39 14.3197C18.39 14.5731 18.2863 14.8265 18.0793 15.0197L11.562 21.0996C11.1474 21.4863 10.4752 21.4863 10.0608 21.0996C9.6464 20.713 9.6464 20.086 10.0608 19.6992L15.8277 14.3197L10.061 8.94007C9.6466 8.55331 9.6466 7.92643 10.061 7.53986C10.4754 7.15291 11.1476 7.15291 11.5622 7.53986L18.0795 13.6197C18.2865 13.813 18.39 14.0663 18.39 14.3197Z" fill="" />
+				</svg>
+			</div>
+		</div>
+		<div class="swiper-pagination"></div>
+	</div><?php endif;
+    return ob_get_clean();
+}
+add_shortcode('reviews', 'reviews');
+
+
+
+/*-----------------Product Affiliation Short Code-----------------*/
+function multiple_affiliation() {
+	$post_id = get_the_ID();
+	$affiliations = get_post_meta($post_id, 'affiliation', true);
+    ob_start();
+	if(!empty($affiliations)):
+	?><div class="product-sec mb-8">
+		<div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
+			<?php foreach($affiliations as $affiliation):
+				$image_id = $affiliation['image_id'];
+				$image_url = $image_id ? wp_get_attachment_image_url( $image_id, 'multiple_affiliation_thumbnail' ) : ''; ?>
+				<a href="<?php echo $affiliation['link']??'#'; ?>">
+					<?php if(!empty($image_url)): ?>
+						<figure class="w-full h-[250px] !mb-3">
+							<img class="w-full h-full object-cover rounded-[10px]" src="<?php echo $image_url; ?>" alt="card11" />
+						</figure>
+					<?php endif; ?>
+					<h3 class="product-title"><?php echo $affiliation['title']; ?></h3>
+					<button class="price-btn"><?php echo $affiliation['title']; ?></button>
+				</a>
+			<?php endforeach; ?>
+		</div>
+	</div><?php endif;
+    return ob_get_clean();
+}
+add_shortcode('product_affiliation', 'multiple_affiliation');
+
+
+
+/*-----------------Product Affiliation Short Code-----------------*/
+function single_affiliation() {
+	$post_id = get_the_ID();
+	$single_affiliations = get_post_meta($post_id, 'single_affiliation', true);
+	$i=0;
+    ob_start();
+	if(!empty($single_affiliations) && array_key_exists($i,$single_affiliations)):
+		$image_id = $single_affiliations[$i]['image_id'];
+		$image_url = $image_id ? wp_get_attachment_image_url( $image_id, 'single_affiliation_thumbnail' ) : '';
+	?><div class="product-sec mb-8">
+		<a class="flex flex-col md:flex-row mt-5" href="<?php echo $single_affiliations[$i]['link']??'#'; ?>">
+			<?php if(!empty($image_url)): ?>
+				<figure class="w-full md:w-[40%] h-[280px] md:h-[340px] !mb-3 md:!mb-0">
+					<img class="w-full h-full object-cover !rounded-tr-[0px] !rounded-br-[0px] !my-0" src="<?php echo $image_url; ?>" alt="card11" />
+				</figure>
+			<?php endif; ?>
+			<div class="bg-[#FAE7F8] w-full p-8 flex flex-col justify-center">
+				<h3 class="product-title"><?php echo $single_affiliations[$i]['title']; ?></h3>
+				<button class="price-btn !w-fit">At Amazon</button>
+			</div>
+		</a>
+	</div><?php endif;
+    return ob_get_clean();
+}
+add_shortcode('single_product_affiliation', 'single_affiliation');
