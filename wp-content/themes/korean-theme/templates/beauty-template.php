@@ -18,6 +18,10 @@ get_header(); ?>
     $author_name = get_the_author_meta('display_name', $author_id);
     $author_URL = get_author_posts_url($author_id);
     $author_desc = get_the_author_meta('description', $author_id);
+    $rating = get_post_meta( $post->ID, 'rating', true );
+    $efficacy = get_post_meta( $post->ID, 'efficacy', true );
+	$packaging = get_post_meta( $post->ID, 'packaging', true );
+	$value = get_post_meta( $post->ID, 'value', true );
     $pros = get_post_meta($post_id, 'pros', true);
     $cons = get_post_meta($post_id, 'cons', true);
     $ingredients = get_post_meta($post_id, 'ingredients', true);
@@ -73,40 +77,49 @@ get_header(); ?>
                     <h1 class="internal-h1 md:flex md:items-center">
                         <?php echo the_title_attribute('echo=0'); ?>
                     </h1>
-
-                    <div class="rating-sec mt-6">
-                        <div class="flex items-center gap-2 mb-2">
-                            <span class="rating-title">Overall Rating:</span>
-                            <span class="rating-desc">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M23.4617 9.35978L23.4619 9.36033C23.5581 9.65681 23.4688 9.98026 23.2341 10.1856L23.2337 10.186L17.9977 14.7771L17.7738 14.9734L17.8397 15.2637L19.3836 22.0647C19.4525 22.3691 19.3345 22.6832 19.0818 22.8664L19.0818 22.8664C18.8297 23.0492 18.4957 23.0632 18.2309 22.9039L18.2298 22.9032L12.2567 19.332L12.0002 19.1787L11.7436 19.332L5.76836 22.9032L5.76814 22.9033C5.64357 22.9779 5.50723 23.0144 5.37098 23.0144C5.21246 23.0144 5.05409 22.9652 4.91671 22.8659C4.6651 22.684 4.54653 22.3705 4.6155 22.0647C4.61552 22.0646 4.61554 22.0646 4.61556 22.0645L6.15943 15.2637L6.22533 14.9734L6.00151 14.7771L0.76548 10.1851L0.764531 10.1842C0.531162 9.98062 0.441917 9.65699 0.538297 9.36059C0.634583 9.06448 0.895605 8.85563 1.20535 8.8268C1.20551 8.82678 1.20568 8.82677 1.20584 8.82675L8.13318 8.19784L8.43046 8.17085L8.54775 7.89636L11.2866 1.48682C11.2867 1.48665 11.2868 1.48648 11.2869 1.48631C11.4105 1.19857 11.6901 1.01465 12.0001 1.01465C12.3102 1.01465 12.5899 1.19873 12.7135 1.48548C12.7136 1.48569 12.7137 1.4859 12.7138 1.48611L15.4525 7.89633L15.5698 8.17085L15.8671 8.19784L22.7941 8.82683L22.7944 8.82686C23.1045 8.8548 23.3662 9.06428 23.4617 9.35978Z" fill="#FFC107" stroke="black" />
-                                </svg>
-                                4.5/5
-                            </span>
+                    <?php if(!empty($rating) || !empty($efficacy) || !empty($packaging) || !empty($value)): ?>
+                        <div class="rating-sec mt-6">
+                            <?php if(!empty($rating)): ?>
+                                <div class="flex items-start gap-2 mb-2">
+                                    <span class="rating-title">Overall Rating:</span>
+                                    <span class="rating-desc">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M23.4617 9.35978L23.4619 9.36033C23.5581 9.65681 23.4688 9.98026 23.2341 10.1856L23.2337 10.186L17.9977 14.7771L17.7738 14.9734L17.8397 15.2637L19.3836 22.0647C19.4525 22.3691 19.3345 22.6832 19.0818 22.8664L19.0818 22.8664C18.8297 23.0492 18.4957 23.0632 18.2309 22.9039L18.2298 22.9032L12.2567 19.332L12.0002 19.1787L11.7436 19.332L5.76836 22.9032L5.76814 22.9033C5.64357 22.9779 5.50723 23.0144 5.37098 23.0144C5.21246 23.0144 5.05409 22.9652 4.91671 22.8659C4.6651 22.684 4.54653 22.3705 4.6155 22.0647C4.61552 22.0646 4.61554 22.0646 4.61556 22.0645L6.15943 15.2637L6.22533 14.9734L6.00151 14.7771L0.76548 10.1851L0.764531 10.1842C0.531162 9.98062 0.441917 9.65699 0.538297 9.36059C0.634583 9.06448 0.895605 8.85563 1.20535 8.8268C1.20551 8.82678 1.20568 8.82677 1.20584 8.82675L8.13318 8.19784L8.43046 8.17085L8.54775 7.89636L11.2866 1.48682C11.2867 1.48665 11.2868 1.48648 11.2869 1.48631C11.4105 1.19857 11.6901 1.01465 12.0001 1.01465C12.3102 1.01465 12.5899 1.19873 12.7135 1.48548C12.7136 1.48569 12.7137 1.4859 12.7138 1.48611L15.4525 7.89633L15.5698 8.17085L15.8671 8.19784L22.7941 8.82683L22.7944 8.82686C23.1045 8.8548 23.3662 9.06428 23.4617 9.35978Z" fill="#FFC107" stroke="black" />
+                                        </svg>
+                                        <?php echo $rating; ?>/5
+                                    </span>
+                                </div>
+                            <?php endif; ?>
+                            <?php if(!empty($efficacy) || !empty($packaging) || !empty($value)): ?>
+                                <div class="flex items-center gap-[10px]">
+                                    <?php if(!empty($efficacy)): ?>
+                                        <div class="flex items-start gap-2">
+                                            <span class="rating-title">Efficacy:</span>
+                                            <span class="rating-desc"><?php echo $efficacy; ?></span>
+                                        </div>
+                                    <?php endif; ?>
+                                    <?php if(!empty($packaging)): ?>
+                                        <svg width="2" height="17" viewBox="0 0 2 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <line x1="0.75" y1="-3.27835e-08" x2="0.750001" y2="17" stroke="#101010" stroke-width="1.5" />
+                                        </svg>
+                                        <div class="flex items-start gap-2">
+                                            <span class="rating-title">Packaging:</span>
+                                            <span class="rating-desc"><?php echo $packaging; ?></span>
+                                        </div>
+                                    <?php endif; ?>
+                                    <?php if(!empty($value)): ?>
+                                        <svg width="2" height="17" viewBox="0 0 2 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <line x1="0.75" y1="-3.27835e-08" x2="0.750001" y2="17" stroke="#101010" stroke-width="1.5" />
+                                        </svg>
+                                        <div class="flex items-start gap-2">
+                                            <span class="rating-title">Value:</span>
+                                            <span class="rating-desc"><?php echo $value; ?></span>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                            <?php endif; ?>
                         </div>
-                        <div class="flex items-center gap-[10px]">
-                            <div class="flex items-center gap-2">
-                                <span class="rating-title">Efficacy:</span>
-                                <span class="rating-desc">4.8</span>
-                            </div>
-                            <svg width="2" height="17" viewBox="0 0 2 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <line x1="0.75" y1="-3.27835e-08" x2="0.750001" y2="17" stroke="#101010" stroke-width="1.5" />
-                            </svg>
-
-                            <div class="flex items-center gap-2">
-                                <span class="rating-title">Packaging:</span>
-                                <span class="rating-desc">4.8</span>
-                            </div>
-                            <svg width="2" height="17" viewBox="0 0 2 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <line x1="0.75" y1="-3.27835e-08" x2="0.750001" y2="17" stroke="#101010" stroke-width="1.5" />
-                            </svg>
-
-                            <div class="flex items-center gap-2">
-                                <span class="rating-title">Value:</span>
-                                <span class="rating-desc">4.8</span>
-                            </div>
-                        </div>
-                    </div>
+                    <?php endif; ?>
                 </div>
                 <div class="single-cat-info-wrapper">
                     <span class="single-cat-info" style="color:<?php echo $hex_color_1; ?>;">
@@ -122,22 +135,16 @@ get_header(); ?>
                     </p>
                 </div>
             </div>
-
             <div class="w-full md:w-1/2">
                 <figure class="m-0">
-                    <img class="w-full object-cover" src="<?php echo get_template_directory_uri(); ?> /assets/images/rightheroimg.png" alt="logo">
+                    <?php if (has_post_thumbnail()) : ?>
+                        <?php echo get_the_post_thumbnail($post_id, 'full', array('class' => 'w-full object-cover')); ?>
+                    <?php else : ?>
+                        <img class="w-full object-cover" src="<?php echo get_template_directory_uri(); ?> /assets/images/rightheroimg.png" alt="logo">
+                    <?php endif; ?>
                 </figure>
             </div>
         </div>
-        <!-- <div class="container mx-auto">
-            <figure class=" aspect-[16/7] w-full">
-                <?php if (has_post_thumbnail()) : ?>
-                    <?php echo get_the_post_thumbnail($post_id, 'full', array('class' => 'single-banner-img')); ?>
-                <?php else : ?>
-                    <img class="single-banner-img" src="<?php echo get_template_directory_uri(); ?>/assets/images/banner.png" alt="">
-                <?php endif; ?>
-            </figure>
-        </div> -->
     </section>
     <section class="single-page">
         <div class="container mx-auto">

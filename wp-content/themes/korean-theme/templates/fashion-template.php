@@ -18,6 +18,9 @@ get_header(); ?>
     $author_name = get_the_author_meta('display_name', $author_id);
     $author_URL = get_author_posts_url($author_id);
     $author_desc = get_the_author_meta('description', $author_id);
+    $duration = get_post_meta( $post->ID, 'duration', true );
+    $spend = get_post_meta( $post->ID, 'spend', true );
+	$featured = get_post_meta( $post->ID, 'featured', true );
     $hex_color_1 = get_term_meta($cat_ID, 'hex_code_1', true);
     if (empty($hex_color_1) && !empty($parent_id)) {
         $hex_color_1 = get_term_meta($parent_id, 'hex_code_1', true);
@@ -46,12 +49,12 @@ get_header(); ?>
         }
 
         .comment-view-sec a:hover,
-        .internal-content a:hover {
+        .internal-content a:hover:not(.product-sec a) {
             color: <?php echo $hex_color_1; ?>;
         }
     </style>
 
-    <section class="single-banner pt-[61px]">
+<section class="single-banner pt-[61px]">
         <div class="banner-wrapper flex flex-col md:flex-row">
             <div class="w-full md:w-1/2 bg-[#FAFAFA] container flex flex-col">
                 <div class="h-[85%] flex flex-col justify-center">
@@ -69,6 +72,34 @@ get_header(); ?>
                     <h1 class="internal-h1 md:flex md:items-center">
                         <?php echo the_title_attribute('echo=0'); ?>
                     </h1>
+                    <?php if(!empty($duration) || !empty($spend) || !empty($featured)): ?>
+                        <div class="rating-sec mt-6">
+                            <?php if(!empty($duration)): ?>
+                                <div class="flex items-start gap-2 mb-2">
+                                    <span class="rating-title">Time Taken:</span>
+                                    <span class="rating-desc">
+                                        <?php echo $duration; ?>
+                                    </span>
+                                </div>
+                            <?php endif; ?>
+                            <?php if(!empty($spend)): ?>
+                                <div class="flex items-start gap-2 mb-2">
+                                    <span class="rating-title">Money Spent:</span>
+                                    <span class="rating-desc">
+                                        <?php echo $spend; ?>
+                                    </span>
+                                </div>
+                            <?php endif; ?>
+                            <?php if(!empty($featured)): ?>
+                                <div class="flex items-start gap-2 mb-2">
+                                    <span class="rating-title">Brands Featured:</span>
+                                    <span class="rating-desc">
+                                        <?php echo $featured; ?>
+                                    </span>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    <?php endif; ?>
                 </div>
                 <div class="single-cat-info-wrapper">
                     <span class="single-cat-info" style="color:<?php echo $hex_color_1; ?>;">
@@ -84,22 +115,16 @@ get_header(); ?>
                     </p>
                 </div>
             </div>
-
             <div class="w-full md:w-1/2">
                 <figure class="m-0">
-                    <img class="w-full object-cover" src="<?php echo get_template_directory_uri(); ?> /assets/images/rightheroimg.png" alt="logo">
+                    <?php if (has_post_thumbnail()) : ?>
+                        <?php echo get_the_post_thumbnail($post_id, 'full', array('class' => 'w-full object-cover')); ?>
+                    <?php else : ?>
+                        <img class="w-full object-cover" src="<?php echo get_template_directory_uri(); ?> /assets/images/rightheroimg.png" alt="logo">
+                    <?php endif; ?>
                 </figure>
             </div>
         </div>
-        <!-- <div class="container mx-auto">
-            <figure class=" aspect-[16/7] w-full">
-                <?php if (has_post_thumbnail()) : ?>
-                    <?php echo get_the_post_thumbnail($post_id, 'full', array('class' => 'single-banner-img')); ?>
-                <?php else : ?>
-                    <img class="single-banner-img" src="<?php echo get_template_directory_uri(); ?>/assets/images/banner.png" alt="">
-                <?php endif; ?>
-            </figure>
-        </div> -->
     </section>
     <section class="single-page">
         <div class="container mx-auto">
