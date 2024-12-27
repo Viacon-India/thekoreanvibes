@@ -12,36 +12,50 @@
     $author_name = get_the_author_meta('display_name', $author_id);
     $author_URL = get_author_posts_url($author_id);
     $author_desc = get_the_author_meta('description', $author_id);
-    $hex_color_1 = get_term_meta($cat_ID, 'hex_code_1', true);
-    if (empty($hex_color_1) && !empty($parent_id)) {
-        $hex_color_1 = get_term_meta($parent_id, 'hex_code_1', true);
+    $primary_color = get_term_meta($cat_ID, 'hex_code_1', true);
+    if (empty($primary_color) && !empty($parent_id)) {
+        $primary_color = get_term_meta($parent_id, 'hex_code_1', true);
+    }
+    $bg_color = get_term_meta($cat_ID, 'hex_code_2', true);
+    if (empty($bg_color) && !empty($parent_id)) {
+        $bg_color = get_term_meta($parent_id, 'hex_code_2', true);
+    }
+    $text_color = get_term_meta($cat_ID, 'hex_code_5', true);
+    if (empty($text_color) && !empty($parent_id)) {
+        $text_color = get_term_meta($parent_id, 'hex_code_5', true);
     } ?>
 
     <style>
         .toc-ul-li-active:before {
-            background-color: <?php echo $hex_color_1; ?>;
+            background-color: <?php echo $primary_color; ?>;
         }
 
-        .internal-content thead {
-            background-color: <?php echo $hex_color_1; ?>;
+        .internal-content thead, .internal-content tfoot {
+            background-color: <?php echo $primary_color; ?>;
+            border-color: #ffffff;
+            color: <?php echo $text_color; ?>;
         }
 
         .internal-content tbody {
-            background-color: <?php echo $hex_color_1; ?>14;
+            background-color: <?php echo $bg_color; ?>;
+        }
+        .internal-content td, .internal-content th {
+            border-color: #ffffff;
         }
 
         .comment-sec .comment-card-user-reply {
-            color: <?php echo $hex_color_1; ?>;
+            color: <?php echo $primary_color; ?>;
         }
 
         .comment-sec .internal-btn,
         .comment input[name="submit"] {
-            background-color: <?php echo $hex_color_1; ?>;
+            background-color: <?php echo $primary_color; ?>;
+            color: <?php echo $text_color; ?>;
         }
 
         .comment-view-sec a:hover,
-        .internal-content a:hover {
-            color: <?php echo $hex_color_1; ?>;
+        .internal-content a:hover:not(.product-sec a) {
+            color: <?php echo $primary_color; ?>;
         }
     </style>
 
@@ -84,7 +98,7 @@
                     <?php echo get_the_post_thumbnail($post_id, 'full', array('class' => 'single-banner-img')); ?>
                 <?php else : ?>
                     <figure class="m-0">
-                        <img class="w-full object-cover" src="<?php echo get_template_directory_uri(); ?> /assets/images/rightheroimg.png" alt="logo">
+                        <img class="w-full object-cover" src="<?php echo get_template_directory_uri(); ?>/assets/images/rightheroimg.png" alt="logo">
                     </figure>
                 <?php endif; ?>
             </div>

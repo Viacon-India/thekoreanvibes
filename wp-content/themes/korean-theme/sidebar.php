@@ -130,9 +130,9 @@ if(is_single()):
                 <span class="side-bar-transform-r text-[#F4F4F4]">
                     Most Popular
                 </span>
-                <h3 class="h-s-b-title" style="color:<?php echo $hex_color_1; ?>;">
+                <h2 class="h-s-b-title" style="color:<?php echo $hex_color_1; ?>;">
                     Most Popular
-                </h3>
+                </h2>
                 <div class="side-wrapper">
                     <?php while ($popular_posts->have_posts()) : $popular_posts->the_post();
                         get_template_part('template-parts/sidebar', 'card');
