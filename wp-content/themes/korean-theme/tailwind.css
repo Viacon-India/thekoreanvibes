@@ -22,9 +22,9 @@ Text Domain: ev
     src: url("../korean-theme/assets/fonts/chai-type/Chai.ttf");
   }
 
-  /* body::-webkit-scrollbar {
+  body::-webkit-scrollbar {
   display: none;
-  } */
+  }
   
   .header {
   position: fixed;

@@ -102,43 +102,109 @@ add_action( 'wp_head', 'track_post_views');
 
 
 //-------------------------------------------------------------------TOC Function
-function toc($content) {
-    $content = preg_replace_callback('/<h2>(.*?)<\/h2>/', function($matches) {
-        $id = $matches[1];
-        return '<h2 id="' . $matches[1] . '">' . $matches[1] . '</h2>';
-    }, $content);
-    
-    $content = preg_replace_callback('/<h3>(.*?)<\/h3>/', function($matches) {
-        $id = $matches[1];
-        return '<h3 id="' . $matches[1] . '">' . $matches[1] . '</h3>';
-    }, $content);
-    
-    $content = preg_replace_callback('/<h4>(.*?)<\/h4>/', function($matches) {
-        $id = $matches[1];
-        return '<h4 id="' . $matches[1] . '">' . $matches[1] . '</h4>';
-    }, $content);
+function toc($html) {
+    if (is_single()) {
+        if (empty($html)) return $html; // Check if HTML content is empty
+        $dom = new DOMDocument();
 
-    return $content;
+        // Suppress warnings from malformed HTML and check for errors
+        libxml_use_internal_errors(true);
+
+        // Try to load the HTML and check if it's valid
+        $loaded = @$dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
+
+        // If loading the HTML failed, return the original HTML
+        if (!$loaded) {
+            libxml_clear_errors();
+            return $html;
+        }
+
+        // Proceed if HTML loaded correctly
+        libxml_clear_errors();
+
+        // Loop through all elements to add IDs to h2, h3, h4 elements
+        foreach($dom->getElementsByTagName('*') as $element) {
+            if ($element->tagName == 'h2' || $element->tagName == 'h3' || $element->tagName == 'h4') {
+                $title_id = str_replace(array(' '), array('-'), rtrim(preg_replace('#[\s]{2,}#', ' ', preg_replace('#[^\w\säüöß]#', null, str_replace(array('ä', 'ü', 'ö', 'ß'), array('ae', 'ue', 'oe', 'ss'), html_entity_decode(strtolower($element->textContent)))))));
+                $element->setAttribute('id', $title_id);
+            }
+        }
+        $html = $dom->saveHTML();
+    }
+    return $html;
 }
 add_filter('the_content', 'toc');
 
 
-
 function table_of_content($li_class, $a_class) {
-	$content = get_the_content();
-    $heading_links = array();
-    preg_match_all('/<(h2|h3|h4)[^>]*id=["\']([^"\']+)["\'][^>]*>(.*?)<\/\1>/i', $content, $matches);
-    if (!empty($matches)) {
-        foreach ($matches[2] as $index => $id) {
-            $heading_text = strip_tags($matches[3][$index]);
-            $heading_links[] = '<a href="#' . esc_attr($id) . '" class="'.$a_class.'">' . esc_html($heading_text) . '</a>';
+    $toc = '';
+    $html = get_the_content();
+
+    if (empty($html)) return $toc; // Return empty TOC if content is empty
+
+    $dom = new DOMDocument();
+
+    // Suppress warnings from malformed HTML and check for errors
+    libxml_use_internal_errors(true);
+
+    // Try to load the HTML and check if it's valid
+    $loaded = @$dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
+
+    // If loading the HTML failed, return an empty TOC
+    if (!$loaded) {
+        libxml_clear_errors();
+        return $toc;
+    }
+
+    // Proceed if HTML loaded correctly
+    libxml_clear_errors();
+
+    // Loop through all elements to generate the TOC
+    foreach($dom->getElementsByTagName('*') as $element) {
+        if ($element->tagName == 'h2' || $element->tagName == 'h3' || $element->tagName == 'h4') {
+            $title_id = str_replace(array(' '), array('-'), rtrim(preg_replace('#[\s]{2,}#', ' ', preg_replace('#[^\w\säüöß]#', null, str_replace(array('ä', 'ü', 'ö', 'ß'), array('ae', 'ue', 'oe', 'ss'), html_entity_decode(strtolower($element->textContent)))))));
+            $toc .= '<li class="' . $li_class . '"><a href="' . get_the_permalink() . '#' . $title_id . '" id="toc-' . $title_id . '" class="' . $a_class . '">' . $element->textContent . '</a></li>';
         }
     }
-    if (!empty($heading_links)) {
-        return '<li class="'.$li_class.'">' . implode('</li><li class="'.$li_class.'">', $heading_links) . '</li>';
-    }
-    return '';
+    return $toc;
 }
+// function toc($content) {
+//     $content = preg_replace_callback('/<h2>(.*?)<\/h2>/', function($matches) {
+//         $id = $matches[1];
+//         return '<h2 id="' . $matches[1] . '">' . $matches[1] . '</h2>';
+//     }, $content);
+    
+//     $content = preg_replace_callback('/<h3>(.*?)<\/h3>/', function($matches) {
+//         $id = $matches[1];
+//         return '<h3 id="' . $matches[1] . '">' . $matches[1] . '</h3>';
+//     }, $content);
+    
+//     $content = preg_replace_callback('/<h4>(.*?)<\/h4>/', function($matches) {
+//         $id = $matches[1];
+//         return '<h4 id="' . $matches[1] . '">' . $matches[1] . '</h4>';
+//     }, $content);
+
+//     return $content;
+// }
+// add_filter('the_content', 'toc');
+
+
+
+// function table_of_content($li_class, $a_class) {
+// 	$content = get_the_content();
+//     $heading_links = array();
+//     preg_match_all('/<(h2|h3|h4)[^>]*id=["\']([^"\']+)["\'][^>]*>(.*?)<\/\1>/i', $content, $matches);
+//     if (!empty($matches)) {
+//         foreach ($matches[2] as $index => $id) {
+//             $heading_text = strip_tags($matches[3][$index]);
+//             $heading_links[] = '<a href="#' . esc_attr($id) . '" class="'.$a_class.'">' . esc_html($heading_text) . '</a>';
+//         }
+//     }
+//     if (!empty($heading_links)) {
+//         return '<li class="'.$li_class.'">' . implode('</li><li class="'.$li_class.'">', $heading_links) . '</li>';
+//     }
+//     return '';
+// }
 
 
 
@@ -904,6 +970,7 @@ function review_callback($post){
 }
 function save_review_answer($post_id){
 	$reviews = isset($_POST["custom-review"])? $_POST["custom-review"]  : false;
+	if(empty($reviews)) return $post_id;
 	foreach($reviews as $array){
 		if(empty(array_filter($reviews[array_search($array, $reviews)]))){
 			unset($reviews[array_search($array, $reviews)]);
