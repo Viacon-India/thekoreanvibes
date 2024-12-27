@@ -107,7 +107,7 @@ function register_my_menus()
 add_action('wp_enqueue_scripts', 'my_plugin_assets');
 function my_plugin_assets()
 {
-	$ver = '3.6.4';
+	$ver = '3.6.8';
 	wp_enqueue_script('jquery.min', get_template_directory_uri() . '/assets/js/jquery.min.js', array('jquery'), $ver, true);
 	wp_enqueue_script('gsap.min', get_template_directory_uri() . '/assets/js/gsap.min.js', array('jquery'), $ver, true);
 	wp_enqueue_script('zepto.min', get_template_directory_uri() . '/assets/js/zepto.min.js', array('jquery'), $ver, true);
