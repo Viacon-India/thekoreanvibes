@@ -20,7 +20,7 @@ get_header(); ?>
     $author_desc = get_the_author_meta('description', $author_id);
     $rating = get_post_meta( $post->ID, 'rating', true );
     $cast = get_post_meta( $post->ID, 'cast', true );
-	$featured = get_post_meta( $post->ID, 'featured', true );
+	$release = get_post_meta( $post->ID, 'release', true );
     $hex_color_1 = get_term_meta($cat_ID, 'hex_code_1', true);
     if (empty($hex_color_1) && !empty($parent_id)) {
         $hex_color_1 = get_term_meta($parent_id, 'hex_code_1', true);
@@ -72,7 +72,7 @@ get_header(); ?>
                     <h1 class="internal-h1 md:flex md:items-center">
                         <?php echo the_title_attribute('echo=0'); ?>
                     </h1>
-                    <?php if(!empty($rating) || !empty($cast) || !empty($featured)): ?>
+                    <?php if(!empty($rating) || !empty($cast) || !empty($release)): ?>
                         <div class="rating-sec mt-6">
                             <?php if(!empty($rating)): ?>
                                 <div class="flex items-start gap-2 mb-2">
@@ -93,11 +93,11 @@ get_header(); ?>
                                     </span>
                                 </div>
                             <?php endif; ?>
-                            <?php if(!empty($featured)): ?>
+                            <?php if(!empty($release)): ?>
                                 <div class="flex items-start gap-2 mb-2">
-                                    <span class="rating-title">Brands Featured:</span>
+                                    <span class="rating-title">Year of Release:</span>
                                     <span class="rating-desc">
-                                        <?php echo $featured; ?>
+                                        <?php echo $release; ?>
                                     </span>
                                 </div>
                             <?php endif; ?>
