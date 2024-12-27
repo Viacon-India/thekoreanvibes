@@ -15,8 +15,8 @@ if(empty($hex_color_1)){
         <a href="<?php echo esc_url(get_category_link($cat[0]->term_id)); ?>" class="related-card-cat" style="color:<?php echo $hex_color_1; ?>;" title="<?php echo $cat[0]->cat_name; ?>">
             <?php echo $cat[0]->cat_name; ?>
         </a>
-        <h2 class="related-card-title">
+        <h3 class="related-card-title">
             <a href="<?php echo get_the_permalink($post_ID); ?>"><?php echo the_title_attribute('echo=0'); ?></a>
-        </h2>
+        </h3>
     </div>
 </div>

@@ -30,7 +30,7 @@ $instagram = get_option('instagram'); ?>
         <div class="w-full flex justify-between lg:justify-end items-center relative">
           <div class="navbar-start w-fit lg:w-full order-1 lg:order-none">
             <a href="<?php echo home_url(); ?>" class="w-fit relative flex">
-              <figure class="rounded-none m-0 w-[200px] 2xl:w-[276px] 2xl:h-[38px]">
+              <figure class="rounded-none m-0 h-[54px]">
                 <?php if (function_exists('logo_url')) {
                   if (is_file(realpath($_SERVER["DOCUMENT_ROOT"]) . parse_url(logo_url())['path'])) {
                     echo '<img class="w-full object-cover" src="' . logo_url() . '" alt="logo" />';

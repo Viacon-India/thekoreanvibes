@@ -11,6 +11,17 @@ if (window.location.hash) {
 
 jQuery(document).ready(function($) {
 
+    // Animated Favicon
+    var facicon_src = $('link[rel="icon"]').attr('href');
+    facicon_src = facicon_src.replace('0.png', '');
+    let counter = 0;
+    setInterval(function() {
+      counter = (counter + 1) % 7;
+      let newFavicon = facicon_src + counter + '.png';
+      $('link[rel="icon"]').attr('href', newFavicon);
+    }, 100);
+
+
     // Share Button Function
     $("button.share-icon").click(function(){
         window.open( jQuery(this).data('link') , '_blank', 'rel=noopener noreferrer nofollow');

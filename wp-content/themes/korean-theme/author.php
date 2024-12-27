@@ -18,9 +18,9 @@ $post_per_page = get_option('posts_per_page'); ?>
                     <h1 class="author-title capitalize">
                         <?php echo $display_name; ?>
                     </h1>
-                    <h2 class="author-cat capitalize">
+                    <p class="author-cat capitalize">
                         <?php echo get_the_author_meta('designation', $author_id); ?>
-                    </h2>
+                    </p>
                 </div>
             </div>
             <?php if(!empty($author_desc)) { ?>
