@@ -159,7 +159,7 @@ get_header(); ?>
                     <?php if (has_post_thumbnail()) : ?>
                         <?php echo get_the_post_thumbnail($post_id, 'full', array('class' => 'w-full object-cover')); ?>
                     <?php else : ?>
-                        <img class="w-full object-cover" src="<?php echo get_template_directory_uri(); ?> /assets/images/rightheroimg.png" alt="logo">
+                        <img class="w-full object-cover" src="<?php echo get_template_directory_uri(); ?>/assets/images/rightheroimg.png" alt="logo">
                     <?php endif; ?>
                 </figure>
             </div>
