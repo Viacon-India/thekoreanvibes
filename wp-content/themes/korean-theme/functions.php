@@ -153,15 +153,15 @@ function img()
 			</div>
 			<div style="width: fit-content;">
 				<input type="text" name="hex_code_3" class="color-picker" />
-				<p class="description">Text Color</p>
-			</div>
-			<div style="width: fit-content;">
-				<input type="text" name="hex_code_4" class="color-picker" />
 				<p class="description">Gradient Color</p>
 			</div>
 			<div style="width: fit-content;">
+				<input type="text" name="hex_code_4" class="color-picker" />
+				<p class="description">Quote Color</p>
+			</div>
+			<div style="width: fit-content;">
 				<input type="text" name="hex_code_5" class="color-picker" />
-				<p class="description">Search Text Color</p>
+				<p class="description">Text Color</p>
 			</div>
 		</div>
 		<script type="text/javascript">
@@ -192,15 +192,15 @@ function img()
 			</div>
 			<div style="width: fit-content;">
 				<input name="hex_code_3" type="text" class="color-picker" value="<?php echo esc_attr($hex_color_3) ?>" />
-				<p class="description">Text Color</p>
-			</div>
-			<div style="width: fit-content;">
-				<input name="hex_code_4" type="text" class="color-picker" value="<?php echo esc_attr($hex_color_4) ?>" />
 				<p class="description">Gradient Color</p>
 			</div>
 			<div style="width: fit-content;">
+				<input name="hex_code_4" type="text" class="color-picker" value="<?php echo esc_attr($hex_color_4) ?>" />
+				<p class="description">Quote Color</p>
+			</div>
+			<div style="width: fit-content;">
 				<input name="hex_code_5" type="text" class="color-picker" value="<?php echo esc_attr($hex_color_5) ?>" />
-				<p class="description">Search Text Color</p>
+				<p class="description">Text Color</p>
 			</div>
 		</div>
 		<script type="text/javascript">

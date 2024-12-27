@@ -127,7 +127,7 @@ $cat5_posts = new WP_Query(array(
                 </div>
             </div>
             <div class=" w-full md:w-1/2 relative slider-main-wrapper">
-                <div class="main">
+                <div class="main" style="opacity: 0;">
                     <div class="mainBoxes fs"></div>
                     <div class="mainClose">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" fill="none">
@@ -145,13 +145,14 @@ $cat5_posts = new WP_Query(array(
 </section>
 
 
-<?php 
-
-if ($cat1_posts->have_posts()) :
+<?php if ($cat1_posts->have_posts()) :
     $cat = get_category_by_slug($cat1_slug);
-    $hex_color_1 = get_term_meta($cat->term_id, 'hex_code_1', true);
-    if (empty($hex_color_1) && $cat->parent) {
-        $hex_color_1 = get_term_meta($cat->parent, 'hex_code_1', true);
+    $primary_color = get_term_meta($cat->term_id, 'hex_code_1', true);
+    if (empty($primary_color) && $cat->parent) {
+        $primary_color = get_term_meta($cat->parent, 'hex_code_1', true);
+        if (empty($primary_color)) {
+            $primary_color = '#ED1B1B';
+        }
     }
     $bg_color = get_term_meta($cat->term_id, 'hex_code_2', true);
     if (empty($bg_color) && $cat->parent) {
@@ -160,42 +161,42 @@ if ($cat1_posts->have_posts()) :
             $bg_color = '#ED1B1B';
         }
     }
-    $title_color = get_term_meta($cat->term_id, 'hex_code_3', true);
-    if (empty($title_color) && $cat->parent) {
-        $title_color = get_term_meta($cat->parent, 'hex_code_3', true);
-        if (empty($title_color)) {
-            $title_color = '#ED1B1B';
-        }
-    }
-    $gradient_color = get_term_meta($cat->term_id, 'hex_code_4', true);
+    $gradient_color = get_term_meta($cat->term_id, 'hex_code_3', true);
     if (empty($gradient_color) && $cat->parent) {
-        $gradient_color = get_term_meta($cat->parent, 'hex_code_4', true);
+        $gradient_color = get_term_meta($cat->parent, 'hex_code_3', true);
         if (empty($gradient_color)) {
             $gradient_color = '#ED1B1B';
+        }
+    }
+    $title_color = get_term_meta($cat->term_id, 'hex_code_5', true);
+    if (empty($title_color) && $cat->parent) {
+        $title_color = get_term_meta($cat->parent, 'hex_code_5', true);
+        if (empty($title_color)) {
+            $title_color = '#ED1B1B';
         }
     } ?>
     <style>
         .business-sec .home-side-card:not(:last-child):after {
             content: "";
-            background: linear-gradient(90deg, <?php echo $bg_color; ?> 0%, <?php echo $gradient_color; ?> 12.50%, <?php echo $gradient_color; ?> 87.26%, <?php echo $bg_color; ?> 100%);
+            background: linear-gradient(90deg, <?php echo $primary_color; ?> 0%, <?php echo $gradient_color; ?> 12.50%, <?php echo $gradient_color; ?> 87.26%, <?php echo $primary_color; ?> 100%);
         }
     </style>
     <section class="business-sec">
         <div class="container mx-auto">
-            <h2 class="h-sec-title" style="color:<?php echo $hex_color_1; ?>;">
+            <h2 class="h-sec-title" style="color:<?php echo $primary_color; ?>;">
                 <a href="<?php echo get_category_link(get_category_by_slug($cat1_slug)->term_id); ?>"><?php echo get_cat_name(get_category_by_slug($cat1_slug)->term_id); ?></a>
             </h2>
             <div class="section-wrapper">
                 <div class="w-full lg:w-8/12 2xl:w-[887px]">
                     <div class="flex flex-col">
                         <?php while ($cat1_posts->have_posts()) : $cat1_posts->the_post();
-                            get_template_part('template-parts/cat', 'style-one-card', array('hex_color' => $hex_color_1, 'bg_color' => $bg_color));
+                            get_template_part('template-parts/cat', 'style-one-card', array('hex_color' => $primary_color, 'bg_color' => $bg_color));
                         endwhile; ?>
                     </div>
                 </div>
                 <div class="w-full lg:w-4/12 2xl:w-[513px]">
-                    <div class="home-side-bar" style="background-color:<?php echo $bg_color; ?>;">
-                        <span class="home-side-bar-transform-r" style="color:<?php echo $title_color; ?>;">KOREAN VIBES</span>
+                    <div class="home-side-bar" style="background-color:<?php echo $primary_color; ?>;">
+                        <span class="home-side-bar-transform-r" style="color:<?php echo $gradient_color; ?>;">KOREAN VIBES</span>
                         <h3 class="h-s-b-title text-white">BEST SEVEN PICK’S</h3>
                         <?php $best_cat1_posts = new WP_Query(array(
                             'post_type' => 'post',
@@ -203,7 +204,6 @@ if ($cat1_posts->have_posts()) :
                             'post_status' => 'publish',
                             'meta_key' => 'post_views_count',
                             'orderby' => 'meta_value_num',
-                            'orderby' => 'date',
                             'order'   => 'DESC',
                             'posts_per_page' => 7
                         ));
@@ -222,12 +222,14 @@ if ($cat1_posts->have_posts()) :
 <?php endif; ?>
 
 
-<?php 
-if ($cat2_posts->have_posts()) :
+<?php if ($cat2_posts->have_posts()) :
     $cat = get_category_by_slug($cat2_slug);
-    $hex_color_1 = get_term_meta($cat->term_id, 'hex_code_1', true);
-    if (empty($hex_color_1) && $cat->parent) {
-        $hex_color_1 = get_term_meta($cat->parent, 'hex_code_1', true);
+    $primary_color = get_term_meta($cat->term_id, 'hex_code_1', true);
+    if (empty($primary_color) && $cat->parent) {
+        $primary_color = get_term_meta($cat->parent, 'hex_code_1', true);
+        if (empty($primary_color)) {
+            $primary_color = '#ED1B1B';
+        }
     }
     $bg_color = get_term_meta($cat->term_id, 'hex_code_2', true);
     if (empty($bg_color) && $cat->parent) {
@@ -236,29 +238,29 @@ if ($cat2_posts->have_posts()) :
             $bg_color = '#ED1B1B';
         }
     }
-    $title_color = get_term_meta($cat->term_id, 'hex_code_3', true);
-    if (empty($title_color) && $cat->parent) {
-        $title_color = get_term_meta($cat->parent, 'hex_code_3', true);
-        if (empty($title_color)) {
-            $title_color = '#ED1B1B';
-        }
-    }
-    $gradient_color = get_term_meta($cat->term_id, 'hex_code_4', true);
+    $gradient_color = get_term_meta($cat->term_id, 'hex_code_3', true);
     if (empty($gradient_color) && $cat->parent) {
-        $gradient_color = get_term_meta($cat->parent, 'hex_code_4', true);
+        $gradient_color = get_term_meta($cat->parent, 'hex_code_3', true);
         if (empty($gradient_color)) {
             $gradient_color = '#ED1B1B';
+        }
+    }
+    $title_color = get_term_meta($cat->term_id, 'hex_code_5', true);
+    if (empty($title_color) && $cat->parent) {
+        $title_color = get_term_meta($cat->parent, 'hex_code_5', true);
+        if (empty($title_color)) {
+            $title_color = '#ED1B1B';
         }
     } ?>
     <style>
         .lifestyle-sec .home-side-card:not(:last-child):after {
             content: "";
-            background: linear-gradient(90deg, <?php echo $bg_color; ?> 0%, <?php echo $gradient_color; ?> 12.50%, <?php echo $gradient_color; ?> 87.26%, <?php echo $bg_color; ?> 100%);
+            background: linear-gradient(90deg, <?php echo $primary_color; ?> 0%, <?php echo $gradient_color; ?> 12.50%, <?php echo $gradient_color; ?> 87.26%, <?php echo $primary_color; ?> 100%);
         }
     </style>
     <section class="lifestyle-sec">
         <div class=" container mx-auto">
-            <h2 class="h-sec-title" style="color:<?php echo $hex_color_1; ?>;">
+            <h2 class="h-sec-title" style="color:<?php echo $primary_color; ?>;">
                 <a href="<?php echo get_category_link(get_category_by_slug($cat2_slug)->term_id); ?>"><?php echo get_cat_name(get_category_by_slug($cat2_slug)->term_id); ?></a>
             </h2>
             <div class="section-wrapper">
@@ -267,13 +269,13 @@ if ($cat2_posts->have_posts()) :
                         <?php $loop1 = 0;
                         while ($cat2_posts->have_posts()) : $cat2_posts->the_post();
                             if ($loop1 == 0) {
-                                echo get_template_part('template-parts/cat', 'style-two-hero-card', array('hex_color' => $hex_color_1)) . '<div class="flex flex-col md:flex-row px-[0px] md:px-[20px] py-0 md:py-[15px] md:border-b md:border-[#202020] md:gap-[32px] relative ">';
+                                echo get_template_part('template-parts/cat', 'style-two-hero-card', array('hex_color' => $primary_color)) . '<div class="flex flex-col md:flex-row px-[0px] md:px-[20px] py-0 md:py-[15px] md:border-b md:border-[#202020] md:gap-[32px] relative ">';
                             } else {
                                 if ($loop1 % 2 == 0) {
-                                    echo get_template_part('template-parts/cat', 'style-two-card', array('hex_color' => $hex_color_1)) . '<span class=" hidden md:flex h-[120px] w-[1px] bg-[#202020] absolute left-[50%] -translate-x-[50%] "></span></div>';
+                                    echo get_template_part('template-parts/cat', 'style-two-card', array('hex_color' => $primary_color)) . '<span class=" hidden md:flex h-[120px] w-[1px] bg-[#202020] absolute left-[50%] -translate-x-[50%] "></span></div>';
                                 } else {
                                     echo ($loop1 != 1) ? '<div class="flex flex-col md:flex-row px-0 md:px-[20px] py-0 md:py-[15px] md:border-b border-[#202020] gap-[0px] md:gap-[32px] relative ">' : '';
-                                    get_template_part('template-parts/cat', 'style-two-card', array('hex_color' => $hex_color_1));
+                                    get_template_part('template-parts/cat', 'style-two-card', array('hex_color' => $primary_color));
                                 }
                             }
                             $loop1++;
@@ -281,8 +283,8 @@ if ($cat2_posts->have_posts()) :
                     </div>
                 </div>
                 <div class="w-full lg:w-4/12 2xl:w-[513px]">
-                    <div class="home-side-bar" style="background-color:<?php echo $bg_color; ?>;">
-                        <span class="home-side-bar-transform-r" style="color:<?php echo $title_color; ?>;">KOREAN VIBES</span>
+                    <div class="home-side-bar" style="background-color:<?php echo $primary_color; ?>;">
+                        <span class="home-side-bar-transform-r" style="color:<?php echo $gradient_color; ?>;">KOREAN VIBES</span>
                         <h3 class="h-s-b-title text-white">BEST SEVEN PICK’S</h3>
                         <?php $best_cat2_posts = new WP_Query(array(
                             'post_type' => 'post',
@@ -290,7 +292,6 @@ if ($cat2_posts->have_posts()) :
                             'post_status' => 'publish',
                             'meta_key' => 'post_views_count',
                             'orderby' => 'meta_value_num',
-                            'orderby' => 'date',
                             'order'   => 'DESC',
                             'posts_per_page' => 7
                         ));
@@ -309,15 +310,15 @@ if ($cat2_posts->have_posts()) :
 <?php endif; ?>
 
 
-<?php 
-
-if ($cat3_posts->have_posts()) :
+<?php if ($cat3_posts->have_posts()) :
     $cat = get_category_by_slug($cat3_slug);
-    $hex_color_1 = get_term_meta($cat->term_id, 'hex_code_1', true);
-    if (empty($hex_color_1) && $cat->parent) {
-        $hex_color_1 = get_term_meta($cat->parent, 'hex_code_1', true);
+    $primary_color = get_term_meta($cat->term_id, 'hex_code_1', true);
+    if (empty($primary_color) && $cat->parent) {
+        $primary_color = get_term_meta($cat->parent, 'hex_code_1', true);
+        if (empty($primary_color)) {
+            $primary_color = '#ED1B1B';
+        }
     }
-
     $bg_color = get_term_meta($cat->term_id, 'hex_code_2', true);
     if (empty($bg_color) && $cat->parent) {
         $bg_color = get_term_meta($cat->parent, 'hex_code_2', true);
@@ -325,45 +326,43 @@ if ($cat3_posts->have_posts()) :
             $bg_color = '#ED1B1B';
         }
     }
-
-    $title_color = get_term_meta($cat->term_id, 'hex_code_3', true);
-    if (empty($title_color) && $cat->parent) {
-        $title_color = get_term_meta($cat->parent, 'hex_code_3', true);
-        if (empty($title_color)) {
-            $title_color = '#ED1B1B';
-        }
-    }
-
-    $gradient_color = get_term_meta($cat->term_id, 'hex_code_4', true);
+    $gradient_color = get_term_meta($cat->term_id, 'hex_code_3', true);
     if (empty($gradient_color) && $cat->parent) {
-        $gradient_color = get_term_meta($cat->parent, 'hex_code_4', true);
+        $gradient_color = get_term_meta($cat->parent, 'hex_code_3', true);
         if (empty($gradient_color)) {
             $gradient_color = '#ED1B1B';
+        }
+    }
+    $title_color = get_term_meta($cat->term_id, 'hex_code_5', true);
+    if (empty($title_color) && $cat->parent) {
+        $title_color = get_term_meta($cat->parent, 'hex_code_5', true);
+        if (empty($title_color)) {
+            $title_color = '#ED1B1B';
         }
     } ?>
 
     <style>
         .social-media-sec .home-side-card:not(:last-child):after {
             content: "";
-            background: linear-gradient(90deg, <?php echo $bg_color; ?> 0%, <?php echo $gradient_color; ?> 12.50%, <?php echo $gradient_color; ?> 87.26%, <?php echo $bg_color; ?> 100%);
+            background: linear-gradient(90deg, <?php echo $primary_color; ?> 0%, <?php echo $gradient_color; ?> 12.50%, <?php echo $gradient_color; ?> 87.26%, <?php echo $primary_color; ?> 100%);
         }
     </style>
     <section class="social-media-sec">
         <div class="container mx-auto">
-            <h2 class="h-sec-title" style="color:<?php echo $hex_color_1; ?>;">
+            <h2 class="h-sec-title" style="color:<?php echo $primary_color; ?>;">
                 <a href="<?php echo get_category_link(get_category_by_slug($cat3_slug)->term_id); ?>"><?php echo get_cat_name(get_category_by_slug($cat3_slug)->term_id); ?></a>
             </h2>
             <div class="section-wrapper">
                 <div class="w-full lg:w-8/12 2xl:w-[887px]">
                     <div class="flex flex-col">
                         <?php while ($cat3_posts->have_posts()) : $cat3_posts->the_post();
-                            get_template_part('template-parts/cat', 'style-one-card', array('hex_color' => $hex_color_1, 'bg_color' => $bg_color));
+                            get_template_part('template-parts/cat', 'style-one-card', array('hex_color' => $primary_color, 'bg_color' => $bg_color));
                         endwhile; ?>
                     </div>
                 </div>
                 <div class="w-full lg:w-4/12 2xl:w-[513px]">
-                    <div class="home-side-bar" style="background-color:<?php echo $bg_color; ?>;">
-                        <span class="home-side-bar-transform-r" style="color:<?php echo $title_color; ?>;">KOREAN VIBES</span>
+                    <div class="home-side-bar" style="background-color:<?php echo $primary_color; ?>;">
+                        <span class="home-side-bar-transform-r" style="color:<?php echo $gradient_color; ?>;">KOREAN VIBES</span>
                         <h3 class="h-s-b-title text-white">BEST SEVEN PICK’S</h3>
                         <?php $best_cat3_posts = new WP_Query(array(
                             'post_type' => 'post',
@@ -371,7 +370,6 @@ if ($cat3_posts->have_posts()) :
                             'post_status' => 'publish',
                             'meta_key' => 'post_views_count',
                             'orderby' => 'meta_value_num',
-                            'orderby' => 'date',
                             'order'   => 'DESC',
                             'posts_per_page' => 7
                         ));
@@ -403,12 +401,14 @@ if ($cat3_posts->have_posts()) :
 
 
 
-<?php 
-if ($cat4_posts->have_posts()) :
+<?php if ($cat4_posts->have_posts()) :
     $cat = get_category_by_slug($cat4_slug);
-    $hex_color_1 = get_term_meta($cat->term_id, 'hex_code_1', true);
-    if (empty($hex_color_1) && $cat->parent) {
-        $hex_color_1 = get_term_meta($cat->parent, 'hex_code_1', true);
+    $primary_color = get_term_meta($cat->term_id, 'hex_code_1', true);
+    if (empty($primary_color) && $cat->parent) {
+        $primary_color = get_term_meta($cat->parent, 'hex_code_1', true);
+        if (empty($primary_color)) {
+            $primary_color = '#ED1B1B';
+        }
     }
     $bg_color = get_term_meta($cat->term_id, 'hex_code_2', true);
     if (empty($bg_color) && $cat->parent) {
@@ -417,43 +417,43 @@ if ($cat4_posts->have_posts()) :
             $bg_color = '#ED1B1B';
         }
     }
-    $title_color = get_term_meta($cat->term_id, 'hex_code_3', true);
-    if (empty($title_color) && $cat->parent) {
-        $title_color = get_term_meta($cat->parent, 'hex_code_3', true);
-        if (empty($title_color)) {
-            $title_color = '#ED1B1B';
-        }
-    }
-    $gradient_color = get_term_meta($cat->term_id, 'hex_code_4', true);
+    $gradient_color = get_term_meta($cat->term_id, 'hex_code_3', true);
     if (empty($gradient_color) && $cat->parent) {
-        $gradient_color = get_term_meta($cat->parent, 'hex_code_4', true);
+        $gradient_color = get_term_meta($cat->parent, 'hex_code_3', true);
         if (empty($gradient_color)) {
             $gradient_color = '#ED1B1B';
+        }
+    }
+    $title_color = get_term_meta($cat->term_id, 'hex_code_5', true);
+    if (empty($title_color) && $cat->parent) {
+        $title_color = get_term_meta($cat->parent, 'hex_code_5', true);
+        if (empty($title_color)) {
+            $title_color = '#ED1B1B';
         }
     } ?>
     <style>
         .entertainment-sec .home-side-card:not(:last-child):after {
             content: "";
-            background: linear-gradient(90deg, <?php echo $bg_color; ?> 0%, <?php echo $gradient_color; ?> 12.50%, <?php echo $gradient_color; ?> 87.26%, <?php echo $bg_color; ?> 100%);
+            background: linear-gradient(90deg, <?php echo $primary_color; ?> 0%, <?php echo $gradient_color; ?> 12.50%, <?php echo $gradient_color; ?> 87.26%, <?php echo $primary_color; ?> 100%);
         }
     </style>
 
     <section class="entertainment-sec">
         <div class=" container mx-auto ">
-            <h2 class="h-sec-title" style="color:<?php echo $hex_color_1; ?>;">
+            <h2 class="h-sec-title" style="color:<?php echo $primary_color; ?>;">
                 <a href="<?php echo get_category_link(get_category_by_slug($cat4_slug)->term_id); ?>"><?php echo get_cat_name(get_category_by_slug($cat4_slug)->term_id); ?></a>
             </h2>
             <div class="section-wrapper">
                 <div class="w-full lg:w-8/12 2xl:w-[887px]">
                     <div class="flex flex-col">
                         <?php while ($cat4_posts->have_posts()) : $cat4_posts->the_post();
-                            get_template_part('template-parts/cat', 'style-one-card', array('hex_color' => $hex_color_1, 'bg_color' => $bg_color));
+                            get_template_part('template-parts/cat', 'style-one-card', array('hex_color' => $primary_color, 'bg_color' => $bg_color));
                         endwhile; ?>
                     </div>
                 </div>
                 <div class="w-full lg:w-4/12 2xl:w-[513px]">
-                    <div class="home-side-bar" style="background-color:<?php echo $bg_color; ?>;">
-                        <span class="home-side-bar-transform-r" style="color:<?php echo $title_color; ?>;">KOREAN VIBES</span>
+                    <div class="home-side-bar" style="background-color:<?php echo $primary_color; ?>;">
+                        <span class="home-side-bar-transform-r" style="color:<?php echo $gradient_color; ?>;">KOREAN VIBES</span>
                         <h3 class="h-s-b-title text-white">BEST SEVEN PICK’S</h3>
                         <?php $best_cat4_posts = new WP_Query(array(
                             'post_type' => 'post',
@@ -461,7 +461,6 @@ if ($cat4_posts->have_posts()) :
                             'post_status' => 'publish',
                             'meta_key' => 'post_views_count',
                             'orderby' => 'meta_value_num',
-                            'orderby' => 'date',
                             'order'   => 'DESC',
                             'posts_per_page' => 7
                         ));
@@ -480,12 +479,14 @@ if ($cat4_posts->have_posts()) :
 <?php endif; ?>
 
 
-<?php 
-if ($cat5_posts->have_posts()) :
+<?php if ($cat5_posts->have_posts()) :
     $cat = get_category_by_slug($cat5_slug);
-    $hex_color_1 = get_term_meta($cat->term_id, 'hex_code_1', true);
-    if (empty($hex_color_1) && $cat->parent) {
-        $hex_color_1 = get_term_meta($cat->parent, 'hex_code_1', true);
+    $primary_color = get_term_meta($cat->term_id, 'hex_code_1', true);
+    if (empty($primary_color) && $cat->parent) {
+        $primary_color = get_term_meta($cat->parent, 'hex_code_1', true);
+        if (empty($primary_color)) {
+            $primary_color = '#ED1B1B';
+        }
     }
     $bg_color = get_term_meta($cat->term_id, 'hex_code_2', true);
     if (empty($bg_color) && $cat->parent) {
@@ -494,29 +495,29 @@ if ($cat5_posts->have_posts()) :
             $bg_color = '#ED1B1B';
         }
     }
-    $title_color = get_term_meta($cat->term_id, 'hex_code_3', true);
-    if (empty($title_color) && $cat->parent) {
-        $title_color = get_term_meta($cat->parent, 'hex_code_3', true);
-        if (empty($title_color)) {
-            $title_color = '#ED1B1B';
-        }
-    }
-    $gradient_color = get_term_meta($cat->term_id, 'hex_code_4', true);
+    $gradient_color = get_term_meta($cat->term_id, 'hex_code_3', true);
     if (empty($gradient_color) && $cat->parent) {
-        $gradient_color = get_term_meta($cat->parent, 'hex_code_4', true);
+        $gradient_color = get_term_meta($cat->parent, 'hex_code_3', true);
         if (empty($gradient_color)) {
             $gradient_color = '#ED1B1B';
+        }
+    }
+    $title_color = get_term_meta($cat->term_id, 'hex_code_5', true);
+    if (empty($title_color) && $cat->parent) {
+        $title_color = get_term_meta($cat->parent, 'hex_code_5', true);
+        if (empty($title_color)) {
+            $title_color = '#ED1B1B';
         }
     } ?>
     <style>
         .health-sec .home-side-card:not(:last-child):after {
             content: "";
-            background: linear-gradient(90deg, <?php echo $bg_color; ?> 0%, <?php echo $gradient_color; ?> 12.50%, <?php echo $gradient_color; ?> 87.26%, <?php echo $bg_color; ?> 100%);
+            background: linear-gradient(90deg, <?php echo $primary_color; ?> 0%, <?php echo $gradient_color; ?> 12.50%, <?php echo $gradient_color; ?> 87.26%, <?php echo $primary_color; ?> 100%);
         }
     </style>
     <section class="health-sec">
         <div class=" container mx-auto">
-            <h2 class="h-sec-title" style="color:<?php echo $hex_color_1; ?>;">
+            <h2 class="h-sec-title" style="color:<?php echo $primary_color; ?>;">
                 <a href="<?php echo get_category_link(get_category_by_slug($cat5_slug)->term_id); ?>"><?php echo get_cat_name(get_category_by_slug($cat5_slug)->term_id); ?></a>
             </h2>
             <div class="section-wrapper">
@@ -525,13 +526,13 @@ if ($cat5_posts->have_posts()) :
                         <?php $loop2 = 0;
                         while ($cat5_posts->have_posts()) : $cat5_posts->the_post();
                             if ($loop2 == 0) {
-                                echo get_template_part('template-parts/cat', 'style-two-hero-card', array('hex_color' => $hex_color_1)) . '<div class="flex flex-col md:flex-row md:px-[20px] md:py-[15px] md:border-b border-[#202020] md:gap-[32px] gap-0 relative ">';
+                                echo get_template_part('template-parts/cat', 'style-two-hero-card', array('hex_color' => $primary_color)) . '<div class="flex flex-col md:flex-row md:px-[20px] md:py-[15px] md:border-b border-[#202020] md:gap-[32px] gap-0 relative ">';
                             } else {
                                 if ($loop2 % 2 == 0) {
-                                    echo get_template_part('template-parts/cat', 'style-two-card', array('hex_color' => $hex_color_1)) . '<span class=" hidden md:flex h-[120px] w-[1px] bg-[#202020] absolute left-[50%] -translate-x-[50%] "></span></div>';
+                                    echo get_template_part('template-parts/cat', 'style-two-card', array('hex_color' => $primary_color)) . '<span class=" hidden md:flex h-[120px] w-[1px] bg-[#202020] absolute left-[50%] -translate-x-[50%] "></span></div>';
                                 } else {
                                     echo ($loop2 != 1) ? '<div class="flex flex-col md:flex-row px-0 md:px-[20px] py-0 md:py-[15px] md:border-b border-[#202020] gap-0 md:gap-[32px] relative ">' : '';
-                                    get_template_part('template-parts/cat', 'style-two-card', array('hex_color' => $hex_color_1));
+                                    get_template_part('template-parts/cat', 'style-two-card', array('hex_color' => $primary_color));
                                 }
                             }
                             $loop2++;
@@ -539,8 +540,8 @@ if ($cat5_posts->have_posts()) :
                     </div>
                 </div>
                 <div class="w-full lg:w-4/12 2xl:w-[513px]">
-                    <div class="home-side-bar" style="background-color:<?php echo $bg_color; ?>;">
-                        <span class="home-side-bar-transform-r" style="color:<?php echo $title_color; ?>;">KOREAN VIBES</span>
+                    <div class="home-side-bar" style="background-color:<?php echo $primary_color; ?>;">
+                        <span class="home-side-bar-transform-r" style="color:<?php echo $gradient_color; ?>;">KOREAN VIBES</span>
                         <h3 class="h-s-b-title text-white">BEST SEVEN PICK’S</h3>
                         <?php $best_cat5_posts = new WP_Query(array(
                             'post_type' => 'post',
@@ -548,7 +549,6 @@ if ($cat5_posts->have_posts()) :
                             'post_status' => 'publish',
                             'meta_key' => 'post_views_count',
                             'orderby' => 'meta_value_num',
-                            'orderby' => 'date',
                             'order'   => 'DESC',
                             'posts_per_page' => 7
                         ));

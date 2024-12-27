@@ -22,9 +22,9 @@ Text Domain: ev
     src: url("../korean-theme/assets/fonts/chai-type/Chai.ttf");
   }
 
-  body::-webkit-scrollbar {
+  /* body::-webkit-scrollbar {
   display: none;
-  }
+  } */
   
   .header {
   position: fixed;
@@ -981,10 +981,15 @@ content: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/200
     background: linear-gradient(90deg, #F44 0%, #F03535 12.50%, #F03535 87.26%, #F44 100%);
   } */
 
+  
+
 
 
   /* about-us-sec */
 
+  .photoBox{
+    @apply rounded-[10px] overflow-hidden
+  }
 
   .about-us-sec{
     @apply bg-secondary h-[100%] lg:h-[100vh] relative pt-[22px] sm:pt-[70px] md:pt-0

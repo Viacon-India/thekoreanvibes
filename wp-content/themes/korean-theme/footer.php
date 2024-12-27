@@ -271,11 +271,11 @@ $linkedin = get_option('linkedin'); ?>
                                 ease: 'expo.inOut'
                             }
                         })
-                        .to('.mainClose', {
-                            duration: 0.1,
-                            autoAlpha: 0,
-                            overwrite: true
-                        }, 0)
+                        // .to('.mainClose', {
+                        //     duration: 0.1,
+                        //     autoAlpha: 0,
+                        //     overwrite: true
+                        // }, 0)
                         .to('.mainBoxes', {
                             duration: 0.5,
                             scale: 1,
@@ -320,22 +320,21 @@ $linkedin = get_option('linkedin'); ?>
                         .set(currentImg, {
                             zIndex: 100
                         })
-                        .fromTo('.mainClose', {
-                            x: mouse.x,
-                            y: mouse.y,
-                            background: 'rgba(0,0,0,0)'
-                        }, {
-                            autoAlpha: 1,
-                            duration: 0.3,
-                            ease: 'power3.inOut'
-                        }, 0)
+                        // .fromTo('.mainClose', {
+                        //     x: mouse.x,
+                        //     y: mouse.y,
+                        //     background: 'rgba(0,0,0,0)'
+                        // }, {
+                        //     autoAlpha: 1,
+                        //     duration: 0.3,
+                        //     ease: 'power3.inOut'
+                        // }, 0)
                         .to('.photoBox', {
                             opacity: 0
                         }, 0)
                         .to(currentImg, {
                             width: '100%',
                             height: '100%',
-                            borderRadius: 0,
                             x: 0,
                             top: 0,
                             y: 0,
