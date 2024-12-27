@@ -9,15 +9,15 @@ $linkedin = get_option('linkedin'); ?>
         <div class="footer-main">
             <div class="footer-detail w-full md:w-[30%]">
                 <a href="<?php echo home_url(); ?>">
-                    <figure class="rounded-none m-0 w-[200px] h-fit md:w-[281px]">
+                    <figure class="rounded-none m-0 h-[54px]">
                         <?php if (function_exists('logo_url')) {
                             if (is_file(realpath($_SERVER["DOCUMENT_ROOT"]) . parse_url(logo_url())['path'])) {
-                                echo '<img class="w-full object-cover" src="' . logo_url() . '" alt="logo" />';
+                                echo '<img src="' . logo_url() . '" alt="logo" />';
                             } else {
-                                echo '<span class="w-full object-cover">' . get_bloginfo('name') . '</span>';
+                                echo '<span>' . get_bloginfo('name') . '</span>';
                             }
                         } else {
-                            echo '<span class="w-full object-cover">' . get_bloginfo('name') . '</span>';
+                            echo '<span>' . get_bloginfo('name') . '</span>';
                         } ?>
                     </figure>
                 </a>

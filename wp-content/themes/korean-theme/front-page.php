@@ -71,9 +71,9 @@ $cat5_posts = new WP_Query(array(
                         About us
                     </span>
 
-                    <h2 class="home-about-title">
+                    <h1 class="home-about-title">
                         THE KOREAN VIBES
-                    </h2>
+                    </h1>
 
                     <div class="home-about-dsc-wrapper">
                         <p class="home-about-dsc">

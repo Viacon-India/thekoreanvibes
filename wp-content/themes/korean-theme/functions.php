@@ -55,7 +55,7 @@ if (!function_exists('theme_setup')) {
 // Check and Call Logo
 function logo_url()
 {
-	$logo_url = get_stylesheet_directory_uri() . '/assets/images/logo.png';
+	$logo_url = get_stylesheet_directory_uri() . '/assets/images/logo.svg';
 	if (has_custom_logo()) {
 		$custom_logo_id = get_theme_mod('custom_logo');
 		$custom_logo_data = wp_get_attachment_image_src($custom_logo_id, 'full');
@@ -74,12 +74,12 @@ function logo_url()
 // Check and Add Favicon
 function add_favicon()
 {
-	if (!has_site_icon()  && !is_customize_preview()) {
-		$favicon_url = get_stylesheet_directory_uri() . '/assets/images/favicon.png';
+	// if (!has_site_icon()  && !is_customize_preview()) {
+		$favicon_url = get_stylesheet_directory_uri() . '/assets/favicon/0.png';
 		echo '<link rel="icon" type="image/gif" href="' . $favicon_url . '" />';
-	} else {
-		echo '<link rel="icon" type="image/gif" href="' . wp_get_attachment_image_url(get_option('site_icon'), 'full') . '">';
-	}
+	// } else {
+	// 	echo '<link rel="icon" type="image/gif" href="' . wp_get_attachment_image_url(get_option('site_icon'), 'full') . '">';
+	// }
 }
 add_action('wp_head', 'add_favicon');
 add_action('login_head', 'add_favicon');

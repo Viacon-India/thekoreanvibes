@@ -13,11 +13,11 @@ $hex_color_1 = __($args['hex_color']); ?>
         </figure>
     </a>
     <div class="hr-big-body">
-        <h2 class="hr-big-body-cat" style="color:<?php echo $hex_color_1; ?>;">
+        <p class="hr-big-body-cat" style="color:<?php echo $hex_color_1; ?>;">
             <a href="<?php echo esc_url(get_category_link($cat[0]->term_id)); ?>" title="<?php echo $cat[0]->cat_name; ?>">
                 <?php echo $cat[0]->cat_name; ?>
             </a>
-        </h2>
+        </p>
         <h3 class="hr-big-body-title">
             <a href="<?php echo get_the_permalink($post_ID); ?>"><?php echo the_title_attribute('echo=0'); ?></a>
         </h3>

@@ -40,9 +40,9 @@ if(is_single()):
                         </figure>
 
                         <div class=" flex flex-col justify-center">
-                            <h1 class="sidebar-author-title">
+                            <h2 class="sidebar-author-title">
                                 <a href="<?php echo $author_URL; ?>"><?php echo $author_name; ?></a>
-                            </h1>
+                            </h2>
                             <?php if(!empty($author_designation)){
                                 echo '<h3 class="sidebar-author-cat">'.$author_designation.'</h3>';
                             } ?>
@@ -87,9 +87,9 @@ if(is_single()):
                 <span class="side-bar-transform-r text-[#F4F4F4]">
                     Most Popular
                 </span>
-                <h3 class="h-s-b-title text-secondary">
+                <h2 class="h-s-b-title text-secondary">
                     Most Popular
-                </h3>
+                </h2>
                 <div class="side-wrapper">
                     <?php while ($popular_posts->have_posts()) : $popular_posts->the_post();
                         get_template_part('template-parts/sidebar', 'card');
@@ -98,9 +98,9 @@ if(is_single()):
             </div>
             <?php if ((!empty($facebook) && filter_var($facebook, FILTER_VALIDATE_URL)) || (!empty($instagram) && filter_var($instagram, FILTER_VALIDATE_URL))) : ?>
                 <div class="side-bar-card bg-[#FAFAFA] hidden lg:flex flex-col">
-                    <h3 class="h-s-b-title text-secondary ">
+                    <h2 class="h-s-b-title text-secondary ">
                         Social Links
-                    </h3>
+                    </h2>
                     <div class="sidebar-social-wrapper mt-[12px]">
                         <?php if (!empty($facebook) && (filter_var($facebook, FILTER_VALIDATE_URL) !== false)) : ?>
                             <a href="<?php echo $facebook; ?>" class="sidebar-social-icon group hover:text-white" onmouseover="this.setAttribute('style','border-color:<?php echo $hex_color_1; ?>;background-color:<?php echo $hex_color_1; ?>')" onmouseout="this.setAttribute('style','border-color:null;background-color:null')">
