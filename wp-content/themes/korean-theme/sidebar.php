@@ -1,6 +1,9 @@
 <?php $author_id = get_the_author_meta('ID');
 $author_designation = get_the_author_meta('designation', $author_id);
-$author_name = get_the_author_meta('display_name', $author_id);
+$author_name = get_the_author_meta('first_name', $author_id);
+if(empty($author_name)){
+    $author_name = get_the_author_meta('display_name', $author_id);
+}
 $author_URL = get_author_posts_url($author_id);
 $author_desc = get_the_author_meta('description', $author_id);
 $hex_color_1 = __($args['hex_color']);

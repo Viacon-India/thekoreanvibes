@@ -685,7 +685,7 @@ function beauty_template_custom_field( $post ) {
 function entertainment_template_custom_field( $post ) {
     $rating = get_post_meta( $post->ID, 'rating', true );
     $cast = get_post_meta( $post->ID, 'cast', true );
-	$featured = get_post_meta( $post->ID, 'featured', true );
+	$release = get_post_meta( $post->ID, 'release', true );
     echo '<div style="display: flex;flex-direction: column;gap: 12px;">
 		<div style="display: flex;flex-direction: column;gap: 6px;">
 			<label for="rating">Rating:</label>
@@ -696,8 +696,8 @@ function entertainment_template_custom_field( $post ) {
 			<textarea name="cast">' . esc_attr( $cast ) . '</textarea>
 		</div>
 		<div style="display: flex;flex-direction: column;gap: 6px;">
-			<label for="featured">Brands Featured:</label>
-			<textarea name="featured">' . esc_attr( $featured ) . '</textarea>
+			<label for="release">Year of Release:</label>
+			<input type="date" name="release" value="' . esc_attr( $release ) . '" />
 		</div>
 	</div>';
 }
@@ -774,7 +774,7 @@ function food_template_custom_field( $post ) {
 	</div>';
 }
 function save_custom_field_for_templates( $post_id ) {
-	$keys = ['rating','efficacy','packaging','value','ingredients','purpose','skin','benefits','brand','form','tone','quantity','price','food','service','price_rating','cast','featured','duration','spend','address','hours','branches','contact'];
+	$keys = ['rating','efficacy','packaging','value','ingredients','purpose','skin','benefits','brand','form','tone','quantity','price','food','service','price_rating','cast','featured','duration','spend','address','hours','branches','contact','release'];
 	foreach($keys as $key){
 		if ( isset( $_POST[$key] ) ) {
 			$custom_field_value = sanitize_text_field( $_POST[$key] );
