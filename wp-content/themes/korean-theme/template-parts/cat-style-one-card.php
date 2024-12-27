@@ -5,7 +5,7 @@ $bg_color = __( $args['bg_color'] );
 if(empty($hex_color_1)){
     $hex_color_1 = '#ED1B1B';
 } ?>
-<div class="h-f-card border-b-[1px]" onmouseover="this.style.background='<?php echo $bg_color; ?>14'" onmouseout="this.style.background=null">
+<div class="h-f-card border-b-[1px]" onmouseover="this.style.background='<?php echo $bg_color; ?>'" onmouseout="this.style.background=null">
     <a href="<?php echo get_the_permalink($post_ID); ?>">
         <figure class="h-f-wrapper">
             <?php if (has_post_thumbnail()) : ?>

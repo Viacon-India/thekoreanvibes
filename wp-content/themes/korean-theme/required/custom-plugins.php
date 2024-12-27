@@ -972,6 +972,17 @@ add_shortcode('product_data', 'product_data');
 /*-----------------Reviews Short Code-----------------*/
 function reviews() {
 	$post_id = get_the_ID();
+	$cat = get_the_category();
+    $cat_ID = $cat[0]->term_id;
+    $parent_id = $cat[0]->parent;
+	$bg_color = get_term_meta($cat_ID, 'hex_code_2', true);
+    if (empty($bg_color) && !empty($parent_id)) {
+        $bg_color = get_term_meta($parent_id, 'hex_code_2', true);
+    }
+    $quote_color = get_term_meta($cat_ID, 'hex_code_4', true);
+    if (empty($quote_color) && !empty($parent_id)) {
+        $quote_color = get_term_meta($parent_id, 'hex_code_4', true);
+    }
 	$reviews = get_post_meta($post_id, "custom-review", true);
     ob_start();
 	if(!empty($reviews)):
@@ -980,12 +991,12 @@ function reviews() {
 			<?php foreach($reviews as $review): ?>
 				<div class="swiper-slide">
 					<svg class="absolute top-[-16px] left-[30px] z-1" width="121" height="76" viewBox="0 0 121 76" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<path d="M0 76V34.8689L14.6406 0H44.9265L35.4531 33.588H53.6821V76H0ZM67.3179 76V34.8689L81.9585 0H112.244L102.771 33.588H121V76H67.3179Z" fill="#F4D2F3" />
+						<path d="M0 76V34.8689L14.6406 0H44.9265L35.4531 33.588H53.6821V76H0ZM67.3179 76V34.8689L81.9585 0H112.244L102.771 33.588H121V76H67.3179Z" fill="<?php echo $quote_color; ?>" />
 					</svg>
 					<svg class="absolute bottom-0 right-[30px] z-1" width="121" height="76" viewBox="0 0 121 76" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<path d="M121 0V41.1311L106.359 76H76.0735L85.5469 42.412H67.3179V0H121ZM53.6821 0V41.1311L39.0415 76H8.75564L18.229 42.412H0V0H53.6821Z" fill="#F4D2F3" />
+						<path d="M121 0V41.1311L106.359 76H76.0735L85.5469 42.412H67.3179V0H121ZM53.6821 0V41.1311L39.0415 76H8.75564L18.229 42.412H0V0H53.6821Z" fill="<?php echo $quote_color; ?>" />
 					</svg>
-					<div class="slider-box-content relative py-[60px] px-[48px] 2xl:px-[96px] rounded-[10px] !h-[350px]" style="background-color:#FAE7F8">
+					<div class="slider-box-content relative py-[60px] px-[48px] 2xl:px-[96px] rounded-[10px] !h-[350px]" style="background-color:<?php echo $bg_color; ?>">
 						<p style="color:#101010" class="!text-[22px] 2xl:!text-[24px] !font-Anton !text-center !leading-[1.5] !capitalize"><?php echo $review['review']; ?></p>
 						<span class="flex justify-center items-center gap-2 mt-6 !text-[18px] !font-Chai">
 							<svg width="24" height="1" viewBox="0 0 24 1" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1045,9 +1056,16 @@ add_shortcode('product_affiliation', 'multiple_affiliation');
 
 
 
-/*-----------------Product Affiliation Short Code-----------------*/
+/*-----------------Single Product Affiliation Short Code-----------------*/
 function single_affiliation() {
 	$post_id = get_the_ID();
+	$cat = get_the_category();
+    $cat_ID = $cat[0]->term_id;
+    $parent_id = $cat[0]->parent;
+	$bg_color = get_term_meta($cat_ID, 'hex_code_2', true);
+    if (empty($bg_color) && !empty($parent_id)) {
+        $bg_color = get_term_meta($parent_id, 'hex_code_2', true);
+    }
 	$single_affiliations = get_post_meta($post_id, 'single_affiliation', true);
 	$i=0;
     ob_start();
@@ -1061,7 +1079,7 @@ function single_affiliation() {
 					<img class="w-full h-full object-cover !rounded-tr-[0px] !rounded-br-[0px] !my-0" src="<?php echo $image_url; ?>" alt="card11" />
 				</figure>
 			<?php endif; ?>
-			<div class="bg-[#FAE7F8] w-full p-8 flex flex-col justify-center">
+			<div class="w-full p-8 flex flex-col justify-center" style="background-color:<?php echo $bg_color; ?>">
 				<h3 class="product-title"><?php echo $single_affiliations[$i]['title']; ?></h3>
 				<button class="price-btn !w-fit"><?php echo $single_affiliations[$i]['text']; ?></button>
 			</div>
