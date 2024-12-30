@@ -19,7 +19,7 @@ jQuery(document).ready(function($) {
       counter = (counter + 1) % 7;
       let newFavicon = facicon_src + counter + '.png';
       $('link[rel="icon"]').attr('href', newFavicon);
-    }, 120);
+    }, 400);
 
 
     // Share Button Function
