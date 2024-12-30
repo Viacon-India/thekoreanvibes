@@ -68,6 +68,10 @@ get_header(); ?>
         .internal-content a:hover:not(.product-sec a) {
             color: <?php echo $primary_color; ?>;
         }
+        body::-webkit-scrollbar-thumb
+        {
+            background-color: <?php echo $primary_color; ?>;
+        }
     </style>
 
 <section class="single-banner pt-[61px]">
