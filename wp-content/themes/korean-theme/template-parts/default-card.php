@@ -11,7 +11,7 @@ if(empty($hex_color_1) && $cat[0]->parent){
 <div class="common-card">
     <a href="<?php echo get_the_permalink($post_ID); ?>">
         <figure class="common-card-image-wrapper">
-            <span class="common-image-overlay"></span>
+            <!-- <span class="common-image-overlay"></span> -->
             <?php if (has_post_thumbnail()) : ?>
                 <?php echo get_the_post_thumbnail($post_ID, 'default-thumbnail', array('class' => 'common-card-image')); ?>
             <?php else : ?>

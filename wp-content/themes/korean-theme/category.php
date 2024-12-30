@@ -22,6 +22,10 @@ $child_cat = (empty($parent_id)) ? get_terms('category',  array('child_of' => $c
         content: '';
         background-color: <?php echo $hex_color_1; ?>;
     }
+    body::-webkit-scrollbar-thumb
+    {
+        background-color: <?php echo $hex_color_1; ?>;
+    }
 </style>
 
 <section class="category-banner bg-[#FFFFFF] pt-[64px]">

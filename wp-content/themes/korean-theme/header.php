@@ -18,11 +18,11 @@ $facebook = get_option('facebook');
 $instagram = get_option('instagram'); ?>
 
 <body <?php body_class(); ?>>
-  <div class="header">
+  <!-- <div class="header">
     <div id="myDIV" class="progress-container whiteBg">
       <div class="progress-bar" id="progressBar"></div>
     </div>
-  </div>
+  </div> -->
 
   <header class="relative">
     <nav class="navbar font-Chai">
@@ -58,7 +58,7 @@ $instagram = get_option('instagram'); ?>
               foreach ($header_menu_items as $menu_item) :
                 $parent_ID = $menu_item->ID;
                 if ($menu_item->menu_item_parent == 0) :
-                  echo '<li class="nav-drop flex-col gap-1 group">';
+                  echo '<li class="nav-drop flex-col gap-1 group py-[18px]">';
                   if (!in_array($menu_item->ID, $menu_items_with_children)) :
                     echo '<a href="' . $menu_item->url . '" class="nav-links nav-hov">' . $menu_item->title . '</a>';
                   else :

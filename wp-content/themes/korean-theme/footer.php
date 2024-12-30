@@ -4,7 +4,7 @@
 $facebook = get_option('facebook');
 $linkedin = get_option('linkedin'); ?>
 
-<section class="footer-sec bg-[#FCFCFC] ">
+<footer class="footer-sec bg-[#FCFCFC] ">
     <div class="container mx-auto">
         <div class="footer-main">
             <div class="footer-detail w-full md:w-[30%]">
@@ -88,7 +88,7 @@ $linkedin = get_option('linkedin'); ?>
             <p class="copyright">All Rights Reserved</span></a>.</p>
         </div>
     </div>
-</section>
+</footer>
 
 
 <?php wp_footer(); ?>
