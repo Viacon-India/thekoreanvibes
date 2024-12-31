@@ -35,6 +35,9 @@ if (!function_exists('theme_setup')) {
 		add_image_size('cat-style-two-hero-thumbnail', 410, 271, true);
 		add_image_size('default-thumbnail', 358, 258, true);
 		add_image_size('single-banner-img', 1106, 676, true);
+		add_image_size('category-thumbnail', 1920, 450, true);
+		add_image_size('multiple-affiliation-thumbnail', 250, 250, true);
+		add_image_size('single-affiliation-thumbnail', 340, 340, true);
 
 		$GLOBALS['content_width'] = 900;
 
@@ -122,7 +125,7 @@ function my_plugin_assets()
 // add_action('wp_footer', 'img');
 function img()
 {
-?><script type="text/javascript">
+	?><script type="text/javascript">
 		jQuery(document).ready(function($) {
 			$("img").removeAttr("srcset");
 			$("img").each((index, img) => {
@@ -132,13 +135,13 @@ function img()
 			});
 		});
 	</script><?php
-			}
+}
 
-			/*----------------------------------------------------------------------Custom Field for COLOR----------------------------------------------------------------------*/
-			add_action('category_add_form_fields', 'hex_code_add_form_fields', 10, 2);
-			add_action('category_edit_form_fields', 'hex_code_edit_term_fields', 10, 2);
-			function hex_code_add_form_fields($taxonomy)
-			{
+/*----------------------------------------------------------------------Custom Field for COLOR----------------------------------------------------------------------*/
+add_action('category_add_form_fields', 'hex_code_add_form_fields', 10, 2);
+add_action('category_edit_form_fields', 'hex_code_edit_term_fields', 10, 2);
+function hex_code_add_form_fields($taxonomy)
+{
 				?>
 	<div class="form-field">
 		<label>Color Code</label>
@@ -169,17 +172,16 @@ function img()
 				$('.color-picker').wpColorPicker();
 			});
 		</script>
-	</div>
-<?php
-			}
-			function hex_code_edit_term_fields($term, $taxonomy)
-			{
-				$hex_color_1 = get_term_meta($term->term_id, 'hex_code_1', true);
-				$hex_color_2 = get_term_meta($term->term_id, 'hex_code_2', true);
-				$hex_color_3 = get_term_meta($term->term_id, 'hex_code_3', true);
-				$hex_color_4 = get_term_meta($term->term_id, 'hex_code_4', true);
-				$hex_color_5 = get_term_meta($term->term_id, 'hex_code_5', true);
-?><div class="form-field">
+	</div><?php
+}
+function hex_code_edit_term_fields($term, $taxonomy)
+{
+	$hex_color_1 = get_term_meta($term->term_id, 'hex_code_1', true);
+	$hex_color_2 = get_term_meta($term->term_id, 'hex_code_2', true);
+	$hex_color_3 = get_term_meta($term->term_id, 'hex_code_3', true);
+	$hex_color_4 = get_term_meta($term->term_id, 'hex_code_4', true);
+	$hex_color_5 = get_term_meta($term->term_id, 'hex_code_5', true);
+	?><div class="form-field">
 		<h3>Color Code</h3>
 		<div style="display: flex; justify-content: space-between; width: 96%;">
 			<div style="width: fit-content;">
@@ -209,97 +211,97 @@ function img()
 			});
 		</script>
 	</div><?php
-			}
+}
 
-			add_action('edited_category', 'hex_code_save_term_fields', 10, 2);
-			add_action('create_category', 'hex_code_save_term_fields', 10, 2);
-			function hex_code_save_term_fields($term_id)
-			{
-				$hex_color_1 = $_POST['hex_code_1'];
-				$hex_color_2 = $_POST['hex_code_2'];
-				$hex_color_3 = $_POST['hex_code_3'];
-				$hex_color_4 = $_POST['hex_code_4'];
-				$hex_color_5 = $_POST['hex_code_5'];
-				if (preg_match('/^#[a-f0-9]{6}$/i', $hex_color_1)) {
-					update_term_meta($term_id, 'hex_code_1', sanitize_text_field($hex_color_1));
-				} else {
-					update_term_meta($term_id, 'hex_code_1', '');
-				}
-				if (preg_match('/^#[a-f0-9]{6}$/i', $hex_color_2)) {
-					update_term_meta($term_id, 'hex_code_2', sanitize_text_field($hex_color_2));
-				} else {
-					update_term_meta($term_id, 'hex_code_2', '');
-				}
-				if (preg_match('/^#[a-f0-9]{6}$/i', $hex_color_3)) {
-					update_term_meta($term_id, 'hex_code_3', sanitize_text_field($hex_color_3));
-				} else {
-					update_term_meta($term_id, 'hex_code_3', '');
-				}
-				if (preg_match('/^#[a-f0-9]{6}$/i', $hex_color_4)) {
-					update_term_meta($term_id, 'hex_code_4', sanitize_text_field($hex_color_4));
-				} else {
-					update_term_meta($term_id, 'hex_code_4', '');
-				}
-				if (preg_match('/^#[a-f0-9]{6}$/i', $hex_color_5)) {
-					update_term_meta($term_id, 'hex_code_5', sanitize_text_field($hex_color_5));
-				} else {
-					update_term_meta($term_id, 'hex_code_5', '');
-				}
-			}
+add_action('edited_category', 'hex_code_save_term_fields', 10, 2);
+add_action('create_category', 'hex_code_save_term_fields', 10, 2);
+function hex_code_save_term_fields($term_id)
+{
+	$hex_color_1 = $_POST['hex_code_1'];
+	$hex_color_2 = $_POST['hex_code_2'];
+	$hex_color_3 = $_POST['hex_code_3'];
+	$hex_color_4 = $_POST['hex_code_4'];
+	$hex_color_5 = $_POST['hex_code_5'];
+	if (preg_match('/^#[a-f0-9]{6}$/i', $hex_color_1)) {
+		update_term_meta($term_id, 'hex_code_1', sanitize_text_field($hex_color_1));
+	} else {
+		update_term_meta($term_id, 'hex_code_1', '');
+	}
+	if (preg_match('/^#[a-f0-9]{6}$/i', $hex_color_2)) {
+		update_term_meta($term_id, 'hex_code_2', sanitize_text_field($hex_color_2));
+	} else {
+		update_term_meta($term_id, 'hex_code_2', '');
+	}
+	if (preg_match('/^#[a-f0-9]{6}$/i', $hex_color_3)) {
+		update_term_meta($term_id, 'hex_code_3', sanitize_text_field($hex_color_3));
+	} else {
+		update_term_meta($term_id, 'hex_code_3', '');
+	}
+	if (preg_match('/^#[a-f0-9]{6}$/i', $hex_color_4)) {
+		update_term_meta($term_id, 'hex_code_4', sanitize_text_field($hex_color_4));
+	} else {
+		update_term_meta($term_id, 'hex_code_4', '');
+	}
+	if (preg_match('/^#[a-f0-9]{6}$/i', $hex_color_5)) {
+		update_term_meta($term_id, 'hex_code_5', sanitize_text_field($hex_color_5));
+	} else {
+		update_term_meta($term_id, 'hex_code_5', '');
+	}
+}
 
-			add_filter('manage_edit-category_columns', 'colors_columns_header');
-			add_filter('manage_category_custom_column', 'colors_columns_content', 10, 3);
-			function colors_columns_header($header)
-			{
-				$header['color_hex_code']  = __('Color', 'colors');
-				return $header;
-			}
-			function colors_columns_content($columns, $column, $term_id)
-			{
-				if ('color_hex_code' === $column) {
-					echo '<style type="text/css"> .column-color_hex_code { width: 190px; } </style>';
-					$hex_color_1 = get_term_meta($term_id, 'hex_code_1', true);
-					$hex_color_2 = get_term_meta($term_id, 'hex_code_2', true);
-					$hex_color_3 = get_term_meta($term_id, 'hex_code_3', true);
-					$hex_color_4 = get_term_meta($term_id, 'hex_code_4', true);
-					$hex_color_5 = get_term_meta($term_id, 'hex_code_5', true);
-					echo '<div style="gap: 10px; display: flex;">';
-					if (preg_match('/^#[a-f0-9]{6}$/i', $hex_color_1)) {
-						echo '<svg height="30" width="30"><circle cx="15" cy="15" r="15" fill="' . $hex_color_1 . '" /></svg>';
-					}
-					if (preg_match('/^#[a-f0-9]{6}$/i', $hex_color_2)) {
-						echo '<svg height="30" width="30"><circle cx="15" cy="15" r="15" fill="' . $hex_color_2 . '" /></svg>';
-					}
-					if (preg_match('/^#[a-f0-9]{6}$/i', $hex_color_3)) {
-						echo '<svg height="30" width="30"><circle cx="15" cy="15" r="15" fill="' . $hex_color_3 . '" /></svg>';
-					}
-					if (preg_match('/^#[a-f0-9]{6}$/i', $hex_color_4)) {
-						echo '<svg height="30" width="30"><circle cx="15" cy="15" r="15" fill="' . $hex_color_4 . '" /></svg>';
-					}
-					if (preg_match('/^#[a-f0-9]{6}$/i', $hex_color_5)) {
-						echo '<svg height="30" width="30"><circle cx="15" cy="15" r="15" fill="' . $hex_color_5 . '" /></svg>';
-					}
-					echo '</div>';
-				}
-				return $columns;
-			}
-
-
-
-			add_filter('user_contactmethods', 'designation'); //Add Designation
-			function designation($designation)
-			{
-				$designation['designation']   = __('Designation');
-				return $designation;
-			}
+add_filter('manage_edit-category_columns', 'colors_columns_header');
+add_filter('manage_category_custom_column', 'colors_columns_content', 10, 3);
+function colors_columns_header($header)
+{
+	$header['color_hex_code']  = __('Color', 'colors');
+	return $header;
+}
+function colors_columns_content($columns, $column, $term_id)
+{
+	if ('color_hex_code' === $column) {
+		echo '<style type="text/css"> .column-color_hex_code { width: 190px; } </style>';
+		$hex_color_1 = get_term_meta($term_id, 'hex_code_1', true);
+		$hex_color_2 = get_term_meta($term_id, 'hex_code_2', true);
+		$hex_color_3 = get_term_meta($term_id, 'hex_code_3', true);
+		$hex_color_4 = get_term_meta($term_id, 'hex_code_4', true);
+		$hex_color_5 = get_term_meta($term_id, 'hex_code_5', true);
+		echo '<div style="gap: 10px; display: flex;">';
+		if (preg_match('/^#[a-f0-9]{6}$/i', $hex_color_1)) {
+			echo '<svg height="30" width="30"><circle cx="15" cy="15" r="15" fill="' . $hex_color_1 . '" /></svg>';
+		}
+		if (preg_match('/^#[a-f0-9]{6}$/i', $hex_color_2)) {
+			echo '<svg height="30" width="30"><circle cx="15" cy="15" r="15" fill="' . $hex_color_2 . '" /></svg>';
+		}
+		if (preg_match('/^#[a-f0-9]{6}$/i', $hex_color_3)) {
+			echo '<svg height="30" width="30"><circle cx="15" cy="15" r="15" fill="' . $hex_color_3 . '" /></svg>';
+		}
+		if (preg_match('/^#[a-f0-9]{6}$/i', $hex_color_4)) {
+			echo '<svg height="30" width="30"><circle cx="15" cy="15" r="15" fill="' . $hex_color_4 . '" /></svg>';
+		}
+		if (preg_match('/^#[a-f0-9]{6}$/i', $hex_color_5)) {
+			echo '<svg height="30" width="30"><circle cx="15" cy="15" r="15" fill="' . $hex_color_5 . '" /></svg>';
+		}
+		echo '</div>';
+	}
+	return $columns;
+}
 
 
 
-			// Load More Button Function
-			add_action('wp_footer', 'load_more_blog_javascript');
-			function load_more_blog_javascript()
-			{ ?>
-	<script type="text/javascript">
+add_filter('user_contactmethods', 'designation'); //Add Designation
+function designation($designation)
+{
+	$designation['designation']   = __('Designation');
+	return $designation;
+}
+
+
+
+// Load More Button Function
+add_action('wp_footer', 'load_more_blog_javascript');
+function load_more_blog_javascript()
+{ 
+	?><script type="text/javascript">
 		jQuery(document).ready(function($) {
 			jQuery('#default-search').on('input', function(){
 				jQuery.ajax({
@@ -307,6 +309,9 @@ function img()
 					type: 'post',
 					data: { action: 'search_fetch', keyword: jQuery(this).val() },
 					beforeSend: function(){
+						$('#datafetch .search-small-card figure').height($('#datafetch .search-small-card figure').height()).width($('#datafetch .search-small-card figure').width()).empty().addClass("animate-pulse bg-gray-200");
+						$('#datafetch .search-small-card .search-small-body-title').height($('#datafetch .search-small-card .search-small-body-title').height()).width($('#datafetch .search-small-card .search-small-body-title').width()).empty().addClass("animate-pulse bg-gray-200");
+						$('#datafetch .search-small-card .search-small-body-cat').height($('#datafetch .search-small-card .search-small-body-cat').height()).width($('#datafetch .search-small-card .search-small-body-cat').width()).empty().addClass("animate-pulse bg-gray-200");
 						$('#data_message').hide();
 					},
 					success: function(data) {
@@ -404,78 +409,100 @@ function img()
 				});
 			});
 		});
-	</script>
-	<?php }
+	</script><?php
+}
 
-			/**************** VIEW ******************/
+/**************** VIEW ******************/
 
-			function subh_get_post_view($postID)
-			{
-				$count_key = 'post_views_count';
-				$count     = get_post_meta($postID, $count_key, true);
-				if ($count == '') {
-					delete_post_meta($postID, $count_key);
-					add_post_meta($postID, $count_key, '0');
-					return '0 View';
+function subh_get_post_view($postID)
+{
+	$count_key = 'post_views_count';
+	$count     = get_post_meta($postID, $count_key, true);
+	if ($count == '') {
+		delete_post_meta($postID, $count_key);
+		add_post_meta($postID, $count_key, '0');
+		return '0 View';
+	}
+	return $count . ' Views';
+}
+
+function subh_set_post_view($postID)
+{
+	$count_key = 'post_views_count';
+	$count     = (int) get_post_meta($postID, $count_key, true);
+	if ($count < 1) {
+		delete_post_meta($postID, $count_key);
+		add_post_meta($postID, $count_key, '1');
+	} else {
+		$count++;
+		update_post_meta($postID, $count_key, (string) $count);
+	}
+}
+
+function subh_posts_column_views($defaults)
+{
+	$defaults['post_views'] = __('Views');
+	return $defaults;
+}
+
+function subh_posts_custom_column_views($column_name, $id)
+{
+	if ($column_name === 'post_views') {
+		echo subh_get_post_view(get_the_ID());
+	}
+}
+add_filter('manage_posts_columns', 'subh_posts_column_views');
+add_action('manage_posts_custom_column', 'subh_posts_custom_column_views', 5, 2);
+
+
+
+function categories_shortcode($slugs = [])
+{
+	if (!empty($slugs)) {
+		$categories = '<div class="about-chip-wrapper">';
+		foreach ($slugs as $slug) {
+			$cat = get_category_by_slug($slug);
+			if (!empty($cat)) {
+				$hex_color = get_term_meta($cat->term_id, 'hex_code', true);
+				if (empty($hex_color) && $cat->parent) {
+					$hex_color = get_term_meta($cat->parent, 'hex_code', true);
 				}
-				return $count . ' Views';
-			}
-
-			function subh_set_post_view($postID)
-			{
-				$count_key = 'post_views_count';
-				$count     = (int) get_post_meta($postID, $count_key, true);
-				if ($count < 1) {
-					delete_post_meta($postID, $count_key);
-					add_post_meta($postID, $count_key, '1');
-				} else {
-					$count++;
-					update_post_meta($postID, $count_key, (string) $count);
+				if (empty($hex_color)) {
+					$hex_color = '#FF2451';
 				}
+				$categories .= '<a class="chip-card" style="color:' . $hex_color . '" href="' . get_category_link($cat->term_id) . '">' . get_cat_name(get_category_by_slug($slug)->term_id) . '</a>';
 			}
-
-			function subh_posts_column_views($defaults)
-			{
-				$defaults['post_views'] = __('Views');
-				return $defaults;
-			}
-
-			function subh_posts_custom_column_views($column_name, $id)
-			{
-				if ($column_name === 'post_views') {
-					echo subh_get_post_view(get_the_ID());
-				}
-			}
-			add_filter('manage_posts_columns', 'subh_posts_column_views');
-			add_action('manage_posts_custom_column', 'subh_posts_custom_column_views', 5, 2);
+		}
+		$categories .= '</div>';
+		return $categories;
+	} else {
+		return null;
+	}
+}
+function categories_for_page()
+{
+	add_shortcode('categories', 'categories_shortcode');
+}
+add_action('init', 'categories_for_page');
 
 
 
-			function categories_shortcode($slugs = [])
-			{
-				if (!empty($slugs)) {
-					$categories = '<div class="about-chip-wrapper">';
-					foreach ($slugs as $slug) {
-						$cat = get_category_by_slug($slug);
-						if (!empty($cat)) {
-							$hex_color = get_term_meta($cat->term_id, 'hex_code', true);
-							if (empty($hex_color) && $cat->parent) {
-								$hex_color = get_term_meta($cat->parent, 'hex_code', true);
-							}
-							if (empty($hex_color)) {
-								$hex_color = '#ED1B1B';
-							}
-							$categories .= '<a class="chip-card" style="color:' . $hex_color . '" href="' . get_category_link($cat->term_id) . '">' . get_cat_name(get_category_by_slug($slug)->term_id) . '</a>';
-						}
-					}
-					$categories .= '</div>';
-					return $categories;
-				} else {
-					return null;
-				}
-			}
-			function categories_for_page()
-			{
-				add_shortcode('categories', 'categories_shortcode');
-			}
-			add_action('init', 'categories_for_page');
+
+//Code for HSTS
+function wps_enable_strict_transport_security_hsts_header_wordpress() {
+    header( 'Strict-Transport-Security: max-age=31536000; includeSubDomains; preload' );
+}
+add_action('send_headers','wps_enable_strict_transport_security_hsts_header_wordpress' );
+ 
+ 
+add_filter('wpseo_opengraph_url', 'custom_opengraph_url');
+function custom_opengraph_url($url) {
+   
+    $current_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+ 
+    if (strpos($current_url, '/page/') !== false) {
+        return $current_url;
+    } else {
+        return $url; // Return the original URL for other pages
+    }
+}

@@ -77,7 +77,7 @@ $cat5_posts = new WP_Query(array(
 
                     <div class="home-about-dsc-wrapper">
                         <p class="home-about-dsc">
-                            TheKoreanVibes main purpose is to share valuable information on every niche. TheKoreanVibes is a platform that has committed itself to cover all the trendy information from the industry and share them with its readers.
+                            Annyeong! The Korean Vibes is here- A Lifestyle Guide for all Hallyu fans. A vibrant guide to the latest in K-fashion, K-beauty, K-pop, Korean delicacies, and more at your fingertips. From K-pop chartbusters to the best Korean foods in your town, we’ve got you covered. What would you like to learn today?
                         </p>
                     </div>
 
@@ -85,7 +85,7 @@ $cat5_posts = new WP_Query(array(
                     <div class="counter-card-wrapper">
                         <div class="counter-card">
                             <span id="counter" class="counter">
-                                500
+                                0
                             </span>
                             <span class="counter">
                                 +
@@ -99,7 +99,7 @@ $cat5_posts = new WP_Query(array(
                         </span>
                         <div class="counter-card">
                             <span id="one" class="counter">
-                                5,000
+                                0
                             </span>
                             <span class="counter">
                                 +
@@ -114,10 +114,10 @@ $cat5_posts = new WP_Query(array(
                         </span>
                         <div class="counter-card">
                             <span id="tow" class="counter">
-                                16
+                                0
                             </span>
                             <span class="counter">
-                                M+
+                                K+
                             </span>
                             <h2 class="counter-title">
                                 Happy Subscriber's
@@ -151,28 +151,28 @@ $cat5_posts = new WP_Query(array(
     if (empty($primary_color) && $cat->parent) {
         $primary_color = get_term_meta($cat->parent, 'hex_code_1', true);
         if (empty($primary_color)) {
-            $primary_color = '#ED1B1B';
+            $primary_color = '#FF2451';
         }
     }
     $bg_color = get_term_meta($cat->term_id, 'hex_code_2', true);
     if (empty($bg_color) && $cat->parent) {
         $bg_color = get_term_meta($cat->parent, 'hex_code_2', true);
         if (empty($bg_color)) {
-            $bg_color = '#ED1B1B';
+            $bg_color = '#FF2451';
         }
     }
     $gradient_color = get_term_meta($cat->term_id, 'hex_code_3', true);
     if (empty($gradient_color) && $cat->parent) {
         $gradient_color = get_term_meta($cat->parent, 'hex_code_3', true);
         if (empty($gradient_color)) {
-            $gradient_color = '#ED1B1B';
+            $gradient_color = '#FF2451';
         }
     }
     $title_color = get_term_meta($cat->term_id, 'hex_code_5', true);
     if (empty($title_color) && $cat->parent) {
         $title_color = get_term_meta($cat->parent, 'hex_code_5', true);
         if (empty($title_color)) {
-            $title_color = '#ED1B1B';
+            $title_color = '#FF2451';
         }
     } ?>
     <style>
@@ -228,28 +228,28 @@ $cat5_posts = new WP_Query(array(
     if (empty($primary_color) && $cat->parent) {
         $primary_color = get_term_meta($cat->parent, 'hex_code_1', true);
         if (empty($primary_color)) {
-            $primary_color = '#ED1B1B';
+            $primary_color = '#FF2451';
         }
     }
     $bg_color = get_term_meta($cat->term_id, 'hex_code_2', true);
     if (empty($bg_color) && $cat->parent) {
         $bg_color = get_term_meta($cat->parent, 'hex_code_2', true);
         if (empty($bg_color)) {
-            $bg_color = '#ED1B1B';
+            $bg_color = '#FF2451';
         }
     }
     $gradient_color = get_term_meta($cat->term_id, 'hex_code_3', true);
     if (empty($gradient_color) && $cat->parent) {
         $gradient_color = get_term_meta($cat->parent, 'hex_code_3', true);
         if (empty($gradient_color)) {
-            $gradient_color = '#ED1B1B';
+            $gradient_color = '#FF2451';
         }
     }
     $title_color = get_term_meta($cat->term_id, 'hex_code_5', true);
     if (empty($title_color) && $cat->parent) {
         $title_color = get_term_meta($cat->parent, 'hex_code_5', true);
         if (empty($title_color)) {
-            $title_color = '#ED1B1B';
+            $title_color = '#FF2451';
         }
     } ?>
     <style>
@@ -316,28 +316,28 @@ $cat5_posts = new WP_Query(array(
     if (empty($primary_color) && $cat->parent) {
         $primary_color = get_term_meta($cat->parent, 'hex_code_1', true);
         if (empty($primary_color)) {
-            $primary_color = '#ED1B1B';
+            $primary_color = '#FF2451';
         }
     }
     $bg_color = get_term_meta($cat->term_id, 'hex_code_2', true);
     if (empty($bg_color) && $cat->parent) {
         $bg_color = get_term_meta($cat->parent, 'hex_code_2', true);
         if (empty($bg_color)) {
-            $bg_color = '#ED1B1B';
+            $bg_color = '#FF2451';
         }
     }
     $gradient_color = get_term_meta($cat->term_id, 'hex_code_3', true);
     if (empty($gradient_color) && $cat->parent) {
         $gradient_color = get_term_meta($cat->parent, 'hex_code_3', true);
         if (empty($gradient_color)) {
-            $gradient_color = '#ED1B1B';
+            $gradient_color = '#FF2451';
         }
     }
     $title_color = get_term_meta($cat->term_id, 'hex_code_5', true);
     if (empty($title_color) && $cat->parent) {
         $title_color = get_term_meta($cat->parent, 'hex_code_5', true);
         if (empty($title_color)) {
-            $title_color = '#ED1B1B';
+            $title_color = '#FF2451';
         }
     } ?>
 
@@ -401,28 +401,28 @@ $cat5_posts = new WP_Query(array(
     if (empty($primary_color) && $cat->parent) {
         $primary_color = get_term_meta($cat->parent, 'hex_code_1', true);
         if (empty($primary_color)) {
-            $primary_color = '#ED1B1B';
+            $primary_color = '#FF2451';
         }
     }
     $bg_color = get_term_meta($cat->term_id, 'hex_code_2', true);
     if (empty($bg_color) && $cat->parent) {
         $bg_color = get_term_meta($cat->parent, 'hex_code_2', true);
         if (empty($bg_color)) {
-            $bg_color = '#ED1B1B';
+            $bg_color = '#FF2451';
         }
     }
     $gradient_color = get_term_meta($cat->term_id, 'hex_code_3', true);
     if (empty($gradient_color) && $cat->parent) {
         $gradient_color = get_term_meta($cat->parent, 'hex_code_3', true);
         if (empty($gradient_color)) {
-            $gradient_color = '#ED1B1B';
+            $gradient_color = '#FF2451';
         }
     }
     $title_color = get_term_meta($cat->term_id, 'hex_code_5', true);
     if (empty($title_color) && $cat->parent) {
         $title_color = get_term_meta($cat->parent, 'hex_code_5', true);
         if (empty($title_color)) {
-            $title_color = '#ED1B1B';
+            $title_color = '#FF2451';
         }
     } ?>
     <style>
@@ -479,28 +479,28 @@ $cat5_posts = new WP_Query(array(
     if (empty($primary_color) && $cat->parent) {
         $primary_color = get_term_meta($cat->parent, 'hex_code_1', true);
         if (empty($primary_color)) {
-            $primary_color = '#ED1B1B';
+            $primary_color = '#FF2451';
         }
     }
     $bg_color = get_term_meta($cat->term_id, 'hex_code_2', true);
     if (empty($bg_color) && $cat->parent) {
         $bg_color = get_term_meta($cat->parent, 'hex_code_2', true);
         if (empty($bg_color)) {
-            $bg_color = '#ED1B1B';
+            $bg_color = '#FF2451';
         }
     }
     $gradient_color = get_term_meta($cat->term_id, 'hex_code_3', true);
     if (empty($gradient_color) && $cat->parent) {
         $gradient_color = get_term_meta($cat->parent, 'hex_code_3', true);
         if (empty($gradient_color)) {
-            $gradient_color = '#ED1B1B';
+            $gradient_color = '#FF2451';
         }
     }
     $title_color = get_term_meta($cat->term_id, 'hex_code_5', true);
     if (empty($title_color) && $cat->parent) {
         $title_color = get_term_meta($cat->parent, 'hex_code_5', true);
         if (empty($title_color)) {
-            $title_color = '#ED1B1B';
+            $title_color = '#FF2451';
         }
     } ?>
     <style>

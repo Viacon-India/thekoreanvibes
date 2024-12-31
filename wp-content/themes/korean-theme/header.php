@@ -18,17 +18,11 @@ $facebook = get_option('facebook');
 $instagram = get_option('instagram'); ?>
 
 <body <?php body_class(); ?>>
-  <!-- <div class="header">
-    <div id="myDIV" class="progress-container whiteBg">
-      <div class="progress-bar" id="progressBar"></div>
-    </div>
-  </div> -->
-
   <header class="relative">
     <nav class="navbar font-Chai">
       <div class="container mx-auto ">
         <div class="w-full flex justify-between lg:justify-end items-center relative">
-          <div class="navbar-start w-fit lg:w-full order-1 lg:order-none">
+          <div class="navbar-start w-fit lg:w-full">
             <a href="<?php echo home_url(); ?>" class="w-fit relative flex">
               <figure class="rounded-none m-0 h-[54px]">
                 <?php if (function_exists('logo_url')) {
@@ -44,84 +38,76 @@ $instagram = get_option('instagram'); ?>
             </a>
           </div>
 
-          <div class="navbar-center">
-            <?php if (isset(get_nav_menu_locations()['header-menu'])) :
-              $header_menu = get_term(get_nav_menu_locations()['header-menu'], 'nav_menu');
-              $header_menu_items = wp_get_nav_menu_items($header_menu->term_id);
-              $menu_items_with_children = array();
-              foreach ($header_menu_items as $menu_item) {
-                if ($menu_item->menu_item_parent && !in_array($menu_item->menu_item_parent, $menu_items_with_children)) {
-                  array_push($menu_items_with_children, $menu_item->menu_item_parent);
+          <div class="flex relative navbar-end">
+
+            <div class="navbar-center order-2 ml-2 lg:order-none">
+              <?php if (isset(get_nav_menu_locations()['header-menu'])) :
+                $header_menu = get_term(get_nav_menu_locations()['header-menu'], 'nav_menu');
+                $header_menu_items = wp_get_nav_menu_items($header_menu->term_id);
+                $menu_items_with_children = array();
+                foreach ($header_menu_items as $menu_item) {
+                  if ($menu_item->menu_item_parent && !in_array($menu_item->menu_item_parent, $menu_items_with_children)) {
+                    array_push($menu_items_with_children, $menu_item->menu_item_parent);
+                  }
                 }
-              }
-              echo '<ul class="menu menu-horizontal relative text-lg lg:gap-4 xl:gap-7 hidden lg:flex p-0">';
-              foreach ($header_menu_items as $menu_item) :
-                $parent_ID = $menu_item->ID;
-                if ($menu_item->menu_item_parent == 0) :
-                  echo '<li class="nav-drop flex-col gap-1 group py-[18px]">';
-                  if (!in_array($menu_item->ID, $menu_items_with_children)) :
-                    echo '<a href="' . $menu_item->url . '" class="nav-links nav-hov">' . $menu_item->title . '</a>';
-                  else :
-                    echo '<a href="' . $menu_item->url . '" class="nav-links nav-hov">' . $menu_item->title . '<svg class="self-center" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M13.7302 5.07458C13.6912 4.98206 13.6006 4.92188 13.5 4.92188L2.50002 4.922C2.39956 4.922 2.30886 4.98218 2.26968 5.07471C2.23061 5.16724 2.25076 5.27429 2.32082 5.34631L7.82082 11.0032C7.86782 11.0515 7.93252 11.0789 8.00002 11.0789C8.06753 11.0789 8.13223 11.0515 8.17922 11.0032L13.6792 5.34619C13.7493 5.27405 13.7693 5.16711 13.7302 5.07458Z" fill="#101010" />
-                    </svg></a>';
-                    echo '<ul class="center-dropdown">';
-                    foreach ($header_menu_items as $menu_child_item) :
-                      if ($menu_child_item->menu_item_parent == $parent_ID) :
-                        echo '<li><a class="drop-list" href="' . $menu_child_item->url . '">' . $menu_child_item->title . '</a></li>';
-                      endif;
-                    endforeach;
-                    echo '</ul>';
+                echo '<ul class="menu menu-horizontal relative text-lg lg:gap-4 xl:gap-7 hidden lg:flex p-0">';
+                foreach ($header_menu_items as $menu_item) :
+                  $parent_ID = $menu_item->ID;
+                  if ($menu_item->menu_item_parent == 0) :
+                    echo '<li class="nav-drop flex-col gap-1 group py-[18px]">';
+                    if (!in_array($menu_item->ID, $menu_items_with_children)) :
+                      echo '<a href="' . $menu_item->url . '" class="nav-links nav-hov">' . $menu_item->title . '</a>';
+                    else :
+                      echo '<a href="' . $menu_item->url . '" class="nav-links nav-hov">' . $menu_item->title . '<svg class="self-center" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13.7302 5.07458C13.6912 4.98206 13.6006 4.92188 13.5 4.92188L2.50002 4.922C2.39956 4.922 2.30886 4.98218 2.26968 5.07471C2.23061 5.16724 2.25076 5.27429 2.32082 5.34631L7.82082 11.0032C7.86782 11.0515 7.93252 11.0789 8.00002 11.0789C8.06753 11.0789 8.13223 11.0515 8.17922 11.0032L13.6792 5.34619C13.7493 5.27405 13.7693 5.16711 13.7302 5.07458Z" fill="#101010" />
+                      </svg></a>';
+                      echo '<ul class="center-dropdown">';
+                      foreach ($header_menu_items as $menu_child_item) :
+                        if ($menu_child_item->menu_item_parent == $parent_ID) :
+                          echo '<li><a class="drop-list" href="' . $menu_child_item->url . '">' . $menu_child_item->title . '</a></li>';
+                        endif;
+                      endforeach;
+                      echo '</ul>';
+                    endif;
+                    echo '</li>';
                   endif;
-                  echo '</li>';
-                endif;
-              endforeach;
-              echo '</ul>';
-            endif; ?>
-            
-            <!-- Hamburger Dropdown -->
-            <div class="dropdown flex lg:hidden">
-              <button class="ham-dropdown lg:hidden ml-[4px]" onclick="document.getElementById('hamMenu').style.display='block'" aria-label="search-button">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
-                  <path d="M4 5.33301H28V7.99967H4V5.33301ZM4 14.6663H20V17.333H4V14.6663ZM4 23.9997H28V26.6663H4V23.9997Z" fill="black"></path>
-                </svg>
+                endforeach;
+                echo '</ul>';
+              endif; ?>
+              
+              <!-- Hamburger Dropdown -->
+              <div class="dropdown flex lg:hidden">
+                <button class="ham-dropdown lg:hidden ml-[4px]" aria-label="search-button">
+                  <div class="bar1"></div>
+                  <div class="bar2"></div>
+                  <div class="bar3"></div>
+                </button>
+              </div>
+              <!-- hamburger-end -->
+            </div>
+  
+            <div class="group flex justify-end items-center w-fit md:ml-[26px] mb-[0px] order-1 lg:order-none">
+              <button class="search-btn popup-btn lg:w-[72px]" aria-label="search-button">
+                <span class="relative nav-hov text-[#101010] text-[17px] leading-[17px] font-medium hidden lg:flex">SEARCH</span>
+                <div class="svg-wrapper hidden lg:flex">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 25 25" fill="#101010">
+                    <path d="M19.0358 17.3872L24.0327 22.3828L22.3818 24.0336L17.3862 19.0368C15.5274 20.5269 13.2153 21.3374 10.833 21.334C5.03701 21.334 0.333008 16.63 0.333008 10.834C0.333008 5.03798 5.03701 0.333984 10.833 0.333984C16.629 0.333984 21.333 5.03798 21.333 10.834C21.3364 13.2163 20.5259 15.5283 19.0358 17.3872ZM16.6955 16.5215C18.1761 14.9989 19.003 12.9578 18.9997 10.834C18.9997 6.32132 15.3445 2.66732 10.833 2.66732C6.32034 2.66732 2.66634 6.32132 2.66634 10.834C2.66634 15.3455 6.32034 19.0007 10.833 19.0007C12.9568 19.004 14.9979 18.1771 16.5205 16.6965L16.6955 16.5215Z" fill="" />
+                  </svg>
+                </div>
+                <div class="svg-wrapper flex lg:hidden">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 25 25" fill="#101010">
+                    <path d="M19.0358 17.3872L24.0327 22.3828L22.3818 24.0336L17.3862 19.0368C15.5274 20.5269 13.2153 21.3374 10.833 21.334C5.03701 21.334 0.333008 16.63 0.333008 10.834C0.333008 5.03798 5.03701 0.333984 10.833 0.333984C16.629 0.333984 21.333 5.03798 21.333 10.834C21.3364 13.2163 20.5259 15.5283 19.0358 17.3872ZM16.6955 16.5215C18.1761 14.9989 19.003 12.9578 18.9997 10.834C18.9997 6.32132 15.3445 2.66732 10.833 2.66732C6.32034 2.66732 2.66634 6.32132 2.66634 10.834C2.66634 15.3455 6.32034 19.0007 10.833 19.0007C12.9568 19.004 14.9979 18.1771 16.5205 16.6965L16.6955 16.5215Z" fill="" />
+                  </svg>
+                </div>
               </button>
             </div>
-            <!-- hamburger-end -->
-          </div>
-
-          <div class="navbar-end group flex justify-end items-center w-fit md:ml-[26px] mb-[0px] order-3 lg:order-none">
-            <button onclick="document.getElementById('myModal').style.display='block'" class="search-btn popup-btn" aria-label="search-button">
-              <span class="relative nav-hov text-[#101010] text-[17px] leading-[17px] font-medium hidden lg:flex">SEARCH</span>
-              <div class="svg-wrapper">
-                <svg class="w-full" width="18" height="18" viewBox="0 0 21 21" fill="#333333" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M16.031 14.617L20.314 18.899L18.899 20.314L14.617 16.031C13.0237 17.3082 11.042 18.0029 9 18C4.032 18 0 13.968 0 9C0 4.032 4.032 0 9 0C13.968 0 18 4.032 18 9C18.0029 11.042 17.3082 13.0237 16.031 14.617ZM14.025 13.875C15.2941 12.5699 16.0029 10.8204 16 9C16 5.132 12.867 2 9 2C5.132 2 2 5.132 2 9C2 12.867 5.132 16 9 16C10.8204 16.0029 12.5699 15.2941 13.875 14.025L14.025 13.875V13.875Z" fill=""></path>
-                </svg>
-              </div>
-            </button>
           </div>
         </div>
       </div>
 
     </nav>
-    <div id="hamMenu" class="lg:hidden" style="width:100% !important; display:none">
-      <div class="ham-content w-full h-full fixed overflow-y-scroll top-0 left-0 bg-[#FFFFFF] animate-[animatetop_.8s] transition-all lg:flex z-50">
-        <div class="ham-logo-sec">
-          <span onclick="document.getElementById('hamMenu').style.display='none'" class="close ">
-            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
-              <path d="M13.9999 11.9253L21.2591 4.66602L23.3332 6.74009L16.074 13.9994L23.3332 21.2586L21.2591 23.3327L13.9999 16.0735L6.74058 23.3327L4.6665 21.2586L11.9258 13.9994L4.6665 6.74009L6.74058 4.66602L13.9999 11.9253Z" fill="#101010" />
-            </svg>
-          </span>
-          <figure class="w-[200px]">
-            <img class="w-full h-full object-cover" src="<?php echo get_template_directory_uri(); ?> /assets/images/logo.png" alt="" />
-          </figure>
-          <button onclick="document.getElementById('myModal').style.display='block'" class="search-btn popup-btn" aria-label="search-button">
-            <p class="relative nav-hov text-[#101010] text-[17px] leading-[17px] font-medium hidden lg:flex">SEARCH</p>
-            <svg width="18" height="18" viewBox="0 0 21 21" fill="#333333" xmlns="http://www.w3.org/2000/svg">
-              <path d="M16.031 14.617L20.314 18.899L18.899 20.314L14.617 16.031C13.0237 17.3082 11.042 18.0029 9 18C4.032 18 0 13.968 0 9C0 4.032 4.032 0 9 0C13.968 0 18 4.032 18 9C18.0029 11.042 17.3082 13.0237 16.031 14.617ZM14.025 13.875C15.2941 12.5699 16.0029 10.8204 16 9C16 5.132 12.867 2 9 2C5.132 2 2 5.132 2 9C2 12.867 5.132 16 9 16C10.8204 16.0029 12.5699 15.2941 13.875 14.025L14.025 13.875V13.875Z" fill="" />
-            </svg>
-          </button>
-        </div>
+    <div id="hamMenu" class="lg:hidden">
+      <div class="ham-content w-full h-full fixed overflow-y-scroll top-0 pt-16 left-0 bg-[#FFFFFF] translate-y-[-100%] transition-all duration-500 lg:flex z-10">
         <div class="flex flex-col justify-between h-[90vh]">
           <?php if (isset(get_nav_menu_locations()['header-menu'])) :
             $header_menu = get_term(get_nav_menu_locations()['header-menu'], 'nav_menu');
