@@ -7,6 +7,7 @@ $post_count = $GLOBALS['wp_query']->found_posts;
 $post_per_page = get_option('posts_per_page');
 $cat_id = $archive_object->term_id;
 $parent_id = $archive_object->parent;
+$category_image_id = get_term_meta( $cat_id, 'tax_image_id', true );
 $primary_color = get_term_meta($cat_id, 'hex_code_1', true);
 if (!empty($parent_id)) {
     $count = get_posts(array('category' => $parent_id, 'numberposts' => -1));
@@ -30,7 +31,11 @@ $child_cat = (empty($parent_id)) ? get_terms('category',  array('child_of' => $c
 
 <section class="category-banner bg-[#FFFFFF] pt-[64px]">
     <figure class="w-full h-full">
-        <img class="w-full h-full object-cover" src="<?php echo get_template_directory_uri(); ?>/assets/images/catbanner.png" alt="catbanner">
+        <?php if (!empty($category_image_id)) {
+            echo wp_get_attachment_image($category_image_id, 'category-thumbnail', false, array('class' => 'w-full h-full object-cover'));
+        }else{
+            echo '<img src="'.get_template_directory_uri().'/assets/images/catbanner.png" alt="Placeholder" class="w-full h-full object-cover">';
+        } ?>
     </figure>
     <div class="container mx-auto mt-2 md:mt-12">
         <div class="category-page-title-wrapper">

@@ -5,8 +5,8 @@ if (empty($hex_color_1) && !empty($cat[0]->parent)) {
     $hex_color_1 = get_term_meta($cat[0]->parent, 'hex_code_1', true);
 } ?>
 
-<div class="search-small-card w-full">
-    <a href="<?php echo get_the_permalink($post_ID); ?>">
+<div class="search-small-card w-full h-fit">
+    <a href="<?php echo get_the_permalink($post_ID); ?>" class="">
         <figure class="search-small-wrapper">
             <?php if (has_post_thumbnail()) : ?>
                 <?php echo get_the_post_thumbnail($post_ID, 'cat-style-two-thumbnail', array('class' => 'rounded-[4px] search-small-image')); ?>

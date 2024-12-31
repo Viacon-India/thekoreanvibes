@@ -2,7 +2,7 @@
 $cat = get_the_category();
 $hex_color_1 = __( $args['hex_color'] );
 if(empty($hex_color_1)){
-    $hex_color_1 = '#ED1B1B';
+    $hex_color_1 = '#FF2451';
 } ?>
 
 <div class="related-card">

@@ -8,7 +8,7 @@ $author_URL = get_author_posts_url($author_id);
 $author_desc = get_the_author_meta('description', $author_id);
 $hex_color_1 = __($args['hex_color']);
 if (empty($hex_color_1)) {
-    $hex_color_1 = '#ED1B1B';
+    $hex_color_1 = '#FF2451';
 }
 if ($post) {
     $exclude = array($post->ID);

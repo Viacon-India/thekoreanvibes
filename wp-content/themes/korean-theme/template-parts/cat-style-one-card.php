@@ -3,7 +3,7 @@ $cat = get_the_category();
 $hex_color_1 = __( $args['hex_color'] );
 $bg_color = __( $args['bg_color'] );
 if(empty($hex_color_1)){
-    $hex_color_1 = '#ED1B1B';
+    $hex_color_1 = '#FF2451';
 } ?>
 <div class="h-f-card border-b-[1px]" onmouseover="this.style.background='<?php echo $bg_color; ?>'" onmouseout="this.style.background=null">
     <a href="<?php echo get_the_permalink($post_ID); ?>">

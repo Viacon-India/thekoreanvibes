@@ -220,114 +220,6 @@ function user_custom_meta( $user_custom_meta ) {
 
 
 
-//-------------------------------------------------------------------Add Custom Category Field
-function color_picker($hook_suffix){
-	wp_enqueue_style('wp-color-picker');
-	wp_enqueue_script('my-script-handle', plugins_url('my-script.js', __FILE__), array('wp-color-picker'), false, true);
-}
-add_action('admin_enqueue_scripts', 'color_picker');
-function custom_category_fields($term) {
-    if (current_filter() == 'category_edit_form_fields'){	
-        $svg = get_term_meta( $term->term_id, 'term_svg', true );
-		$hex_color = get_term_meta($term->term_id, 'hex_code', true);
-		$text_hex_color = get_term_meta($term->term_id, 'text_hex_code', true);
-        ?><tr class="form-field">
-            <th valign="top" scope="row"><label for="svg">SVG Code</label></th>
-            <td>
-				<textarea rows="8" cols="50" name="svg"><?php echo esc_attr( $svg ) ? esc_attr( $svg ) : ''; ?></textarea><br/>
-                <span class="description">Please enter your SVG Code</span>
-            </td>
-        </tr>
-		<tr class="form-field">
-			<th valign="top" scope="row"><label for="hex_code">Category Color Code</label></th>
-			<td>
-				<input name="hex_code" type="text" class="color-picker" value="<?php echo esc_attr($hex_color) ?>" />
-				<span class="description">Please select your Color</span>
-			</td>
-		</tr>
-		<tr class="form-field">
-			<th valign="top" scope="row"><label for="text_hex_code">Category Text Color Code</label></th>
-			<td>
-				<input name="text_hex_code" type="text" class="color-picker" value="<?php echo esc_attr($text_hex_color) ?>" />
-				<span class="description">Please select your Color</span>
-			</td>
-		</tr>
-		<script>jQuery(document).ready(function($){$('.color-picker').wpColorPicker();});</script><?php
-	}
-	if (current_filter() == 'category_add_form_fields'){
-        ?><div class="form-field">
-            <label for="svg">SVG Code</label>
-            <input type="text" size="40" value=""  name="svg">
-            <p class="description">Please enter your SVG Code</p>
-        </div>
-		<div class="form-field">
-			<label for="hex_code">Category Color Code</label>
-			<div>
-				<input type="text" name="hex_code" class="color-picker" />
-				<p class="description">Please select your Color</p>
-			</div>
-		</div>
-		<div class="form-field">
-			<label for="text_hex_code">Category Text Color Code</label>
-			<div>
-				<input type="text" name="text_hex_code" class="color-picker" />
-				<p class="description">Please select your Color</p>
-			</div>
-		</div>
-		<script>jQuery(document).ready(function($){$('.color-picker').wpColorPicker();});</script><?php
-    }
-}
-add_action('category_edit_form_fields', 'custom_category_fields', 10, 2);
-add_action('category_add_form_fields', 'custom_category_fields', 10, 2);
-function custom_save_category_fields($term_id){
-	$hex_color = $_POST['hex_code'];
-	if (preg_match('/^#[a-f0-9]{6}$/i', $hex_color)) {
-		update_term_meta($term_id, 'hex_code', sanitize_text_field($hex_color));
-	}else{
-		update_term_meta($term_id, 'hex_code', '');
-	}
-	$text_hex_color = $_POST['text_hex_code'];
-	if (preg_match('/^#[a-f0-9]{6}$/i', $text_hex_color)) {
-		update_term_meta($term_id, 'text_hex_code', sanitize_text_field($text_hex_color));
-	}else{
-		update_term_meta($term_id, 'text_hex_code', '');
-	}
-	$term_svg = $_POST['svg'];
-	update_term_meta( $term_id, 'term_svg', $term_svg );
-}
-add_action('edited_category', 'custom_save_category_fields', 10, 2);
-add_action('create_category', 'custom_save_category_fields', 10, 2);
-
-function custom_category_header( $header ){
-	$header['svg']  = __('SVG', 'category-featured-image' );
-	$header['color_hex_code']  = __('Color', 'colors');
-	return $header;
-}
-add_filter('manage_edit-category_columns', 'custom_category_header' );
-
-function custom_content_category( $columns, $column, $term_id ){
-	if('svg' === $column){
-		echo '<style type="text/css"> .column-svg { width: 75px; } </style>';
-		$imageID = get_term_meta( $term_id, 'term_svg', true );
-		if(!empty($imageID)){
-			echo '<div style="background-color: grey; padding:5px;width: fit-content;">'.$imageID.'</div>';
-		}
-	}
-	if('color_hex_code' === $column){
-		echo '<style type="text/css"> .column-color_hex_code { width: 50px; } </style>';
-		$hex_color = get_term_meta($term_id, 'hex_code', true);
-		echo '<div style="gap: 10px; display: flex;">';
-		if (preg_match('/^#[a-f0-9]{6}$/i', $hex_color)) {
-			echo '<svg height="30" width="30"><circle cx="15" cy="15" r="15" fill="' . $hex_color . '" /></svg>';
-		}
-		echo '</div>';
-	}
-	return $columns;
-}
-add_filter('manage_category_custom_column', 'custom_content_category', 10, 3 );
-
-
-
 //-------------------------------------------------------------------Post Reading Time
 function read_time($post_ID) {
 	$content = get_post_field( 'post_content', $post_ID );
@@ -404,22 +296,27 @@ function add_custom_page_meta_box() {
 }
 add_action('add_meta_boxes', 'add_custom_page_meta_box');
 function display_custom_page_meta_box($post) {
-    $color_value = get_post_meta($post->ID, 'custom_color', true);
+    $bg_color = get_post_meta($post->ID, 'bg_color', true);
+	$text_color = get_post_meta($post->ID, 'text_color', true);
 	$h2_header = get_post_meta($post->ID, 'h2_header', true);
     $textarea_content = get_post_meta($post->ID, 'textarea_content', true);
 
     wp_nonce_field('my_custom_nonce_action', 'my_custom_nonce_name');
-	
-	echo '<div style="display: flex;gap: 6px;justify-content: space-between;align-items: center;">
-		<label for="custom_color "style="margin-bottom: 6px;">Choose a color:</label>
-		<input type="text" id="custom_color" name="custom_color" value="' . esc_attr($color_value) . '" class="color-picker" data-default-color="#FAC92C" />
-	</div>';
+	echo '<div style="display:flex;flex-direction: column;gap:6px;">';
+		echo '<div style="display: flex;gap: 6px;justify-content: space-between;align-items: center;">
+			<label for="bg_color "style="margin-bottom: 6px;">Background color:</label>
+			<input type="text" id="bg_color" name="bg_color" value="' . esc_attr($bg_color) . '" class="color-picker" data-default-color="#FAC92C" />
+		</div>';
+		echo '<div style="display: flex;gap: 6px;justify-content: space-between;align-items: center;">
+			<label for="text_color "style="margin-bottom: 6px;">Text color:</label>
+			<input type="text" id="text_color" name="text_color" value="' . esc_attr($text_color) . '" class="color-picker" data-default-color="#101010" />
+		</div>';
+		echo '<label for="h2_header">H2 Header:</label>';
+		echo '<input type="text" id="h2_header" name="h2_header" value="' . esc_attr($h2_header) . '" style="width:100%;" />';
 
-    echo '<label for="h2_header">H2 Header:</label>';
-    echo '<input type="text" id="h2_header" name="h2_header" value="' . esc_attr($h2_header) . '" style="width:100%;" />';
-
-    echo '<label for="textarea_content">Textarea:</label>';
-	wp_editor( $textarea_content, 'custom_wpeditor', array( 'textarea_name' => 'textarea_content' ) );
+		echo '<label for="textarea_content">Textarea:</label>';
+		wp_editor( $textarea_content, 'custom_wpeditor', array( 'textarea_name' => 'textarea_content' ) );
+	echo '</div>';
     
 	?><script type="text/javascript">
 		jQuery(document).ready(function($) {
@@ -441,8 +338,11 @@ function save_custom_page_meta_box($post_id) {
 	if ( isset( $_POST['textarea_content'] ) ) {
         update_post_meta( $post_id, 'textarea_content', wp_kses_post( $_POST['textarea_content'] ) );
     }
-    if (isset($_POST['custom_color'])) {
-        update_post_meta($post_id, 'custom_color', sanitize_text_field($_POST['custom_color']));
+    if (isset($_POST['bg_color'])) {
+        update_post_meta($post_id, 'bg_color', sanitize_text_field($_POST['bg_color']));
+    }
+	if (isset($_POST['text_color'])) {
+        update_post_meta($post_id, 'text_color', sanitize_text_field($_POST['text_color']));
     }
 }
 add_action('save_post', 'save_custom_page_meta_box');
@@ -497,8 +397,9 @@ function has_parent_term($term_slug, $post_id) {
 
 
 /*-----------------Template Custom Field-----------------*/
-function add_custom_editor_for_post_temp() {
-    $post_id = get_the_ID();
+function add_custom_editor_for_post_temp($post) {
+    $post_id = $post->ID;
+	if( 'post' !== $post->post_type ) return;
     if (has_term('k-beauty', 'category', $post_id) || has_parent_term('k-beauty', $post_id)) {
 		$pros = get_post_meta( $post_id, 'pros', true );
 		$cons = get_post_meta( $post_id, 'cons', true );
@@ -1104,7 +1005,7 @@ function multiple_affiliation() {
 		<div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
 			<?php foreach($affiliations as $affiliation):
 				$image_id = $affiliation['image_id'];
-				$image_url = $image_id ? wp_get_attachment_image_url( $image_id, 'multiple_affiliation_thumbnail' ) : ''; ?>
+				$image_url = $image_id ? wp_get_attachment_image_url( $image_id, 'multiple-affiliation-thumbnail' ) : ''; ?>
 				<a href="<?php echo $affiliation['link']??'#'; ?>">
 					<?php if(!empty($image_url)): ?>
 						<figure class="w-full h-[250px] !mb-3">
@@ -1138,7 +1039,7 @@ function single_affiliation() {
     ob_start();
 	if(!empty($single_affiliations) && array_key_exists($i,$single_affiliations)):
 		$image_id = $single_affiliations[$i]['image_id'];
-		$image_url = $image_id ? wp_get_attachment_image_url( $image_id, 'single_affiliation_thumbnail' ) : '';
+		$image_url = $image_id ? wp_get_attachment_image_url( $image_id, 'single-affiliation-thumbnail' ) : '';
 	?><div class="product-sec mb-8">
 		<a class="flex flex-col md:flex-row mt-5" href="<?php echo $single_affiliations[$i]['link']??'#'; ?>">
 			<?php if(!empty($image_url)): ?>
@@ -1155,3 +1056,128 @@ function single_affiliation() {
     return ob_get_clean();
 }
 add_shortcode('single_product_affiliation', 'single_affiliation');
+
+
+
+/*---------------------Add Image To Category--------------------*/
+function add_taxonomy_fields($taxonomy ) { ?>
+	<tr class="form-field">
+		<th scope="row" valign="top"><label>Image</label></th>
+		<td>
+			<div style="display: flex;">
+				<div style="line-height: 60px; margin-right: 10px;display: flex;flex-direction: column;gap: 6px;">
+					<input type="hidden" id="tax_image_id" name="tax_image_id" value="" />
+					<button type="button" class="upload_image_button button">Upload/Add image</button>
+					<button type="button" class="remove_image_button button" style="display: none;">Remove image</button>
+				</div>
+				<div id="tax_image" style="float: left; display: none;"><img src="" width="60px" height="60px" alt="LOGO"/></div>
+			</div>
+			<script>
+				jQuery(document).ready( function($){
+					var file_frame;
+					$( 'body' ).on( 'click', '.upload_image_button', function( event ) {
+						event.preventDefault();
+						if ( file_frame ) {
+							file_frame.open();
+							return;
+						}
+						file_frame = wp.media.frames.downloadable_file = wp.media({
+							title: '<?php _e( 'Choose a Logo', 'category-featured-image' ); ?>',
+							button: {
+								text: '<?php _e( 'Use as Logo', 'category-featured-image' ); ?>'
+							},
+							multiple: false
+						});
+						file_frame.on( 'select', function() {
+							var attachment           = file_frame.state().get( 'selection' ).first().toJSON();
+							var attachment_thumbnail = attachment.sizes.full;
+							$( '#tax_image_id').val( attachment.id );
+							$( '#tax_image' ).show().find( 'img' ).attr( 'src', attachment_thumbnail.url );
+							$( '.remove_image_button' ).show();
+						});
+						file_frame.open();
+					});
+
+					$( 'body' ).on( 'click', '.remove_image_button', function() {
+						$( '#tax_image').hide().find( 'img' ).attr( 'src', '' );
+						$( '#tax_image_id' ).val( '' );
+						$( '.remove_image_button' ).hide();
+						return false;
+					});
+				});
+			</script>
+			<div style="clear:both;"></div>
+		</td>
+	</tr><?php
+}
+add_action('category_add_form_fields', 'add_taxonomy_fields', 10, 2);
+function edit_taxonomy_fields( $term, $taxonomy ) {
+	$thumbnail_id = get_term_meta( $term->term_id, 'tax_image_id', true );
+	if ( $thumbnail_id ) {
+		$image = wp_get_attachment_image_url( $thumbnail_id, 'full' );
+	} else {
+		$image = '';
+	} ?>
+	<tr class="form-field">
+		<th scope="row" valign="top"><label>Image</label></th>
+		<td>
+			<div style="display: flex;">
+				<div style="line-height: 60px; margin-right: 10px;display: flex;flex-direction: column;gap: 6px;">
+					<input type="hidden" id="tax_image_id" name="tax_image_id" value="<?php echo $thumbnail_id; ?>" />
+					<button type="button" class="upload_image_button button">Upload/Add image</button>
+					<button type="button" class="remove_image_button button" <?php echo (empty($image))?'style="display: none;"':''; ?>>Remove image</button>
+				</div>
+				<div id="tax_image" style="float: left; <?php echo (empty($image))?'display: none;':''; ?>"><img src="<?php echo esc_url( $image ); ?>" width="60px" height="60px" alt="LOGO"/></div>
+			</div>
+			<script>
+				jQuery(document).ready( function($){
+					var file_frame;
+					$( 'body' ).on( 'click', '.upload_image_button', function( event ) {
+						event.preventDefault();
+						if ( file_frame ) {
+							file_frame.open();
+							return;
+						}
+						file_frame = wp.media.frames.downloadable_file = wp.media({
+							title: '<?php _e( 'Choose a Logo', 'category-featured-image' ); ?>',
+							button: {
+								text: '<?php _e( 'Use as Logo', 'category-featured-image' ); ?>'
+							},
+							multiple: false
+						});
+						file_frame.on( 'select', function() {
+							var attachment           = file_frame.state().get( 'selection' ).first().toJSON();
+							var attachment_thumbnail = attachment.sizes.full;
+							$( '#tax_image_id' ).val( attachment.id );
+							$( '#tax_image' ).show().find( 'img' ).attr( 'src', attachment_thumbnail.url );
+							$( '.remove_image_button' ).show();
+						});
+						file_frame.open();
+					});
+
+					$( 'body' ).on( 'click', '.remove_image_button', function() {
+						$( '#tax_image' ).hide().find( 'img' ).attr( 'src', '' );
+						$( '#tax_image_id' ).val( '' );
+						$( '.remove_image_button' ).hide();
+						return false;
+					});
+				});
+			</script>
+			<div style="clear:both;"></div>
+		</td>
+	</tr><?php
+}
+add_action('category_edit_form_fields', 'edit_taxonomy_fields', 10, 2);
+
+function save_taxonomy_fields( $term_id){
+	if ( isset( $_POST['tax_image_id'] ) ) {
+		update_term_meta( $term_id, 'tax_image_id', $_POST['tax_image_id'] );
+	}
+}
+add_action('edited_category', 'save_taxonomy_fields', 10, 2);
+add_action('create_category', 'save_taxonomy_fields', 10, 2);
+
+add_action( 'admin_enqueue_scripts', 'admin_scripts' );
+function admin_scripts(){
+	wp_enqueue_media();
+}

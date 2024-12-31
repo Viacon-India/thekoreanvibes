@@ -378,24 +378,6 @@ $linkedin = get_option('linkedin'); ?>
 
     }
 
-    //  trail js for mentioner JScode
-
-    //  search button trial test  
-    jQuery(document).ready(function() {
-        $('.popup-btn').click(function(e) {
-            $('.popup-wrap').fadeIn(500);
-            $('.popup-box').removeClass('transform-out').addClass('transform-in');
-
-            e.preventDefault();
-        });
-
-        $('.popup-close').click(function(e) {
-            $('.popup-wrap').fadeOut(500);
-            $('.popup-box').removeClass('transform-in').addClass('transform-out');
-
-            e.preventDefault();
-        });
-    });
 
     // nav bar toggle hover and  on click
 
@@ -460,9 +442,9 @@ $linkedin = get_option('linkedin'); ?>
         }
 
         // Call the function for each counter
-        animateCounter("#counter", 500, 5000);
-        animateCounter("#one", 5000, 5000);
-        animateCounter("#tow", 16, 5000);
+        animateCounter("#counter", 100, 5000);
+        animateCounter("#one", 500, 5000);
+        animateCounter("#tow", 1, 5000);
     });
 
     // progress  bar showing

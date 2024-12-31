@@ -99,7 +99,7 @@
 
             <div class="w-full md:w-1/2">
                 <?php if (has_post_thumbnail()) : ?>
-                    <?php echo get_the_post_thumbnail($post_id, 'full', array('class' => 'single-banner-img')); ?>
+                    <?php echo get_the_post_thumbnail($post_id, 'single-banner-img', array('class' => 'single-banner-img')); ?>
                 <?php else : ?>
                     <figure class="m-0">
                         <img class="w-full object-cover" src="<?php echo get_template_directory_uri(); ?>/assets/images/rightheroimg.png" alt="logo">
