@@ -524,7 +524,7 @@ content: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/200
   } */
 
   .popup-box {
-      @apply bg-white w-full h-full top-0 left-0 lg:h-screen translate-y-[-100%] transition-all duration-500 pt-16 absolute text-center z-[11];
+      @apply bg-white w-full h-screen top-0 left-0 translate-y-[-100%] transition-all duration-500 pt-16 absolute text-center z-[11];
   }
 
   .popup-box .close-btn {
