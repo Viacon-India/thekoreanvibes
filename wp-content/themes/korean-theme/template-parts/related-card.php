@@ -8,7 +8,11 @@ if(empty($hex_color_1)){
 <div class="related-card">
     <a href="<?php echo get_the_permalink($post_ID); ?>">
         <figure class="related-figure">
-            <img class="related-card-image" src="<?php echo get_template_directory_uri(); ?>/assets/images/related-card.png" alt="">
+            <?php if (has_post_thumbnail()) : ?>
+                <?php echo get_the_post_thumbnail($post_ID, 'cat-style-one-thumbnail', array('class' => 'related-card-image')); ?>
+            <?php else : ?>
+                <img class="related-card-image" src="<?php echo get_template_directory_uri(); ?>/assets/images/related-card.png" alt="">
+            <?php endif; ?>
         </figure>
     </a>
     <div class="related-card-content">
