@@ -197,7 +197,7 @@ $cat5_posts = new WP_Query(array(
                 <div class="w-full lg:w-4/12 2xl:w-[513px]">
                     <div class="home-side-bar" style="background-color:<?php echo $primary_color; ?>;">
                         <span class="home-side-bar-transform-r" style="color:<?php echo $gradient_color; ?>;">KOREAN VIBES</span>
-                        <h3 class="h-s-b-title text-white">BEST SEVEN PICK’S</h3>
+						<h3 class="h-s-b-title" style="color: <?php echo $title_color; ?>;">BEST SEVEN PICK’S</h3>
                         <?php $best_cat1_posts = new WP_Query(array(
                             'post_type' => 'post',
                             'category_name' => $cat1_slug,
@@ -210,7 +210,7 @@ $cat5_posts = new WP_Query(array(
                         if ($best_cat1_posts->have_posts()) : ?>
                             <div class="home-side-wrapper">
                                 <?php while ($best_cat1_posts->have_posts()) : $best_cat1_posts->the_post();
-                                    get_template_part('template-parts/cat', 'sidebar-card');
+                                    get_template_part('template-parts/cat', 'sidebar-card', array('text_color' => $title_color));
                                 endwhile; ?>
                             </div>
                         <?php endif; ?>
@@ -285,7 +285,7 @@ $cat5_posts = new WP_Query(array(
                 <div class="w-full lg:w-4/12 2xl:w-[513px]">
                     <div class="home-side-bar" style="background-color:<?php echo $primary_color; ?>;">
                         <span class="home-side-bar-transform-r" style="color:<?php echo $gradient_color; ?>;">KOREAN VIBES</span>
-                        <h3 class="h-s-b-title text-white">BEST SEVEN PICK’S</h3>
+						<h3 class="h-s-b-title" style="color: <?php echo $title_color; ?>;">BEST SEVEN PICK’S</h3>
                         <?php $best_cat2_posts = new WP_Query(array(
                             'post_type' => 'post',
                             'category_name' => $cat2_slug,
@@ -298,7 +298,7 @@ $cat5_posts = new WP_Query(array(
                         if ($best_cat2_posts->have_posts()) : ?>
                             <div class="home-side-wrapper">
                                 <?php while ($best_cat2_posts->have_posts()) : $best_cat2_posts->the_post();
-                                    get_template_part('template-parts/cat', 'sidebar-card');
+                                    get_template_part('template-parts/cat', 'sidebar-card', array('text_color' => $title_color));
                                 endwhile; ?>
                             </div>
                         <?php endif; ?>
@@ -363,7 +363,7 @@ $cat5_posts = new WP_Query(array(
                 <div class="w-full lg:w-4/12 2xl:w-[513px]">
                     <div class="home-side-bar" style="background-color:<?php echo $primary_color; ?>;">
                         <span class="home-side-bar-transform-r" style="color:<?php echo $gradient_color; ?>;">KOREAN VIBES</span>
-                        <h3 class="h-s-b-title text-white">BEST SEVEN PICK’S</h3>
+						<h3 class="h-s-b-title" style="color: <?php echo $title_color; ?>;">BEST SEVEN PICK’S</h3>
                         <?php $best_cat3_posts = new WP_Query(array(
                             'post_type' => 'post',
                             'category_name' => $cat3_slug,
@@ -376,7 +376,7 @@ $cat5_posts = new WP_Query(array(
                         if ($best_cat3_posts->have_posts()) : ?>
                             <div class="home-side-wrapper">
                                 <?php while ($best_cat3_posts->have_posts()) : $best_cat3_posts->the_post();
-                                    get_template_part('template-parts/cat', 'sidebar-card');
+                                    get_template_part('template-parts/cat', 'sidebar-card', array('text_color' => $title_color));
                                 endwhile; ?>
                             </div>
                         <?php endif; ?>
@@ -448,7 +448,7 @@ $cat5_posts = new WP_Query(array(
                 <div class="w-full lg:w-4/12 2xl:w-[513px]">
                     <div class="home-side-bar" style="background-color:<?php echo $primary_color; ?>;">
                         <span class="home-side-bar-transform-r" style="color:<?php echo $gradient_color; ?>;">KOREAN VIBES</span>
-                        <h3 class="h-s-b-title text-white">BEST SEVEN PICK’S</h3>
+						<h3 class="h-s-b-title" style="color: <?php echo $title_color; ?>;">BEST SEVEN PICK’S</h3>
                         <?php $best_cat4_posts = new WP_Query(array(
                             'post_type' => 'post',
                             'category_name' => $cat4_slug,
@@ -461,7 +461,7 @@ $cat5_posts = new WP_Query(array(
                         if ($best_cat4_posts->have_posts()) : ?>
                             <div class="home-side-wrapper">
                                 <?php while ($best_cat4_posts->have_posts()) : $best_cat4_posts->the_post();
-                                    get_template_part('template-parts/cat', 'sidebar-card');
+                                    get_template_part('template-parts/cat', 'sidebar-card', array('text_color' => $title_color));
                                 endwhile; ?>
                             </div>
                         <?php endif; ?>
@@ -536,7 +536,7 @@ $cat5_posts = new WP_Query(array(
                 <div class="w-full lg:w-4/12 2xl:w-[513px]">
                     <div class="home-side-bar" style="background-color:<?php echo $primary_color; ?>;">
                         <span class="home-side-bar-transform-r" style="color:<?php echo $gradient_color; ?>;">KOREAN VIBES</span>
-                        <h3 class="h-s-b-title text-white">BEST SEVEN PICK’S</h3>
+                        <h3 class="h-s-b-title" style="color: <?php echo $title_color; ?>;">BEST SEVEN PICK’S</h3>
                         <?php $best_cat5_posts = new WP_Query(array(
                             'post_type' => 'post',
                             'category_name' => $cat5_slug,
@@ -549,7 +549,7 @@ $cat5_posts = new WP_Query(array(
                         if ($best_cat5_posts->have_posts()) : ?>
                             <div class="home-side-wrapper">
                                 <?php while ($best_cat5_posts->have_posts()) : $best_cat5_posts->the_post();
-                                    get_template_part('template-parts/cat', 'sidebar-card');
+                                    get_template_part('template-parts/cat', 'sidebar-card', array('text_color' => $title_color));
                                 endwhile; ?>
                             </div>
                         <?php endif; ?>
