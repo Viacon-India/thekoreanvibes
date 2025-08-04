@@ -506,3 +506,212 @@ function custom_opengraph_url($url) {
         return $url; // Return the original URL for other pages
     }
 }
+
+
+
+
+/* Weekly Test Mail */
+
+// Add a custom cron schedule for every Tuesday
+add_filter('cron_schedules', 'add_weekly_tuesday_schedule');
+function add_weekly_tuesday_schedule($schedules) {
+    $schedules['weekly_tuesday_10am'] = array(
+        'interval' => 7 * 24 * 60 * 60, // 1 week in seconds
+        'display'  => __('Every Tuesday at 10 AM')
+    );
+    return $schedules;
+}
+
+// Schedule the event if not already scheduled
+add_action('wp', 'schedule_weekly_email_event');
+function schedule_weekly_email_event() {
+    if (!wp_next_scheduled('send_weekly_email')) {
+        $next_tuesday = strtotime('next Tuesday 10:00:00');
+        wp_schedule_event($next_tuesday, 'weekly_tuesday_10am', 'send_weekly_email');
+    }
+}
+
+// Hook into the scheduled event to send the email
+add_action('send_weekly_email', 'send_weekly_email_function');
+function send_weekly_email_function() {
+    $to = 'sharmita.shee@viaconteam.com'; // Replace with your recipient's email
+    $subject = "Weekly Tuesday Email - ". get_bloginfo( 'name' );
+    $message = 'Hello, this is your weekly email sent every Tuesday at 10 AM.';
+    $headers = array('Content-Type: text/html; charset=UTF-8');
+
+    wp_mail($to, $subject, $message, $headers);
+}
+
+// Clear the scheduled event on theme/plugin deactivation
+register_deactivation_hook(__FILE__, 'clear_weekly_email_event');
+function clear_weekly_email_event() {
+    $timestamp = wp_next_scheduled('send_weekly_email');
+    if ($timestamp) {
+        wp_unschedule_event($timestamp, 'send_weekly_email');
+    }
+}
+///*----------------------------------- "What I Liked" / "What I Hated" Box -------------------------------*/////
+function custom_review_box_shortcode($atts) {
+    if (!is_singular('post')) return '';
+
+    $like_content = get_field('like_list_box');
+    $dislike_content = get_field('dislike_box');
+
+    ob_start();
+    ?>
+    <style>
+        .review-box {
+            max-width: 750px;
+            margin: auto;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        .review-section {
+            margin-bottom: 20px;
+            border-radius: 8px;
+            padding: 15px;
+        }
+        .liked {
+            background: #eaf9ea;
+            border-left: 5px solid #4CAF50;
+        }
+        .hated {
+            background: #fdeaea;
+            border-left: 5px solid #f44336;
+        }
+        .review-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .review-points {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .review-points li {
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            color: #333;
+            display: flex;
+            align-items: center;
+        }
+        .review-points li i {
+            margin-right: 8px;
+            font-size: 1rem;
+        }
+        .thumb-up { color: #4CAF50; }
+        .thumb-down { color: #f44336; }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <div class="review-box">
+        <?php if (!empty($like_content)) : ?>
+            <div class="review-section liked">
+                <div class="review-title"><i class="fas fa-thumbs-up thumb-up"></i> What I Liked</div>
+                <div class="review-points">
+                    <?php echo wp_kses_post($like_content); ?>
+                </div>
+            </div>
+        <?php endif; ?>
+
+        <?php if (!empty($dislike_content)) : ?>
+            <div class="review-section hated">
+                <div class="review-title"><i class="fas fa-thumbs-down thumb-down"></i> What I Hated</div>
+                <div class="review-points">
+                    <?php echo wp_kses_post($dislike_content); ?>
+                </div>
+            </div>
+        <?php endif; ?>
+    </div>
+    <?php
+    return ob_get_clean();
+}
+add_shortcode('like_dislike_section_box', 'custom_review_box_shortcode');
+ob_end_clean();
+
+
+///*----------------------------------- pros and cons shortcode -------------------------------*/////
+
+function pros_cons_shortcode($atts) {
+    $atts = shortcode_atts(array(
+        'id' => get_the_ID(),
+    ), $atts, 'pros_cons');
+
+    $post_id = intval($atts['id']);
+
+    $pros = get_field('_singpros', $post_id);
+    $cons = get_field('_singcons', $post_id);
+
+    if (empty($pros) && empty($cons)) {
+        return '';
+    }
+
+    ob_start();
+    ?>
+    <div class="pros-cons-wrap" style="margin-bottom: 20px;">
+        <?php if (!empty($pros)): ?>
+            <div class="pros-section" style="margin-bottom: 15px;">
+                <strong style="font-size: 18px;">Pros:</strong>
+                <div style="margin-top: 5px;"><?php echo wp_kses_post($pros); ?></div>
+            </div>
+        <?php endif; ?>
+
+        <?php if (!empty($cons)): ?>
+            <div class="cons-section">
+                <strong style="font-size: 18px;">Cons:</strong>
+                <div style="margin-top: 5px; color: #333;"><?php echo wp_kses_post($cons); ?></div>
+            </div>
+        <?php endif; ?>
+    </div>
+    <?php
+    return ob_get_clean();
+}
+add_shortcode('pros_cons', 'pros_cons_shortcode');
+
+///*----------------------------------- ingredients & what it does shortcode -------------------------------*/////
+
+function key_ingredients_what_it_does_shortcode($atts) {
+    $atts = shortcode_atts(array(
+        'id' => get_the_ID(),
+    ), $atts, 'ingredients_what');
+
+    $post_id = intval($atts['id']);
+
+    $ingredients = get_field('sin_key_ingredients', $post_id);
+    $what_it_does = get_field('sing_what_is_does', $post_id);
+
+    if (empty($ingredients) && empty($what_it_does)) {
+        return '';
+    }
+
+    ob_start();
+    ?>
+    <div class="ingredients-what-wrap" style="background:#fceded; padding: 15px; border-radius: 6px; font-family: sans-serif;">
+        <?php if (!empty($ingredients)): ?>
+            <div class="ingredients" style="margin-bottom: 10px;">
+                <strong style="font-weight: bold; font-size: 16px;">Key Ingredients:</strong>
+                <span style="color: #555; margin-left: 4px;"><?php echo wp_kses_post($ingredients); ?></span>
+            </div>
+        <?php endif; ?>
+
+        <?php if (!empty($what_it_does)): ?>
+            <div class="what-it-does">
+                <strong style="font-weight: bold; font-size: 16px;">What It Does:</strong>
+                <span style="color: #555; margin-left: 4px;"><?php echo wp_kses_post($what_it_does); ?></span>
+            </div>
+        <?php endif; ?>
+    </div>
+    <?php
+    return ob_get_clean();
+}
+add_shortcode('ingredients_what', 'key_ingredients_what_it_does_shortcode');
+
+
+
+
+
