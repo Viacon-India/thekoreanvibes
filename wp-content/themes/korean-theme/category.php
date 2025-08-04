@@ -1,6 +1,7 @@
 <?php get_header();
 
 $archive_object = get_queried_object();
+
 $desc = category_description();
 $page_count = $GLOBALS['wp_query']->max_num_pages;
 $post_count = $GLOBALS['wp_query']->found_posts;
