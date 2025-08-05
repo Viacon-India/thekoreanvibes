@@ -67,11 +67,11 @@ if(is_single()):
                             } ?>
                         </div>
                     </div>
-                    <?php if(!empty($author_desc)) { ?>
+                    <?php /* if(!empty($author_desc)) { ?>
                         <p class="sidebar-author-dsc">
-                            <?php /* echo strip_tags($author_desc); */ ?>
+                            <?php  echo strip_tags($author_desc);  ?>
                         </p>
-                    <?php } ?>
+                    <?php } */ ?>
                     <a href="<?php echo $author_URL; ?>" class="sidebar-author-view-author-post">
                         view author post
                     </a>
