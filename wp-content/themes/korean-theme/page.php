@@ -13,7 +13,8 @@ while (have_posts()) : the_post();
     $page_id = get_the_ID();
     $bg_color = get_post_meta($page_id, 'bg_color', true);
     if(empty($bg_color)){
-        $bg_color = '#FAC92C';
+        // $bg_color = '#FAC92C';
+         $bg_color = '#A100FF';
     }
     $text_color = get_post_meta($page_id, 'text_color', true);
     if(empty($text_color)){
