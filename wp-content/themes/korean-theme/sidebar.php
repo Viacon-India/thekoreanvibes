@@ -129,7 +129,8 @@ if (is_single()):
         </div>
     </div>
 
-<?php else: // NOT is_single (e.g., category page, blog archive, etc.) ?>
+<?php else: // NOT is_single (e.g., category page, blog archive, etc.) 
+?>
     <?php if ($popular_posts->have_posts()) : ?>
         <div class="w-full lg:w-3/12 2xl:w-[365px] block">
             <div class="category-side-bar-card bg-[#FAFAFA] sticky top-12">
