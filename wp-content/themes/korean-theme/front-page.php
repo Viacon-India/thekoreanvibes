@@ -120,7 +120,7 @@ $cat5_posts = new WP_Query(array(
                                 K+
                             </span>
                             <h2 class="counter-title">
-                                Happy Subscriber's
+                                Happy Subscribers
                             </h2>
                         </div>
                     </div>
