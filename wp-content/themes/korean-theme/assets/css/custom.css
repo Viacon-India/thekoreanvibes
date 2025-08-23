@@ -1,0 +1,67 @@
+  body {
+      font-family: 'Arial', sans-serif;
+      background: #fff;
+      /*padding: 40px;*/
+    }
+
+    .newsletter-box {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .newsletter-box h2 {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 16px;
+      font-family: 'Oswald', sans-serif; /* Similar to your screenshot */
+    }
+
+    .newsletter-box input[type="email"] {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid #000;
+      border-radius: 4px;
+      font-size: 16px;
+      margin-bottom: 16px;
+      font-family: 'Oswald', sans-serif;
+    }
+
+    .newsletter-box button {
+      width: 100%;
+      padding: 14px 0;
+      background-color: #000;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      font-family: 'Oswald', sans-serif;
+      letter-spacing: 1px;
+    }
+
+    .newsletter-box button:hover {
+      opacity: 0.9;
+    }
+    
+    
+  /***********-----------instagram feed bio------------------********/
+    .sbi_bio {
+         display: none !important;
+    }
+    .sbi_header_text{
+        display: none !important;
+    }
+
+        /* Remove top padding/margin from Instagram feed container */
+        #sb_instagram,
+        #sb_instagram .sb_instagram_header,
+        #sb_instagram .sbi {
+          margin-top: 0 !important;
+          padding-top: 0 !important;
+        }
+        
+        /* Optional: tighten spacing inside the sidebar box */
+        .side-bar-card .sidebar-social-wrapper {
+          margin-top: 4px !important; /* reduce from mt-[12px] Tailwind spacing */
+    }
