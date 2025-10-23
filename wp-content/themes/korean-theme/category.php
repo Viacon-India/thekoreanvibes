@@ -67,6 +67,14 @@ $child_cat = (empty($parent_id)) ? get_terms('category',  array('child_of' => $c
         <div class="inner-wrapper">
             <div class="w-full lg:w-9/12 2xl:w-[1123px]">
                 <div class="flex flex-col mb-[32px]">
+                    <!--/k food calorie Calculator /-->
+                        <?php 
+                            // Only show the calorie calculator for 'k-food' category
+                            if ($archive_object->slug === 'k-food') {
+                                echo get_template_part('template-parts/recipe-calculator');
+                            }
+                        ?>
+                 <!--/k food calorie Calculator /-->
                     <div class="flex-none">
                         <ul class="flex px-1 gap-4 category-wrapper ">
                             <li class="category-anchor-li">
