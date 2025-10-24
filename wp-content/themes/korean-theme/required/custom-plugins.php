@@ -1161,40 +1161,40 @@ function generate_single_affiliation_shortcode($index) {
         ob_start();
         ?>
         <div class="product-sec mb-8">
-            <!--<a class="flex flex-col md:flex-row mt-5" href="<?php echo esc_url($item['link'] ?? '#'); ?>" target="_blank">-->
-            <div class="flex flex-col md:flex-row mt-5">
-                <?php if (!empty($image_url)) : ?>
-                    <figure class="w-full md:w-[40%] h-[280px] md:h-[340px] !mb-3 md:!mb-0">
-                        <img class="w-full h-full object-cover !rounded-tr-[0px] !rounded-br-[0px] !my-0" src="<?php echo esc_url($image_url); ?>" alt="product-image-<?php echo $index + 1; ?>" />
-                    </figure>
-                <?php endif; ?>
-
-                <div class="w-full p-8 flex flex-col justify-center rounded-tl-[0px] rounded-bl-[0px] md:rounded-tl-[12px] md:rounded-bl-[12px]" style="background-color:<?php echo esc_attr($bg_color); ?>">
-
-                    <h3 class="product-title text-xl font-semibold mb-3"><?php echo esc_html($item['title']); ?></h3>
-
-                    <?php if (!empty($item['description'])) : ?>
-                       <div class="mb-4 text-sm text-black -900 space-y-4">
-    <?php
-    $lines = explode(PHP_EOL, $item['description']);
-    foreach ($lines as $line) {
-        $line = trim($line);
-        if (!empty($line)) {
-            echo '<p>' . esc_html($line) . '</p>';
-        }
-    }
-    ?>
-</div>
-
+                <div class="flex flex-col md:flex-row mt-5">
+                    <?php if (!empty($image_url)) : ?>
+                        <figure class="w-full md:w-[40%] h-[280px] md:h-[340px] !mb-3 md:!mb-0">
+                            <img class="w-full h-full object-cover !rounded-tr-[0px] !rounded-br-[0px] !my-0" src="<?php echo esc_url($image_url); ?>" alt="product-image-<?php echo $index + 1; ?>" />
+                        </figure>
                     <?php endif; ?>
-                    <a href="<?php echo esc_url($item['link'] ?? '#'); ?>" target="_blank"> <button class="price-btn !w-fit"><?php echo esc_html($item['text']); ?></button></a>
+            
+                    <div class="w-full p-8 flex flex-col rounded-tl-[0px] rounded-bl-[0px] md:rounded-tl-[12px] md:rounded-bl-[12px] overflow-y-auto" 
+     style="background-color:<?php echo esc_attr($bg_color); ?>; max-height:340px;">
+
+            
+                        <h3 class="product-title text-xl font-semibold mb-3"><?php echo esc_html($item['title']); ?></h3>
+            
+                        <?php if (!empty($item['description'])) : ?>
+                            <div class="mb-4 text-sm text-black-900 space-y-4">
+                                <?php
+                                $lines = explode(PHP_EOL, $item['description']);
+                                foreach ($lines as $line) {
+                                    $line = trim($line);
+                                    if (!empty($line)) {
+                                        echo '<p>' . esc_html($line) . '</p>';
+                                    }
+                                }
+                                ?>
+                            </div>
+                        <?php endif; ?>
+            
+                        <a href="<?php echo esc_url($item['link'] ?? '#'); ?>" target="_blank">
+                            <button class="price-btn !w-fit"><?php echo esc_html($item['text']); ?></button>
+                        </a>
+                    </div>
                 </div>
+            </div>
 
-
-
-                </div>
-            <!--</a>-->
-        </div>
         <?php
 
         return ob_get_clean();
