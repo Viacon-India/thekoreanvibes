@@ -98,6 +98,47 @@ if (is_single()):
                     </a>
                 </div>
 
+
+
+<!--google badge-->
+                
+                <div class="side-bar-card bg-[#FAFAFA]">
+                   <a href="https://www.google.com/preferences/source?q=thekoreanvibes.com"
+                       target="_blank"
+                       style="
+                            position: relative;
+                            display: inline-block;
+                       "
+                       onmouseover="this.querySelector('.tip').style.opacity='1';"
+                       onmouseout="this.querySelector('.tip').style.opacity='0';"
+                    >
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/thekoreanvibes.png" alt="Badge">
+            
+                        <!-- Tooltip element -->
+                        <span class="tip"
+                              style="
+                                  position: absolute;
+                                  bottom: 110%;
+                                  left: 50%;
+                                  transform: translateX(-50%);
+                                  background: #000;
+                                  color: #fff;
+                                  padding: 6px 10px;
+                                  border-radius: 6px;
+                                  font-size: 12px;
+                                  white-space: nowrap;
+                                  opacity: 0;
+                                  pointer-events: none;
+                                  transition: opacity .25s ease;
+                              ">
+                            Follow us on Google
+                        </span>
+                    </a>
+                  
+                </div>
+
+
+
                 <?php if ((!empty($facebook) && filter_var($facebook, FILTER_VALIDATE_URL)) || (!empty($instagram) && filter_var($instagram, FILTER_VALIDATE_URL))) : ?>
                     <div class="side-bar-card-another flex flex-col lg:hidden bg-[#FAFAFA]">
                         <h3 class="h-s-b-title text-secondary">Social Links</h3>

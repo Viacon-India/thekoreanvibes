@@ -76,6 +76,34 @@ $linkedin = get_option('linkedin'); ?>
             <div class="footer-subscribe-sec md:w-[25%] mt-8 md:mt-0">
                 <h2 class="footer-list-title">Newsletter</h2>
                 <?php echo do_shortcode('[email-subscribers-form id="1"]'); ?>
+
+
+
+
+                 <!--google badge-->
+                            <a href="https://www.google.com/preferences/source?q=thekoreanvibes.com" target="_blank"   style="position: relative;  display: inline-block; "   onmouseover="this.querySelector('.tip').style.opacity='1';" onmouseout="this.querySelector('.tip').style.opacity='0';" >
+                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/thekoreanvibes.png" alt="Badge" class=""   style="width:300px; height:auto;"/>
+                                <!-- Tooltip element -->
+                                <span class="tip"
+                                      style="
+                                          position: absolute;
+                                          bottom: 110%;
+                                          left: 50%;
+                                          transform: translateX(-50%);
+                                          background: #000;
+                                          color: #fff;
+                                          padding: 6px 10px;
+                                          border-radius: 6px;
+                                          font-size: 12px;
+                                          white-space: nowrap;
+                                          opacity: 0;
+                                          pointer-events: none;
+                                          transition: opacity .25s ease;
+                                      ">
+                                    Follow us on Google
+                                </span>
+                                </a>
+
             </div>
         </div>
         <div class="copyright-wrapper copyright-sec">
