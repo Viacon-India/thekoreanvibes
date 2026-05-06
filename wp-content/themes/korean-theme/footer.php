@@ -22,6 +22,15 @@ $linkedin = get_option('linkedin'); ?>
                     </figure>
                 </a>
                 <?php if (!empty($footer_text)) echo '<p class="footer-desc">' . $footer_text . '</p>'; ?>
+                 <p style="margin-bottom:0;" class="footer-desc">
+                     To Reach Out To The Korean Vibes Team at 
+                    <a href="mailto:info@redhatmedia.net"
+                       style="color:#000; text-decoration:none;"
+                       onmouseover="this.style.color='#6a5acd'; this.style.textDecoration='underline';"
+                       onmouseout="this.style.color='#000'; this.style.textDecoration='none';">
+                        info@redhatmedia.net
+                    </a>
+                </p>
                 <?php if (!empty($facebook) && (filter_var($facebook, FILTER_VALIDATE_URL) !== false) || (!empty($linkedin) && (filter_var($linkedin, FILTER_VALIDATE_URL) !== false))) :
                     echo '<div class="icon-sec">';
                     if (!empty($facebook) && (filter_var($facebook, FILTER_VALIDATE_URL) !== false)) { ?>
